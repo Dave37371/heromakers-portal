@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Maker Speaker Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Barlow+Condensed:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS — Red / Black / White portal brand
+============================================================ */
+:root {
+  --red:         #E8212E;
+  --red-dark:    #B81920;
+  --red-dim:     rgba(232,33,46,0.12);
+  --red-glow:    rgba(232,33,46,0.06);
+  --black:       #0A0A0A;
+  --dark:        #111111;
+  --dark2:       #161616;
+  --dark3:       #1E1E1E;
+  --dark4:       #262626;
+  --white:       #FFFFFF;
+  --off-white:   #F0EDE8;
+  --grey:        #777777;
+  --grey-light:  #AAAAAA;
+  --gold:        #C9A84C;
+  --gold-light:  #E2C97E;
+  --green:       #00C864;
+  --border:      rgba(255,255,255,0.07);
+  --border-red:  rgba(232,33,46,0.2);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Barlow',sans-serif; background:var(--black); color:var(--white); overflow-x:hidden; min-height:100vh; }
+
+/* subtle grain */
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:160px;
+}
+
+/* ============================================================
+   SCREEN SYSTEM
+============================================================ */
+.screen { display:none; min-height:100vh; position:relative; z-index:1; }
+.screen.active { display:block; }
+
+/* ============================================================
+   NAV
+============================================================ */
+.nav {
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  height:76px;
+  background:rgba(10,10,10,0.97);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.12);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 36px;
+}
+.nav-left { display:flex; align-items:center; gap:16px; }
+.nav-presented-label {
+  font-family:'Barlow'; font-size:10px; letter-spacing:3px;
+  text-transform:uppercase; color:rgba(255,255,255,0.45);
+  font-style:italic; white-space:nowrap; padding-right:4px;
+}
+
+.nav-logo-img {
+  height:48px; width:auto; object-fit:contain;
+  filter:brightness(1.15); cursor:pointer; transition:opacity 0.2s;
+}
+.nav-logo-img:hover { opacity:0.8; }
+.nav-divider { width:1px; height:36px; background:rgba(255,255,255,0.2); }
+
+.nav-right { display:flex; gap:10px; align-items:center; position:relative; }
+.btn-nav {
+  background:transparent; border:1px solid var(--border);
+  color:var(--grey-light); padding:8px 18px; border-radius:6px;
+  cursor:pointer; font-family:'Barlow'; font-size:13px; font-weight:600;
+  transition:all 0.2s; letter-spacing:0.5px; white-space:nowrap;
+}
+.btn-nav:hover { border-color:var(--red); color:var(--white); }
+.btn-nav-red {
+  background:var(--red); border:none; color:var(--white);
+  padding:8px 20px; border-radius:6px; cursor:pointer;
+  font-family:'Barlow'; font-size:13px; font-weight:700;
+  letter-spacing:1px; text-transform:uppercase; transition:all 0.2s;
+}
+.btn-nav-red:hover { background:var(--red-dark); transform:translateY(-1px); }
+
+/* User menu */
+.nav-user {
+  display:flex; align-items:center; gap:8px; cursor:pointer;
+  padding:6px 10px; border-radius:8px; transition:background 0.2s;
+  position:relative;
+}
+.nav-user:hover { background:var(--dark3); }
+.nav-avatar {
+  width:34px; height:34px; border-radius:50%;
+  background:var(--red); display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue'; font-size:15px; color:var(--white); letter-spacing:1px;
+}
+.nav-username { font-size:13px; font-weight:600; color:var(--grey-light); }
+.nav-chevron { font-size:10px; color:var(--grey); }
+
+/* Dropdown */
+.user-dropdown {
+  position:absolute; top:calc(100% + 8px); right:0;
+  background:var(--dark2); border:1px solid var(--border);
+  border-radius:10px; min-width:200px; overflow:hidden;
+  box-shadow:0 16px 48px rgba(0,0,0,0.6);
+  display:none; z-index:600;
+}
+.user-dropdown.open { display:block; }
+.dropdown-header { padding:12px 16px; border-bottom:1px solid var(--border); }
+.dropdown-email { font-size:12px; color:var(--grey); margin-bottom:6px; }
+.dropdown-roles { display:flex; gap:6px; }
+.role-badge {
+  font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  padding:2px 8px; border-radius:4px;
+}
+.role-speaker  { background:rgba(232,33,46,0.15); color:var(--red); border:1px solid var(--border-red); }
+.role-attendee { background:rgba(255,255,255,0.08); color:var(--grey-light); border:1px solid var(--border); }
+.dropdown-item {
+  display:flex; align-items:center; gap:10px;
+  padding:11px 16px; cursor:pointer; transition:background 0.15s;
+  font-size:14px; color:var(--grey-light);
+}
+.dropdown-item:hover { background:var(--dark3); color:var(--white); }
+.dropdown-item-icon { font-size:15px; }
+.dropdown-divider { height:1px; background:var(--border); }
+.dropdown-signout { color:var(--red) !important; }
+
+/* ============================================================
+   SHARED BUTTONS
+============================================================ */
+.btn-primary {
+  background:var(--red); border:none; color:var(--white);
+  padding:13px 32px; border-radius:7px; cursor:pointer;
+  font-family:'Barlow Condensed'; font-size:18px; font-weight:800;
+  letter-spacing:2px; text-transform:uppercase; transition:all 0.25s;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.btn-primary:hover { background:var(--red-dark); transform:translateY(-1px); box-shadow:0 8px 24px rgba(232,33,46,0.35); }
+.btn-secondary {
+  background:transparent; border:1.5px solid rgba(232,33,46,0.45); color:var(--red);
+  padding:11px 28px; border-radius:7px; cursor:pointer;
+  font-family:'Barlow Condensed'; font-size:18px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase; transition:all 0.25s;
+}
+.btn-secondary:hover { background:var(--red-dim); border-color:var(--red); }
+.btn-ghost {
+  background:transparent; border:1px solid var(--border);
+  color:var(--grey-light); padding:9px 20px; border-radius:7px;
+  cursor:pointer; font-family:'Barlow'; font-size:13px; font-weight:600;
+  transition:all 0.2s;
+}
+.btn-ghost:hover { border-color:rgba(255,255,255,0.2); color:var(--white); }
+
+/* ============================================================
+   SHARED COMPONENTS
+============================================================ */
+.eyebrow { font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--red); font-weight:600; margin-bottom:10px; display:block; }
+.section-title { font-family:'Bebas Neue'; font-size:clamp(32px,4vw,52px); letter-spacing:2px; margin-bottom:16px; line-height:1; }
+.section-title span { color:var(--red); }
+.body-text { font-size:16px; color:var(--grey-light); line-height:1.8; font-weight:300; }
+
+.card { background:var(--dark2); border:1px solid var(--border); border-radius:12px; transition:border-color 0.2s; }
+.card:hover { border-color:rgba(255,255,255,0.12); }
+.card-red:hover { border-color:var(--border-red); }
+
+/* Tags */
+.tag { display:inline-block; padding:3px 10px; border-radius:4px; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; }
+.tag-live    { background:rgba(0,200,100,0.1); color:var(--green); border:1px solid rgba(0,200,100,0.25); }
+.tag-soon    { background:rgba(201,168,76,0.1); color:var(--gold-light); border:1px solid rgba(201,168,76,0.2); }
+.tag-past    { background:rgba(255,255,255,0.06); color:var(--grey-light); border:1px solid var(--border); }
+.tag-speaker { background:var(--red-dim); color:var(--red); border:1px solid var(--border-red); }
+.tag-ended   { background:rgba(255,255,255,0.05); color:var(--grey); border:1px solid var(--border); }
+
+/* ============================================================
+   SIDEBAR LAYOUT
+============================================================ */
+.sidebar-layout { display:grid; grid-template-columns:256px 1fr; min-height:calc(100vh - 76px); margin-top:76px; }
+.sidebar {
+  background:var(--dark); border-right:1px solid var(--border);
+  padding:28px 0; position:sticky; top:76px; height:calc(100vh - 76px); overflow-y:auto;
+}
+.sidebar-event-info { padding:0 18px 20px; border-bottom:1px solid var(--border); margin-bottom:10px; }
+.sidebar-event-tag { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--red); font-weight:600; margin-bottom:4px; }
+.sidebar-event-name { font-family:'Barlow Condensed'; font-size:16px; font-weight:700; line-height:1.3; }
+.sidebar-event-date { font-size:12px; color:var(--gold-light); margin-top:3px; }
+.sidebar-section { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--grey); padding:14px 18px 4px; font-weight:600; }
+.nav-item {
+  display:flex; align-items:center; gap:11px;
+  padding:10px 18px; cursor:pointer; transition:all 0.2s;
+  font-size:14px; font-weight:500; color:var(--grey-light);
+  border-left:2px solid transparent;
+}
+.nav-item:hover { color:var(--white); background:rgba(255,255,255,0.03); }
+.nav-item.active { color:var(--white); border-left-color:var(--red); background:var(--red-glow); }
+.nav-item-icon { font-size:16px; min-width:20px; text-align:center; }
+.nav-badge { margin-left:auto; background:var(--red); color:white; font-size:10px; font-weight:800; padding:2px 7px; border-radius:100px; }
+.main { padding:36px 44px; }
+
+/* ============================================================
+   SCREEN 0: PUBLIC HOMEPAGE
+============================================================ */
+.home-hero {
+  min-height:100vh; padding-top:76px; position:relative; overflow:hidden;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:var(--black);
+}
+.home-bg {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 20%, rgba(232,33,46,0.1) 0%, transparent 65%),
+             radial-gradient(ellipse 40% 40% at 85% 85%, rgba(232,33,46,0.04) 0%, transparent 55%);
+}
+.home-grid {
+  position:absolute; inset:0; opacity:0.03;
+  background-image:linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px);
+  background-size:64px 64px;
+}
+.home-content { position:relative; z-index:2; max-width:900px; margin:0 auto; padding:60px 32px; text-align:center; }
+.home-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--red-dim); border:1px solid var(--border-red);
+  padding:6px 18px; border-radius:100px; margin-bottom:32px;
+  font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red);
+}
+.home-badge-dot { width:6px; height:6px; background:var(--red); border-radius:50%; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
+.home-title { font-family:'Bebas Neue'; font-size:clamp(64px,12vw,160px); line-height:0.88; letter-spacing:3px; margin-bottom:24px; }
+.home-title span { color:var(--red); }
+.home-sub { font-size:19px; color:var(--grey-light); line-height:1.7; font-weight:300; max-width:580px; margin:0 auto 40px; }
+.home-ctas { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:64px; }
+.home-stats { display:flex; gap:56px; justify-content:center; flex-wrap:wrap; }
+.stat-num { font-family:'Bebas Neue'; font-size:52px; color:var(--red); line-height:1; }
+.stat-label { font-size:11px; color:var(--grey); letter-spacing:2px; text-transform:uppercase; margin-top:2px; }
+
+/* Presenter logos */
+.presenter-strip {
+  position:relative; z-index:2; width:100%;
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  background:var(--dark); padding:24px 32px;
+  display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap;
+}
+.presenter-label { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--white); font-style:italic; opacity:0.7; }
+.presenter-logo { height:32px; width:auto; object-fit:contain; filter:brightness(1.05); opacity:0.85; }
+.presenter-sep { font-size:14px; color:var(--border); }
+
+/* Upcoming events strip */
+.home-events { background:var(--dark); padding:72px 32px; }
+.home-events-inner { max-width:1000px; margin:0 auto; }
+.event-tile {
+  background:var(--dark2); border:1px solid var(--border);
+  border-radius:12px; padding:24px 28px;
+  display:flex; gap:20px; align-items:center;
+  margin-bottom:14px; cursor:pointer; transition:all 0.25s;
+}
+.event-tile:hover { border-color:var(--border-red); transform:translateX(4px); }
+.event-tile-date {
+  min-width:72px; text-align:center;
+  background:var(--dark3); border-radius:8px; padding:10px 8px; border:1px solid var(--border);
+}
+.event-tile-month { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--red); font-weight:600; }
+.event-tile-day { font-family:'Bebas Neue'; font-size:38px; line-height:1; }
+.event-tile-info { flex:1; }
+.event-tile-name { font-family:'Barlow Condensed'; font-size:22px; font-weight:700; margin-bottom:4px; }
+.event-tile-meta { font-size:13px; color:var(--grey-light); }
+.event-tile-arrow { color:var(--grey); font-size:20px; }
+
+/* ============================================================
+   SCREEN 1: DASHBOARD (post-login)
+============================================================ */
+.dashboard-wrap { padding-top:76px; }
+.dashboard-inner { max-width:800px; margin:0 auto; padding:56px 40px; }
+.dash-welcome { margin-bottom:48px; }
+.dash-welcome-tag { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--grey); font-weight:600; margin-bottom:8px; }
+.dash-welcome-title { font-family:'Bebas Neue'; font-size:56px; letter-spacing:2px; line-height:1; }
+.dash-welcome-title span { color:var(--red); }
+.dash-welcome-sub { font-size:16px; color:var(--grey-light); margin-top:8px; font-weight:300; }
+.dash-section-label { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--grey); font-weight:600; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+
+/* Event card on dashboard */
+.dash-event-card {
+  background:var(--dark2); border:1px solid var(--border);
+  border-radius:12px; overflow:hidden; margin-bottom:12px;
+  display:flex; cursor:pointer; transition:all 0.25s;
+}
+.dash-event-card:hover { border-color:var(--border-red); box-shadow:0 6px 24px rgba(0,0,0,0.3); }
+.dash-event-accent { width:4px; min-width:4px; background:var(--red); }
+.dash-event-body { padding:18px 22px; flex:1; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.dash-event-name { font-family:'Barlow Condensed'; font-size:20px; font-weight:700; margin-bottom:4px; }
+.dash-event-meta { font-size:13px; color:var(--grey-light); }
+.dash-event-actions { display:flex; gap:8px; align-items:center; }
+.btn-view { background:var(--red); border:none; color:var(--white); padding:8px 20px; border-radius:6px; cursor:pointer; font-family:'Barlow'; font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; transition:all 0.2s; white-space:nowrap; }
+.btn-view:hover { background:var(--red-dark); }
+.dash-empty { text-align:center; padding:48px 20px; color:var(--grey); font-size:15px; line-height:1.7; }
+
+/* Role cards */
+.role-cards { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:32px; }
+.role-card { padding:24px; cursor:pointer; }
+.role-card-icon { font-size:28px; margin-bottom:12px; }
+.role-card-title { font-family:'Barlow Condensed'; font-size:20px; font-weight:700; margin-bottom:6px; }
+.role-card-desc { font-size:13px; color:var(--grey-light); line-height:1.6; }
+.role-card-link { font-size:13px; color:var(--red); font-weight:600; margin-top:12px; display:flex; align-items:center; gap:4px; }
+
+/* ============================================================
+   SCREEN 2: MY EVENT (attendee view)
+============================================================ */
+.event-banner-wrap { position:relative; border-radius:14px; overflow:hidden; margin-bottom:28px; }
+.event-banner-img { width:100%; height:auto; display:block; }
+.event-banner-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to bottom,transparent 50%,rgba(10,10,10,0.65) 75%,rgba(10,10,10,0.95) 100%);
+}
+.event-banner-bottom {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:20px 24px; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:12px;
+}
+.event-banner-title { font-family:'Bebas Neue'; font-size:clamp(24px,3vw,40px); letter-spacing:1px; }
+.event-banner-meta { font-size:13px; color:var(--off-white); margin-top:3px; }
+.event-banner-actions { display:flex; gap:8px; }
+
+/* info strip */
+.info-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:28px; }
+.info-strip-card { padding:18px 20px; }
+.info-strip-icon { font-size:22px; margin-bottom:8px; }
+.info-strip-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--grey); margin-bottom:3px; }
+.info-strip-value { font-family:'Barlow Condensed'; font-size:20px; font-weight:700; }
+.info-strip-sub { font-size:12px; color:var(--grey-light); margin-top:2px; }
+
+/* Speaker chips */
+.speaker-chips { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+.chip {
+  display:flex; align-items:center; gap:8px;
+  background:var(--dark3); border:1px solid var(--border);
+  border-radius:100px; padding:5px 14px 5px 5px; cursor:pointer; transition:all 0.2s;
+}
+.chip:hover { border-color:var(--border-red); }
+.chip-avatar {
+  width:28px; height:28px; border-radius:50%; background:var(--dark4);
+  border:1px solid var(--border); display:flex; align-items:center; justify-content:center;
+  font-family:'Barlow Condensed'; font-size:12px; font-weight:700; color:var(--grey-light);
+}
+.chip-name { font-size:13px; font-weight:600; }
+
+/* Schedule list */
+.schedule-list { display:flex; flex-direction:column; gap:10px; margin-top:20px; }
+.schedule-row { padding:16px 20px; display:flex; gap:16px; align-items:center; }
+.schedule-time { font-size:12px; color:var(--gold-light); font-weight:600; min-width:56px; }
+.schedule-info { flex:1; }
+.schedule-title { font-weight:600; font-size:14px; margin-bottom:2px; }
+.schedule-speaker { font-size:12px; color:var(--grey); }
+
+/* ============================================================
+   SCREEN 3: WATCH LIVE
+============================================================ */
+.watch-wrap { padding-top:76px; }
+.watch-header { background:var(--dark); border-bottom:1px solid var(--border); padding:18px 44px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+.watch-breadcrumb { font-size:12px; color:var(--grey); cursor:pointer; margin-bottom:4px; }
+.watch-breadcrumb span { color:var(--grey-light); }
+.watch-title { font-family:'Barlow Condensed'; font-size:26px; font-weight:800; letter-spacing:1px; }
+.watch-meta { font-size:13px; color:var(--grey-light); margin-top:2px; }
+.watch-body { display:grid; grid-template-columns:1fr 320px; gap:20px; padding:28px 44px; max-width:1400px; margin:0 auto; }
+.stream-player { background:var(--dark3); border-radius:12px; aspect-ratio:16/9; position:relative; overflow:hidden; border:1px solid var(--border); }
+.stream-bg { position:absolute; inset:0; background:radial-gradient(ellipse 50% 50% at 50% 40%,rgba(232,33,46,0.05) 0%,transparent 70%); }
+.stream-live-badge { position:absolute; top:14px; left:14px; z-index:5; background:var(--red); padding:4px 12px; border-radius:4px; font-size:11px; font-weight:800; letter-spacing:2px; display:flex; align-items:center; gap:6px; }
+.live-dot { width:6px; height:6px; background:white; border-radius:50%; animation:pulse 1.5s infinite; }
+.stream-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:4; }
+.stream-play { width:68px; height:68px; background:rgba(232,33,46,0.9); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; cursor:pointer; transition:transform 0.2s; box-shadow:0 0 40px rgba(232,33,46,0.25); }
+.stream-play:hover { transform:scale(1.08); }
+.stream-label { font-size:14px; color:var(--grey-light); margin-top:12px; }
+.stream-unmute { position:absolute; bottom:14px; right:14px; z-index:5; background:rgba(0,0,0,0.7); border:1px solid rgba(255,255,255,0.12); color:white; padding:7px 13px; border-radius:5px; cursor:pointer; font-size:12px; display:flex; align-items:center; gap:5px; }
+.stream-info { margin-top:14px; }
+.stream-session-title { font-family:'Barlow Condensed'; font-size:20px; font-weight:700; margin-bottom:4px; }
+.stream-speaker-name { font-size:13px; color:var(--grey-light); }
+.simulcast-bar { margin-top:12px; background:var(--dark2); border:1px solid var(--border); border-radius:7px; padding:10px 16px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.simulcast-label { font-size:11px; color:var(--grey); font-weight:600; letter-spacing:1px; text-transform:uppercase; }
+.simulcast-item { font-size:12px; color:var(--grey-light); background:var(--dark3); padding:3px 9px; border-radius:4px; }
+.schedule-sidebar { background:var(--dark2); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+.schedule-sidebar-header { padding:13px 16px; border-bottom:1px solid var(--border); font-family:'Barlow Condensed'; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--grey-light); }
+.sched-item { padding:12px 16px; border-bottom:1px solid var(--border); cursor:pointer; transition:background 0.15s; display:flex; gap:10px; align-items:flex-start; }
+.sched-item:hover { background:rgba(255,255,255,0.02); }
+.sched-item.now { background:var(--red-glow); border-left:2px solid var(--red); }
+.sched-time { font-size:11px; color:var(--gold-light); font-weight:600; min-width:44px; margin-top:2px; }
+.sched-title { font-size:13px; font-weight:600; margin-bottom:2px; }
+.sched-speaker { font-size:11px; color:var(--grey); }
+
+/* ============================================================
+   SCREEN 4: SPEAKER PROFILE
+============================================================ */
+.profile-wrap { padding-top:76px; }
+.profile-hero { background:var(--dark); border-bottom:1px solid var(--border); padding:44px; }
+.profile-hero-inner { max-width:1000px; margin:0 auto; display:flex; gap:36px; align-items:flex-start; }
+.profile-img { width:160px; min-width:160px; height:160px; border-radius:14px; background:var(--dark3); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.profile-initials { font-family:'Bebas Neue'; font-size:56px; color:rgba(232,33,46,0.25); }
+.profile-breadcrumb { font-size:12px; color:var(--grey); margin-bottom:10px; cursor:pointer; }
+.profile-name { font-family:'Bebas Neue'; font-size:clamp(40px,5vw,64px); letter-spacing:2px; line-height:0.92; margin-bottom:6px; }
+.profile-role { font-size:16px; color:var(--grey-light); margin-bottom:14px; }
+.profile-tags { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:18px; }
+.profile-tag { background:var(--dark3); border:1px solid var(--border); padding:4px 12px; border-radius:100px; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--grey-light); }
+.profile-socials { display:flex; gap:8px; flex-wrap:wrap; }
+.btn-social { background:var(--dark3); border:1px solid var(--border); color:var(--grey-light); padding:7px 16px; border-radius:6px; cursor:pointer; font-size:13px; transition:all 0.2s; }
+.btn-social:hover { border-color:rgba(255,255,255,0.2); color:var(--white); }
+.profile-body { max-width:1000px; margin:0 auto; padding:36px 44px; display:grid; grid-template-columns:2fr 1fr; gap:36px; }
+.profile-section-label { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--red); font-weight:600; margin-bottom:12px; }
+.profile-bio { font-size:15px; color:rgba(255,255,255,0.8); line-height:1.85; font-weight:300; }
+.session-card { background:var(--dark2); border:1px solid var(--border); border-radius:12px; padding:22px; margin-top:24px; }
+.session-time { font-size:12px; color:var(--gold-light); font-weight:600; margin-bottom:6px; }
+.session-title { font-family:'Barlow Condensed'; font-size:22px; font-weight:700; margin-bottom:8px; }
+.session-desc { font-size:14px; color:var(--grey-light); line-height:1.7; }
+
+/* ============================================================
+   SCREEN 5: ALL EVENTS
+============================================================ */
+.all-events-wrap { padding-top:76px; }
+.all-events-hero { padding:72px 44px 56px; text-align:center; position:relative; overflow:hidden; }
+.all-events-hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(232,33,46,0.08) 0%,transparent 65%); pointer-events:none; }
+.all-events-hero-grid { position:absolute; inset:0; opacity:0.025; background-image:linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px); background-size:60px 60px; }
+.all-events-title { font-family:'Bebas Neue'; font-size:clamp(56px,9vw,110px); letter-spacing:3px; line-height:0.88; margin-bottom:14px; position:relative; z-index:2; }
+.all-events-title span { color:var(--red); }
+.all-events-sub { font-size:17px; color:var(--grey-light); font-weight:300; line-height:1.7; position:relative; z-index:2; }
+.filter-bar { background:rgba(10,10,10,0.95); border-bottom:1px solid var(--border); padding:14px 44px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; position:sticky; top:76px; z-index:50; }
+.filter-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--grey); font-weight:600; margin-right:4px; }
+.filter-btn { background:transparent; border:1px solid var(--border); color:var(--grey-light); padding:5px 14px; border-radius:100px; cursor:pointer; font-family:'Barlow'; font-size:12px; font-weight:600; transition:all 0.2s; }
+.filter-btn:hover { border-color:rgba(255,255,255,0.2); color:var(--white); }
+.filter-btn.active { background:var(--red); border-color:var(--red); color:var(--white); }
+.events-list { max-width:1000px; margin:0 auto; padding:44px; }
+.month-header { display:flex; align-items:center; gap:14px; margin-bottom:16px; margin-top:40px; }
+.month-header:first-child { margin-top:0; }
+.month-name { font-family:'Bebas Neue'; font-size:28px; letter-spacing:3px; color:var(--grey); }
+.month-line { flex:1; height:1px; background:var(--border); }
+.event-row {
+  background:var(--dark2); border:1px solid var(--border); border-radius:12px;
+  display:grid; grid-template-columns:72px 1fr auto;
+  overflow:hidden; margin-bottom:12px; cursor:pointer; transition:all 0.25s;
+}
+.event-row:hover { border-color:var(--border-red); transform:translateX(3px); }
+.event-row-date { background:var(--dark3); border-right:1px solid var(--border); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px 6px; text-align:center; }
+.event-row-month { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--red); font-weight:700; }
+.event-row-day { font-family:'Bebas Neue'; font-size:38px; line-height:1; }
+.event-row-info { padding:16px 20px; display:flex; flex-direction:column; justify-content:center; gap:6px; }
+.event-row-tags { display:flex; gap:6px; flex-wrap:wrap; }
+.event-row-title { font-family:'Barlow Condensed'; font-size:20px; font-weight:700; }
+.event-row-meta { font-size:12px; color:var(--grey-light); display:flex; gap:12px; flex-wrap:wrap; }
+.event-row-cta { padding:16px 18px; display:flex; flex-direction:column; align-items:flex-end; justify-content:center; gap:7px; border-left:1px solid var(--border); min-width:160px; }
+.btn-small { padding:8px 16px; border-radius:6px; cursor:pointer; font-family:'Barlow'; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; transition:all 0.2s; width:100%; text-align:center; }
+.btn-small-red { background:var(--red); border:none; color:var(--white); }
+.btn-small-red:hover { background:var(--red-dark); }
+.btn-small-outline { background:transparent; border:1px solid var(--border-red); color:var(--red); }
+.btn-small-outline:hover { background:var(--red-dim); }
+.btn-small-ghost { background:transparent; border:1px solid var(--border); color:var(--grey-light); }
+.btn-small-ghost:hover { border-color:var(--gold-light); color:var(--gold-light); }
+
+/* ============================================================
+   SCREEN 6: SPEAKER PORTAL
+============================================================ */
+.step-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:32px; }
+.step-card { padding:18px; text-align:center; border-radius:10px; }
+.step-card.done { border-color:rgba(0,200,100,0.3) !important; background:rgba(0,200,100,0.04); }
+.step-card.now  { border-color:var(--border-red) !important; background:var(--red-glow); }
+.step-num { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; font-family:'Bebas Neue'; font-size:17px; border:1px solid var(--border); background:var(--dark3); }
+.step-card.done .step-num { background:rgba(0,200,100,0.15); border-color:rgba(0,200,100,0.4); color:var(--green); }
+.step-card.now  .step-num { background:var(--red-dim); border-color:var(--red); color:var(--red); }
+.step-label { font-size:12px; font-weight:700; margin-bottom:3px; }
+.step-status { font-size:11px; color:var(--grey); }
+.step-card.done .step-status { color:var(--green); }
+.step-card.now  .step-status { color:var(--red); }
+.assets-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.asset-card { border-radius:10px; overflow:hidden; cursor:pointer; transition:all 0.2s; }
+.asset-card:hover { border-color:var(--border-red) !important; transform:translateY(-2px); }
+.asset-thumb { height:100px; background:var(--dark3); display:flex; align-items:center; justify-content:center; font-size:32px; opacity:0.5; position:relative; }
+.asset-badge-pill { position:absolute; bottom:7px; left:7px; background:rgba(0,0,0,0.75); padding:2px 7px; border-radius:3px; font-size:9px; font-weight:700; letter-spacing:1px; color:var(--grey-light); opacity:1; }
+.asset-body { padding:12px; }
+.asset-name { font-size:13px; font-weight:600; margin-bottom:2px; }
+.asset-desc { font-size:11px; color:var(--grey); margin-bottom:8px; }
+.asset-dl { display:flex; align-items:center; justify-content:center; gap:5px; font-size:11px; font-weight:600; color:var(--red); padding:7px; background:var(--red-dim); border-radius:5px; border:1px solid var(--border-red); }
+
+/* ============================================================
+   FORM ELEMENTS (used by Notify Me modal)
+============================================================ */
+.form-section { margin-bottom:36px; }
+.form-section-title { font-family:'Barlow Condensed'; font-size:17px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red); margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+.form-group { margin-bottom:16px; }
+.form-label { display:block; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--grey-light); margin-bottom:7px; }
+.form-input { width:100%; background:var(--dark3); border:1px solid var(--border); color:var(--white); padding:11px 14px; border-radius:7px; font-family:'Barlow'; font-size:14px; outline:none; transition:border 0.2s; }
+.form-input:focus { border-color:var(--red); }
+.form-input::placeholder { color:var(--grey); }
+.form-textarea { width:100%; background:var(--dark3); border:1px solid var(--border); color:var(--white); padding:11px 14px; border-radius:7px; font-family:'Barlow'; font-size:14px; outline:none; transition:border 0.2s; resize:vertical; min-height:100px; }
+.form-textarea:focus { border-color:var(--red); }
+.form-textarea::placeholder { color:var(--grey); }
+.form-select { width:100%; background:var(--dark3); border:1px solid var(--border); color:var(--white); padding:11px 14px; border-radius:7px; font-family:'Barlow'; font-size:14px; outline:none; cursor:pointer; appearance:none; }
+.form-select:focus { border-color:var(--red); }
+.form-check-row { display:flex; gap:11px; align-items:flex-start; margin-bottom:12px; }
+.form-check { width:16px; height:16px; min-width:16px; accent-color:var(--red); margin-top:3px; }
+.form-check-label { font-size:13px; color:var(--grey-light); line-height:1.6; }
+
+/* ============================================================
+   MODAL
+============================================================ */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:800; display:none; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(8px); }
+.modal-overlay.open { display:flex; }
+.modal { background:var(--dark2); border:1px solid var(--border); border-radius:14px; padding:36px; width:100%; max-width:420px; position:relative; }
+.modal-close { position:absolute; top:12px; right:12px; background:none; border:none; color:var(--grey); font-size:20px; cursor:pointer; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:5px; transition:all 0.2s; }
+.modal-close:hover { color:var(--white); background:var(--dark3); }
+.modal-title { font-family:'Bebas Neue'; font-size:28px; letter-spacing:2px; margin-bottom:6px; }
+.modal-sub { font-size:14px; color:var(--grey-light); margin-bottom:22px; line-height:1.6; }
+.modal-btn { width:100%; background:var(--red); border:none; color:var(--white); padding:13px; border-radius:7px; cursor:pointer; font-family:'Barlow Condensed'; font-size:18px; font-weight:800; letter-spacing:2px; text-transform:uppercase; transition:all 0.25s; }
+.modal-btn:hover { background:var(--red-dark); }
+.modal-fine { font-size:11px; color:var(--grey); margin-top:10px; text-align:center; line-height:1.6; }
+.success-state { display:none; text-align:center; padding:12px 0; }
+.success-icon { font-size:44px; margin-bottom:10px; }
+.success-title { font-family:'Bebas Neue'; font-size:28px; letter-spacing:2px; color:var(--red); margin-bottom:6px; }
+.success-text { font-size:14px; color:var(--grey-light); line-height:1.7; }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.footer { background:var(--dark); border-top:1px solid var(--border); padding:36px 44px; }
+.footer-inner { max-width:1000px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; }
+.footer-logos { display:flex; gap:20px; align-items:center; flex-wrap:wrap; justify-content:center; }
+.footer-logo { height:22px; width:auto; object-fit:contain; opacity:0.5; filter:brightness(1.1); }
+.footer-links { display:flex; gap:18px; flex-wrap:wrap; justify-content:center; }
+.footer-link { font-size:11px; color:var(--grey); text-decoration:none; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:color 0.2s; }
+.footer-link:hover { color:var(--red); }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media(max-width:900px){
+  .sidebar-layout { grid-template-columns:1fr; }
+  .sidebar { position:static; height:auto; }
+  .watch-body { grid-template-columns:1fr; }
+  .profile-body { grid-template-columns:1fr; }
+  .info-strip { grid-template-columns:1fr; }
+  .step-grid { grid-template-columns:1fr 1fr; }
+  .assets-grid { grid-template-columns:1fr 1fr; }
+  .role-cards { grid-template-columns:1fr; }
+}
+@media(max-width:600px){
+  .nav { padding:0 16px; }
+  .nav-logo-img { height:28px; }
+  .home-title { font-size:72px; }
+  .main, .all-events-hero, .events-list { padding-left:20px; padding-right:20px; }
+  .watch-body, .watch-header { padding-left:20px; padding-right:20px; }
+  .profile-hero, .profile-body { padding:24px 20px; }
+  .form-row { grid-template-columns:1fr; }
+  .event-row { grid-template-columns:1fr; }
+  .event-row-date { flex-direction:row; gap:8px; border-right:none; border-bottom:1px solid var(--border); padding:12px 16px; justify-content:flex-start; }
+  .event-row-cta { border-left:none; border-top:1px solid var(--border); flex-direction:row; flex-wrap:wrap; min-width:unset; }
+  .home-stats { gap:28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav class="nav">
+  <div class="nav-left">
+    <span class="nav-presented-label">Presented by</span>
+    <img class="nav-logo-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers" onclick="goto('home')">
+    <div class="nav-divider"></div>
+    <img class="nav-logo-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence" onclick="goto('home')">
+    <div class="nav-divider"></div>
+    <img class="nav-logo-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked" onclick="goto('home')">
+  </div>
+  <div class="nav-right">
+    <!-- Public nav (shown when not logged in) -->
+    <div id="nav-public" style="display:flex;gap:10px;align-items:center;">
+      <button class="btn-nav" onclick="goto('home')">🏠 Home</button>
+      <button class="btn-nav" onclick="goto('allEvents')">2026 Calendar</button>
+      <button class="btn-nav" onclick="goto('dashboard')">Speaker Sign In</button>
+      <button class="btn-nav-red" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply to Speak →</button>
+    </div>
+    <!-- Logged-in nav (shown post-login) -->
+    <div id="nav-loggedin" style="display:none;align-items:center;gap:10px;">
+      <button class="btn-nav" onclick="goto('home')">🏠 Home</button>
+      <button class="btn-nav" onclick="goto('allEvents')">All Events</button>
+      <div class="nav-user" onclick="toggleDropdown()">
+        <div class="nav-avatar">DM</div>
+        <span class="nav-username">Dave M.</span>
+        <span class="nav-chevron">▾</span>
+        <div class="user-dropdown" id="userDropdown">
+          <div class="dropdown-header">
+            <div class="dropdown-email">dave@lsdmarketing.com.au</div>
+            <div class="dropdown-roles">
+              <span class="role-badge role-speaker">Speaker</span>
+            </div>
+          </div>
+          <div class="dropdown-item" onclick="goto('dashboard');closeDropdown()">
+            <span class="dropdown-item-icon">⚡</span> My Dashboard
+          </div>
+          <div class="dropdown-item" onclick="goto('speakerPortal');closeDropdown()">
+            <span class="dropdown-item-icon">🎤</span> Speaker Portal
+          </div>
+          <div class="dropdown-item" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank');closeDropdown()">
+            <span class="dropdown-item-icon">✍️</span> Apply to Speak
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item dropdown-signout" onclick="logout()">
+            <span class="dropdown-item-icon">→</span> Sign Out
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     SCREEN: HOME (public)
+============================================================ -->
+<div class="screen active" id="screen-home">
+  <div class="home-hero">
+    <div class="home-bg"></div>
+    <div class="home-grid"></div>
+    <div class="home-content">
+      <div class="home-badge"><span class="home-badge-dot"></span>Now Accepting Speaker Applications · 2026 Season</div>
+      <div class="home-title">THE<br><span>SPEAKERS</span><br>PORTAL</div>
+      <div class="home-sub">Where world-class experts apply to speak, prepare for showtime, and amplify their reach.<br><br>Browse our 2026 summit calendar. Apply to speak on one of our expert stages. Access your speaker asset pack.<br><br>Presented by Hero Makers · Voice to Influence · AI Unlocked Media · Los Angeles Tribune Podcast Network.</div>
+      <div class="home-ctas">
+        <button class="btn-primary" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply to Speak →</button>
+        <button class="btn-secondary" onclick="login();goto('dashboard')">Sign In to Portal</button>
+        <button class="btn-ghost" onclick="goto('allEvents')">Browse 2026 Calendar</button>
+      </div>
+      <div class="home-stats">
+        <div><div class="stat-num">11</div><div class="stat-label">2026 Summits</div></div>
+        <div><div class="stat-num">4K+</div><div class="stat-label">Audience Reach</div></div>
+        <div><div class="stat-num">4</div><div class="stat-label">Brand Partners</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Presenter strip -->
+  <div class="presenter-strip">
+    <span class="presenter-label">Proudly Sponsored by</span>
+    <img class="presenter-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272401/file/small-7bc29d04ade2b084581a8725f605b3f9.png" alt="LA Tribune Podcast Network" style="height:48px;opacity:1;filter:brightness(1.3);">
+  </div>
+
+  <!-- Upcoming events -->
+  <div class="home-events">
+    <div class="home-events-inner">
+      <span class="eyebrow">2026 Calendar</span>
+      <div class="section-title">UPCOMING <span>SUMMITS</span></div>
+      <p class="body-text" style="margin-bottom:32px;max-width:680px;">Every summit below is open for speaker applications. Click into the full calendar to see all 11 events for 2026.</p>
+
+      <div class="event-tile" onclick="goto('allEvents')">
+        <div class="event-tile-date"><div class="event-tile-month">JUN</div><div class="event-tile-day">4</div></div>
+        <div class="event-tile-info">
+          <span class="tag tag-live" style="margin-bottom:6px;display:inline-block;">● LIVE · Speakers Confirmed</span>
+          <div class="event-tile-name">The Real Estate Summit I</div>
+          <div class="event-tile-meta">🌐 Virtual · June 4, 2026 · 4:00 PM Los Angeles Time</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;min-width:160px;">
+          <button class="btn-primary" style="font-size:13px;padding:9px 18px;" onclick="event.stopPropagation();window.location.href='res-speaker-assets.html'">📋 Speaker Assets</button>
+          <button class="btn-secondary" style="font-size:12px;padding:7px 18px;" onclick="event.stopPropagation();window.open('https://www.hmrealestatesummit.com/sign-up','_blank')">View Public Page →</button>
+        </div>
+      </div>
+
+      <div class="event-tile" onclick="goto('allEvents')">
+        <div class="event-tile-date"><div class="event-tile-month">JUL</div><div class="event-tile-day">23</div></div>
+        <div class="event-tile-info">
+          <span class="tag tag-soon" style="margin-bottom:6px;display:inline-block;">Applications Open</span>
+          <div class="event-tile-name">Direct Sales Summit IV</div>
+          <div class="event-tile-meta">🌐 Virtual · July 23, 2026 · 4:00 PM Los Angeles Time</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;min-width:160px;"><button class="btn-primary" style="font-size:13px;padding:9px 18px;" onclick="event.stopPropagation();window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button><button class="btn-secondary" style="font-size:12px;padding:7px 18px;" onclick="event.stopPropagation();window.open('https://www.heromakerssummit.com/hero-makers-dss-04','_blank')">View Public Page →</button></div>
+      </div>
+
+      <div class="event-tile" onclick="goto('allEvents')">
+        <div class="event-tile-date"><div class="event-tile-month">AUG</div><div class="event-tile-day">13</div></div>
+        <div class="event-tile-info">
+          <span class="tag tag-soon" style="margin-bottom:6px;display:inline-block;">Applications Open</span>
+          <div class="event-tile-name">Storyteller Summit</div>
+          <div class="event-tile-meta">🌐 Virtual · August 13, 2026 · 4:00 PM Los Angeles Time</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;min-width:160px;"><button class="btn-primary" style="font-size:13px;padding:9px 18px;" onclick="event.stopPropagation();window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button><button class="btn-secondary" style="font-size:12px;padding:7px 18px;" onclick="event.stopPropagation();window.open('https://www.heromakerssummit.com/the-storyteller-summit-2026','_blank')">View Public Page →</button></div>
+      </div>
+
+      <div style="text-align:center;margin-top:28px;">
+        <button class="btn-secondary" onclick="goto('allEvents')" style="font-size:15px;">View All 11 Events →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Apply CTA strip -->
+  <div style="background:var(--black);padding:72px 44px;text-align:center;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(232,33,46,0.06) 0%,transparent 70%);"></div>
+    <div style="position:relative;z-index:2;max-width:540px;margin:0 auto;">
+      <span class="eyebrow" style="display:block;text-align:center;margin-bottom:12px;">Exclusive · Application Only</span>
+      <div class="section-title" style="font-size:56px;">WANT TO <span>SPEAK?</span></div>
+      <p class="body-text" style="margin-bottom:28px;">Speaking at a Hero Makers summit is by application only. Our curation team selects every speaker personally. Submitting an application does not guarantee selection.</p>
+      <button class="btn-primary" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply for Consideration →</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-inner">
+      <div class="footer-logos">
+        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="HM">
+        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="VTI">
+        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI">
+        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272401/file/small-7bc29d04ade2b084581a8725f605b3f9.png" alt="LAT">
+      </div>
+      <div class="footer-links">
+        <span class="footer-link" onclick="goto('allEvents')">All Events</span>
+        <span class="footer-link" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply to Speak</span>
+        <span class="footer-link">Privacy Policy</span>
+        <span class="footer-link">Terms</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN: DASHBOARD (post-login home)
+============================================================ -->
+<div class="screen" id="screen-dashboard">
+  <div class="dashboard-wrap">
+    <div class="dashboard-inner">
+      <div class="dash-welcome">
+        <div class="dash-welcome-tag">Speaker Dashboard</div>
+        <div class="dash-welcome-title">WELCOME BACK, <span>DAVE</span></div>
+        <div class="dash-welcome-sub">Manage your speaking engagements, access your asset packs, and apply for more events.</div>
+      </div>
+
+      <div class="dash-section-label">Your Speaking Engagements</div>
+      <div class="dash-event-card" onclick="goto('speakerPortal')">
+        <div class="dash-event-accent"></div>
+        <div class="dash-event-body">
+          <div>
+            <div class="dash-event-name">The Real Estate Summit I</div>
+            <div class="dash-event-meta">📅 June 4, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time &nbsp;·&nbsp; <span style="color:var(--green);">● Confirmed Speaker</span></div>
+          </div>
+          <div class="dash-event-actions">
+            <span class="tag tag-live">● LIVE</span>
+            <button class="btn-view" onclick="event.stopPropagation();goto('speakerPortal')">Open Portal →</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:8px;margin-bottom:36px;">
+        <div class="dash-empty" style="text-align:left;padding:16px 0;color:var(--grey);font-size:13px;">Apply for more events to add them to your speaking calendar.</div>
+      </div>
+
+      <div class="dash-section-label">Your Portal Access</div>
+      <div class="role-cards">
+        <div class="card card-red role-card" onclick="goto('speakerPortal')">
+          <div class="role-card-icon">🎤</div>
+          <div class="role-card-title">Speaker Portal</div>
+          <div class="role-card-desc">Access your asset packs, swipe copy, session details and tech checklist for each event you're speaking at.</div>
+          <div class="role-card-link">Open speaker portal →</div>
+        </div>
+        <div class="card card-red role-card" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">
+          <div class="role-card-icon">✍️</div>
+          <div class="role-card-title">Apply for More Events</div>
+          <div class="role-card-desc">Browse the 2026 calendar and apply to speak at any of the eleven upcoming summits.</div>
+          <div class="role-card-link">Submit application →</div>
+        </div>
+      </div>
+
+      <div style="margin-top:40px;padding-top:32px;border-top:1px solid var(--border);">
+        <div class="dash-section-label">Browse the 2026 Calendar</div>
+        <div class="event-tile" onclick="goto('allEvents')" style="background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;gap:18px;align-items:center;cursor:pointer;transition:all 0.25s;margin-bottom:10px;" onmouseover="this.style.borderColor='rgba(232,33,46,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
+          <div class="event-tile-date"><div class="event-tile-month">JUL</div><div class="event-tile-day">23</div></div>
+          <div class="event-tile-info"><div class="event-tile-name">Direct Sales Summit IV</div><div class="event-tile-meta">🌐 Virtual · Applications Open</div></div>
+          <button class="btn-small btn-small-red" onclick="event.stopPropagation();window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply</button>
+        </div>
+        <div style="margin-top:16px;"><button class="btn-secondary" onclick="goto('allEvents')" style="font-size:14px;padding:10px 24px;">View All 11 Events →</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN: MY EVENT (attendee)
+============================================================ -->
+<div class="screen" id="screen-myEvent">
+  <div class="sidebar-layout">
+    <div class="sidebar">
+      <div class="sidebar-event-info">
+        <div class="sidebar-event-tag">● Registered</div>
+        <div class="sidebar-event-name">Real Estate Summit</div>
+        <div class="sidebar-event-date">📅 June 4 · 4:00 PM LA Time</div>
+      </div>
+      <div class="sidebar-section">My Event</div>
+      <div class="nav-item active" id="si-overview" onclick="setEventTab('overview',this)"><span class="nav-item-icon">⚡</span>Overview</div>
+      <div class="nav-item" id="si-watch" onclick="goto('watch')"><span class="nav-item-icon">📡</span>Watch Live<span class="nav-badge">LIVE</span></div>
+      <div class="nav-item" id="si-speakers" onclick="setEventTab('speakers',this)"><span class="nav-item-icon">🎤</span>Speakers</div>
+      <div class="nav-item" id="si-schedule" onclick="setEventTab('schedule',this)"><span class="nav-item-icon">📅</span>Schedule</div>
+      <div class="sidebar-section">Portal</div>
+      <div class="nav-item" onclick="goto('dashboard')"><span class="nav-item-icon">🏠</span>My Dashboard</div>
+      <div class="nav-item" onclick="goto('allEvents')"><span class="nav-item-icon">🌐</span>All Events</div>
+      <div class="nav-item" onclick="goto('speakerPortal')"><span class="nav-item-icon">🎙</span>Speaker Portal</div>
+      <div class="nav-item" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')"><span class="nav-item-icon">✍️</span>Apply to Speak</div>
+    </div>
+    <div class="main">
+      <!-- OVERVIEW TAB -->
+      <div id="tab-overview">
+        <div class="event-banner-wrap">
+          <img class="event-banner-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272485/file/8c04a2f24138022c0baba06c2849a50b.jpg" alt="Real Estate Summit">
+          <div class="event-banner-overlay"></div>
+          <div class="event-banner-bottom">
+            <div>
+              <div class="event-banner-title">The Real Estate Summit</div>
+              <div class="event-banner-meta">📅 June 4, 2026 · 4:00 PM Los Angeles Time · Virtual</div>
+            </div>
+            <div class="event-banner-actions">
+              <button class="btn-secondary" style="font-size:14px;padding:9px 20px;" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply to Speak</button>
+              <button class="btn-primary" style="font-size:14px;padding:9px 20px;" onclick="goto('watch')">▶ Watch Live</button>
+            </div>
+          </div>
+        </div>
+        <div class="info-strip">
+          <div class="card info-strip-card"><div class="info-strip-icon">📡</div><div class="info-strip-label">Stream Status</div><div class="info-strip-value" style="color:var(--green);">● Live Now</div><div class="info-strip-sub">Session 2 of 5 in progress</div></div>
+          <div class="card info-strip-card"><div class="info-strip-icon">🎤</div><div class="info-strip-label">Speakers</div><div class="info-strip-value">5 Confirmed</div><div class="info-strip-sub">Click to view profiles</div></div>
+          <div class="card info-strip-card"><div class="info-strip-icon">⏱</div><div class="info-strip-label">Next Session</div><div class="info-strip-value">5:10 PM</div><div class="info-strip-sub">Amanda Erwin · 40 min</div></div>
+        </div>
+        <span class="eyebrow">Featured Speakers</span>
+        <div class="section-title" style="font-size:32px;margin-bottom:14px;">Meet the <span>Experts</span></div>
+        <div class="speaker-chips">
+          <div class="chip" onclick="goto('speakerProfile')"><div class="chip-avatar">JB</div><span class="chip-name">Joseph Bograd</span></div>
+          <div class="chip" onclick="goto('speakerProfile')"><div class="chip-avatar">AE</div><span class="chip-name">Amanda Erwin</span></div>
+          <div class="chip" onclick="goto('speakerProfile')"><div class="chip-avatar">SD</div><span class="chip-name">Sam DeMaio</span></div>
+          <div class="chip" onclick="goto('speakerProfile')"><div class="chip-avatar">JC</div><span class="chip-name">Jenn Conkey</span></div>
+          <div class="chip" onclick="goto('speakerProfile')"><div class="chip-avatar">JG</div><span class="chip-name">Justin Gaul</span></div>
+        </div>
+      </div>
+      <!-- SPEAKERS TAB -->
+      <div id="tab-speakers" style="display:none;">
+        <span class="eyebrow">Real Estate Summit · June 4</span>
+        <div class="section-title">Speaker <span>Profiles</span></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:20px;">
+          <div class="card" style="padding:18px;cursor:pointer;text-align:center;" onclick="goto('speakerProfile')">
+            <div style="width:72px;height:72px;border-radius:50%;background:var(--dark3);border:2px solid var(--border);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:24px;color:rgba(232,33,46,0.3);">JB</div>
+            <div style="font-family:'Barlow Condensed';font-size:17px;font-weight:700;margin-bottom:3px;">Joseph Bograd</div>
+            <div style="font-size:11px;color:var(--grey-light);">Real Estate Investor</div>
+            <div style="margin-top:10px;font-size:11px;color:var(--red);font-weight:600;letter-spacing:1px;text-transform:uppercase;">View Profile →</div>
+          </div>
+          <div class="card" style="padding:18px;cursor:pointer;text-align:center;" onclick="goto('speakerProfile')">
+            <div style="width:72px;height:72px;border-radius:50%;background:var(--dark3);border:2px solid var(--border);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:24px;color:rgba(232,33,46,0.3);">AE</div>
+            <div style="font-family:'Barlow Condensed';font-size:17px;font-weight:700;margin-bottom:3px;">Amanda Erwin</div>
+            <div style="font-size:11px;color:var(--grey-light);">Real Estate Authority</div>
+            <div style="margin-top:10px;font-size:11px;color:var(--red);font-weight:600;letter-spacing:1px;text-transform:uppercase;">View Profile →</div>
+          </div>
+          <div class="card" style="padding:18px;cursor:pointer;text-align:center;" onclick="goto('speakerProfile')">
+            <div style="width:72px;height:72px;border-radius:50%;background:var(--dark3);border:2px solid var(--border);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:24px;color:rgba(232,33,46,0.3);">SD</div>
+            <div style="font-family:'Barlow Condensed';font-size:17px;font-weight:700;margin-bottom:3px;">Sam DeMaio</div>
+            <div style="font-size:11px;color:var(--grey-light);">Strategist</div>
+            <div style="margin-top:10px;font-size:11px;color:var(--red);font-weight:600;letter-spacing:1px;text-transform:uppercase;">View Profile →</div>
+          </div>
+          <div class="card" style="padding:18px;cursor:pointer;text-align:center;" onclick="goto('speakerProfile')">
+            <div style="width:72px;height:72px;border-radius:50%;background:var(--dark3);border:2px solid var(--border);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:24px;color:rgba(232,33,46,0.3);">JC</div>
+            <div style="font-family:'Barlow Condensed';font-size:17px;font-weight:700;margin-bottom:3px;">Jenn Conkey</div>
+            <div style="font-size:11px;color:var(--grey-light);">Investor &amp; Builder</div>
+            <div style="margin-top:10px;font-size:11px;color:var(--red);font-weight:600;letter-spacing:1px;text-transform:uppercase;">View Profile →</div>
+          </div>
+          <div class="card" style="padding:18px;cursor:pointer;text-align:center;" onclick="goto('speakerProfile')">
+            <div style="width:72px;height:72px;border-radius:50%;background:var(--dark3);border:2px solid var(--border);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:24px;color:rgba(232,33,46,0.3);">JG</div>
+            <div style="font-family:'Barlow Condensed';font-size:17px;font-weight:700;margin-bottom:3px;">Justin Gaul</div>
+            <div style="font-size:11px;color:var(--grey-light);">Growth Expert</div>
+            <div style="margin-top:10px;font-size:11px;color:var(--red);font-weight:600;letter-spacing:1px;text-transform:uppercase;">View Profile →</div>
+          </div>
+        </div>
+      </div>
+      <!-- SCHEDULE TAB -->
+      <div id="tab-schedule" style="display:none;">
+        <span class="eyebrow">June 4, 2026</span>
+        <div class="section-title">Full <span>Schedule</span></div>
+        <div class="schedule-list">
+          <div class="card schedule-row"><div class="schedule-time">4:00 PM</div><div class="schedule-info"><div class="schedule-title">Welcome &amp; Keynote Kickoff</div><div class="schedule-speaker">Dave Miller — Host</div></div><span class="tag tag-live">Live Now</span></div>
+          <div class="card schedule-row"><div class="schedule-time">4:30 PM</div><div class="schedule-info"><div class="schedule-title">The AI Advantage in Real Estate</div><div class="schedule-speaker">Joseph Bograd</div></div><span class="tag tag-soon">Up Next</span></div>
+          <div class="card schedule-row"><div class="schedule-time">5:10 PM</div><div class="schedule-info"><div class="schedule-title">Building a Personal Brand That Attracts Deals</div><div class="schedule-speaker">Amanda Erwin</div></div><span class="tag tag-past">Scheduled</span></div>
+          <div class="card schedule-row"><div class="schedule-time">5:50 PM</div><div class="schedule-info"><div class="schedule-title">Market Intelligence &amp; Investment Strategy</div><div class="schedule-speaker">Sam DeMaio</div></div><span class="tag tag-past">Scheduled</span></div>
+          <div class="card schedule-row"><div class="schedule-time">6:30 PM</div><div class="schedule-info"><div class="schedule-title">Community-Powered Real Estate Growth</div><div class="schedule-speaker">Jenn Conkey</div></div><span class="tag tag-past">Scheduled</span></div>
+          <div class="card schedule-row" style="border-bottom:none;"><div class="schedule-time">7:10 PM</div><div class="schedule-info"><div class="schedule-title">Scaling to Your First Portfolio</div><div class="schedule-speaker">Justin Gaul</div></div><span class="tag tag-past">Scheduled</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN: WATCH LIVE
+============================================================ -->
+<div class="screen" id="screen-watch">
+  <div class="watch-wrap">
+    <div class="watch-header">
+      <div>
+        <div class="watch-breadcrumb" onclick="goto('myEvent')">← <span>Real Estate Summit</span></div>
+        <div class="watch-title">Live Stream — <span style="color:var(--green);">On Air Now</span></div>
+        <div class="watch-meta">June 4, 2026 · 4:00 PM Los Angeles Time</div>
+      </div>
+      <button class="btn-secondary" style="font-size:14px;padding:9px 22px;" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply to Speak</button>
+    </div>
+    <div class="watch-body">
+      <div>
+        <div class="stream-player">
+          <div class="stream-bg"></div>
+          <div class="stream-live-badge"><span class="live-dot"></span>LIVE</div>
+          <div class="stream-center">
+            <div class="stream-play">▶</div>
+            <div class="stream-label">Click to join the live stream</div>
+          </div>
+          <button class="stream-unmute">🔇 Click to unmute</button>
+        </div>
+        <div class="stream-info">
+          <div class="stream-session-title">The AI Advantage in Real Estate</div>
+          <div class="stream-speaker-name">Joseph Bograd — Real Estate Investor &amp; Entrepreneur</div>
+          <div class="simulcast-bar">
+            <span class="simulcast-label">Also streaming on:</span>
+            <span class="simulcast-item">📘 Facebook</span>
+            <span class="simulcast-item">▶ YouTube</span>
+            <span class="simulcast-item">💼 LinkedIn</span>
+            <span style="font-size:11px;color:var(--grey);margin-left:auto;">via StreamYard</span>
+          </div>
+        </div>
+        <div style="margin-top:20px;">
+          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:10px;font-weight:600;">Today's Speakers</div>
+          <div class="speaker-chips">
+            <div class="chip" onclick="goto('speakerProfile')"><div class="chip-avatar">JB</div><span class="chip-name">Joseph Bograd</span></div>
+            <div class="chip" onclick="goto('speakerProfile')"><div class="chip-avatar">AE</div><span class="chip-name">Amanda Erwin</span></div>
+            <div class="chip" onclick="goto('speakerProfile')"><div class="chip-avatar">SD</div><span class="chip-name">Sam DeMaio</span></div>
+            <div class="chip" onclick="goto('speakerProfile')"><div class="chip-avatar">JC</div><span class="chip-name">Jenn Conkey</span></div>
+            <div class="chip" onclick="goto('speakerProfile')"><div class="chip-avatar">JG</div><span class="chip-name">Justin Gaul</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="schedule-sidebar">
+          <div class="schedule-sidebar-header">Today's Schedule</div>
+          <div class="sched-item now"><div class="sched-time">4:00 PM</div><div><div class="sched-title">Welcome &amp; Keynote</div><div class="sched-speaker">Dave Miller</div></div></div>
+          <div class="sched-item"><div class="sched-time">4:30 PM</div><div><div class="sched-title">AI Advantage in Real Estate</div><div class="sched-speaker">Joseph Bograd</div></div></div>
+          <div class="sched-item"><div class="sched-time">5:10 PM</div><div><div class="sched-title">Building a Personal Brand</div><div class="sched-speaker">Amanda Erwin</div></div></div>
+          <div class="sched-item"><div class="sched-time">5:50 PM</div><div><div class="sched-title">Market Intelligence</div><div class="sched-speaker">Sam DeMaio</div></div></div>
+          <div class="sched-item"><div class="sched-time">6:30 PM</div><div><div class="sched-title">Community-Powered Growth</div><div class="sched-speaker">Jenn Conkey</div></div></div>
+          <div class="sched-item" style="border-bottom:none;"><div class="sched-time">7:10 PM</div><div><div class="sched-title">Scaling Your Portfolio</div><div class="sched-speaker">Justin Gaul</div></div></div>
+        </div>
+        <div style="margin-top:12px;">
+          <button class="btn-primary" style="width:100%;font-size:15px;padding:11px;justify-content:center;" onclick="goto('myEvent')">← Back to My Event</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN: SPEAKER PROFILE
+============================================================ -->
+<div class="screen" id="screen-speakerProfile">
+  <div class="profile-wrap">
+    <div style="max-width:1000px;margin:0 auto;padding:20px 44px 0;">
+      <div class="profile-breadcrumb" onclick="goto('myEvent')">← Real Estate Summit / <span style="color:var(--grey-light);">Speakers</span></div>
+    </div>
+    <div class="profile-hero">
+      <div class="profile-hero-inner">
+        <div class="profile-img"><div class="profile-initials">JB</div></div>
+        <div>
+          <div style="margin-bottom:10px;"><span class="tag tag-live">● Speaking June 4</span></div>
+          <div class="profile-name">JOSEPH<br>BOGRAD</div>
+          <div class="profile-role">Real Estate Investor, Entrepreneur &amp; Speaker</div>
+          <div class="profile-tags">
+            <span class="profile-tag">Real Estate</span>
+            <span class="profile-tag">Investment</span>
+            <span class="profile-tag">AI Strategy</span>
+          </div>
+          <div class="profile-socials">
+            <button class="btn-social">LinkedIn</button>
+            <button class="btn-social">Instagram</button>
+            <button class="btn-social">Website</button>
+            <button class="btn-primary" style="font-size:14px;padding:9px 22px;" onclick="goto('watch')">▶ Watch Session</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-body">
+      <div>
+        <div class="profile-section-label">About Joseph</div>
+        <div class="profile-bio">Joseph Bograd is a seasoned real estate investor and entrepreneur who has built a multi-million dollar portfolio across residential, commercial and short-term rental markets. With over a decade of experience navigating market cycles, Joseph brings a ground-level perspective that combines data-driven strategy with the creative thinking of a true entrepreneur.</div>
+        <div class="profile-bio" style="margin-top:14px;">He is known for his ability to identify undervalued markets before they peak, and for teaching others to do the same — without the fluff that dominates most real estate education. His approach is direct, evidence-based and immediately actionable.</div>
+        <div class="session-card">
+          <div class="session-time">⏰ June 4, 2026 · 4:30 PM Los Angeles Time</div>
+          <div class="session-title">The AI Advantage in Real Estate: How Smart Investors Are Pulling Ahead Right Now</div>
+          <div class="session-desc">Discover how artificial intelligence is reshaping deal flow, market analysis and client acquisition — and the specific tools top investors are using today that most agents haven't heard of yet.</div>
+          <div style="margin-top:16px;"><button class="btn-primary" style="font-size:14px;padding:10px 28px;" onclick="goto('watch')">▶ Watch Live</button></div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="padding:20px;margin-bottom:14px;">
+          <div class="profile-section-label">Other Speakers</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="chip" style="border-radius:8px;padding:8px 12px;" onclick="goto('speakerProfile')"><div class="chip-avatar">AE</div><div><div style="font-size:13px;font-weight:600;">Amanda Erwin</div><div style="font-size:11px;color:var(--grey);">Real Estate Authority</div></div></div>
+            <div class="chip" style="border-radius:8px;padding:8px 12px;" onclick="goto('speakerProfile')"><div class="chip-avatar">SD</div><div><div style="font-size:13px;font-weight:600;">Sam DeMaio</div><div style="font-size:11px;color:var(--grey);">Strategist</div></div></div>
+            <div class="chip" style="border-radius:8px;padding:8px 12px;" onclick="goto('speakerProfile')"><div class="chip-avatar">JC</div><div><div style="font-size:13px;font-weight:600;">Jenn Conkey</div><div style="font-size:11px;color:var(--grey);">Investor &amp; Builder</div></div></div>
+            <div class="chip" style="border-radius:8px;padding:8px 12px;" onclick="goto('speakerProfile')"><div class="chip-avatar">JG</div><div><div style="font-size:13px;font-weight:600;">Justin Gaul</div><div style="font-size:11px;color:var(--grey);">Growth Expert</div></div></div>
+          </div>
+        </div>
+        <div class="card" style="padding:20px;background:var(--red-glow);border-color:var(--border-red);">
+          <div class="profile-section-label">Join This Session</div>
+          <p style="font-size:13px;color:var(--grey-light);margin-bottom:14px;line-height:1.6;">Not yet registered? It's free to attend.</p>
+          <button class="btn-primary" style="width:100%;font-size:15px;justify-content:center;" onclick="goto('watch')">▶ Watch Live</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN: ALL EVENTS
+============================================================ -->
+<div class="screen" id="screen-allEvents">
+  <div class="all-events-wrap">
+    <div class="all-events-hero">
+      <div class="all-events-hero-bg"></div>
+      <div class="all-events-hero-grid"></div>
+      <span class="eyebrow" style="display:block;text-align:center;margin-bottom:14px;">2026 Summit Calendar</span>
+      <div class="all-events-title">THE <span>CALENDAR</span></div>
+      <div class="all-events-sub">Eleven world-class virtual summits across 2026. Apply to speak. Grab a public page link to share with your audience. Access your speaker assets.</div>
+    </div>
+
+    <div class="filter-bar">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" onclick="filterEvents('all',this)">All</button>
+      <button class="filter-btn" onclick="filterEvents('real-estate',this)">Real Estate</button>
+      <button class="filter-btn" onclick="filterEvents('direct-sales',this)">Direct Sales</button>
+      <button class="filter-btn" onclick="filterEvents('storyteller',this)">Storyteller</button>
+      <button class="filter-btn" onclick="filterEvents('podcast',this)">Podcast</button>
+      <button class="filter-btn" onclick="filterEvents('special',this)">Special</button>
+      <button class="filter-btn" onclick="filterEvents('wellness',this)">Peak Vitality</button>
+    </div>
+
+    <style>
+      .evt-tiles { max-width:1100px; margin:0 auto; padding:48px 44px 80px; display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+      .evt-tile { border-radius:12px; overflow:hidden; background:var(--dark2); border:1px solid var(--border); transition:all 0.3s; display:flex; flex-direction:column; position:relative; }
+      .evt-tile:hover { transform:translateY(-6px); border-color:rgba(232,33,46,0.35); box-shadow:0 16px 48px rgba(0,0,0,0.5); }
+      .evt-tile-img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+      .evt-latpn-badge {
+        position:absolute; top:12px; right:12px; z-index:5;
+        width:44px; height:44px; border-radius:50%;
+        background:rgba(0,0,0,0.7); padding:4px;
+        border:1.5px solid rgba(255,255,255,0.25);
+        box-shadow:0 4px 12px rgba(0,0,0,0.4);
+        object-fit:contain;
+      }
+      .evt-tile-body { padding:18px 20px 20px; flex:1; display:flex; flex-direction:column; }
+      .evt-tile-tags { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
+      .evt-tile-name { font-family:'Barlow Condensed'; font-size:22px; font-weight:800; color:var(--white); line-height:1.2; margin-bottom:6px; letter-spacing:0.5px; }
+      .evt-tile-meta { font-size:13px; color:var(--grey-light); margin-bottom:16px; line-height:1.6; }
+      .evt-tile-btns { display:flex; flex-direction:column; gap:8px; margin-top:auto; }
+      .evt-tile-btn-reg { display:block; text-align:center; padding:11px; background:var(--red); color:#fff; border:none; border-radius:6px; font-family:"Barlow Condensed"; font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:background 0.2s; }
+      .evt-tile-btn-reg:hover { background:#c41020; }
+      .evt-tile-btn-notify { display:block; text-align:center; padding:10px; background:transparent; color:var(--grey-light); border:1px solid var(--border); border-radius:6px; font-family:"Barlow Condensed"; font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+      .evt-tile-btn-notify:hover { border-color:rgba(232,33,46,0.3); color:var(--white); }
+      .evt-tile-btn-speak { display:block; text-align:center; padding:10px; background:transparent; color:var(--grey); border:1px solid rgba(255,255,255,0.06); border-radius:6px; font-family:"Barlow Condensed"; font-size:13px; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+      .evt-tile-btn-speak:hover { color:var(--red); border-color:rgba(232,33,46,0.2); }
+      @media(max-width:900px){ .evt-tiles { grid-template-columns:repeat(2,1fr); padding:32px 20px 56px; } }
+      @media(max-width:580px){ .evt-tiles { grid-template-columns:1fr; } }
+    </style>
+
+    <div class="evt-tiles">
+
+      <!-- 1. REAL ESTATE SUMMIT I — JUN 4 -->
+      <div class="evt-tile" data-type="real-estate">
+        <img class="evt-tile-img" src="https://images.clickfunnels.com/cdn-cgi/image/width=1400,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/ePGrQp/image/22462752/file/b2d01c519fc2e7c221ad6ba0224dd43f.png" alt="The Real Estate Summit I">
+        <div class="evt-tile-body">
+          <div class="evt-tile-tags"><span class="tag tag-live">● LIVE · Speakers Confirmed</span><span class="tag" style="background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);">Real Estate</span></div>
+          <div class="evt-tile-name">The Real Estate Summit I</div>
+          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; June 4, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
+          <div class="evt-tile-btns">
+            <button class="evt-tile-btn-reg" onclick="window.location.href='res-speaker-assets.html'">📋 Speaker Asset Pack</button>
+            <button class="evt-tile-btn-speak" onclick="window.open('https://www.hmrealestatesummit.com/sign-up','_blank')">View Public Page →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. SINGAPORE SHOW — JUN 25 -->
+      <div class="evt-tile" data-type="special">
+        <img class="evt-tile-img" src="https://images.clickfunnels.com/cdn-cgi/image/width=4480,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/ePGrQp/image/21610878/file/0af0cb47d64937a70ed41335179cd67e.png" alt="The Singapore Show">
+        <img class="evt-latpn-badge" src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/10523399/file/f9beb7a3d07f321202133d8fe956c5ee.png" alt="Los Angeles Tribune Podcast Network" title="Los Angeles Tribune Podcast Network">
+        <div class="evt-tile-body">
+          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(236,72,153,0.1);color:#f472b6;border:1px solid rgba(236,72,153,0.2);">International</span></div>
+          <div class="evt-tile-name">The Singapore Show</div>
+          <div class="evt-tile-meta">📍 Singapore &nbsp;·&nbsp; June 25, 2026 &nbsp;·&nbsp; 7:00 PM PST</div>
+          <div class="evt-tile-btns">
+            <button class="evt-tile-btn-reg" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button>
+            <button class="evt-tile-btn-speak" onclick="window.open('https://www.latsingaporeshow.com/singapore-show-2026','_blank')">View Public Page →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. LATIN SHOW — JUL 16 -->
+      <div class="evt-tile" data-type="special">
+        <img class="evt-tile-img" src="https://images.clickfunnels.com/cdn-cgi/image/width=4480,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/ePGrQp/image/21611132/file/1b26847472fdc47e9bb6dfb3d2e14c7c.png" alt="The Latin Show">
+        <img class="evt-latpn-badge" src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/10523399/file/f9beb7a3d07f321202133d8fe956c5ee.png" alt="Los Angeles Tribune Podcast Network" title="Los Angeles Tribune Podcast Network">
+        <div class="evt-tile-body">
+          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(236,72,153,0.1);color:#f472b6;border:1px solid rgba(236,72,153,0.2);">International</span></div>
+          <div class="evt-tile-name">The Latin Show</div>
+          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; July 16, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
+          <div class="evt-tile-btns">
+            <button class="evt-tile-btn-reg" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button>
+            <button class="evt-tile-btn-speak" onclick="window.open('https://www.latlatin.com/latin-show-2026','_blank')">View Public Page →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. DSS IV — JUL 23 -->
+      <div class="evt-tile" data-type="direct-sales">
+        <img class="evt-tile-img" src="https://images.clickfunnels.com/cdn-cgi/image/width=4480,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/ePGrQp/image/21611135/file/c4062d3e9c602c7bab6c824760546379.png" alt="Direct Sales Summit IV">
+        <div class="evt-tile-body">
+          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(232,33,46,0.1);color:#f87171;border:1px solid rgba(232,33,46,0.2);">Direct Sales</span></div>
+          <div class="evt-tile-name">Direct Sales Summit IV</div>
+          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; July 23, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
+          <div class="evt-tile-btns">
+            <button class="evt-tile-btn-reg" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button>
+            <button class="evt-tile-btn-speak" onclick="window.open('https://www.heromakerssummit.com/hero-makers-dss-04','_blank')">View Public Page →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. STORYTELLER — AUG 13 -->
+      <div class="evt-tile" data-type="storyteller">
+        <img class="evt-tile-img" src="https://images.clickfunnels.com/cdn-cgi/image/width=1400,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/ePGrQp/image/22462365/file/29bb07711f472462c1622f6d6a1a264f.png" alt="Storyteller Summit">
+        <div class="evt-tile-body">
+          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(201,168,76,0.1);color:var(--gold-light);border:1px solid rgba(201,168,76,0.2);">Storyteller</span></div>
+          <div class="evt-tile-name">Storyteller Summit</div>
+          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; August 13, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
+          <div class="evt-tile-btns">
+            <button class="evt-tile-btn-reg" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button>
+            <button class="evt-tile-btn-speak" onclick="window.open('https://www.heromakerssummit.com/the-storyteller-summit-2026','_blank')">View Public Page →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. PEAK VITALITY I — AUG 27 -->
+      <div class="evt-tile" data-type="wellness">
+        <img class="evt-tile-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22486212/file/6ce05a43e83918b70ae45fbe8c0062a2.png" alt="Peak Vitality Summit I">
+        <div class="evt-tile-body">
+          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(0,200,100,0.1);color:var(--green);border:1px solid rgba(0,200,100,0.2);">Wellness</span></div>
+          <div class="evt-tile-name">Peak Vitality Summit I</div>
+          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; August 27, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
+          <div class="evt-tile-btns">
+            <button class="evt-tile-btn-reg" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button>
+            <button class="evt-tile-btn-speak" onclick="window.open('https://www.heromakerssummit.com/peak-vitality-summit-i','_blank')">View Public Page →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. REAL ESTATE II — SEP 18 -->
+      <div class="evt-tile" data-type="real-estate">
+        <img class="evt-tile-img" src="https://images.clickfunnels.com/cdn-cgi/image/width=1400,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/ePGrQp/image/22462429/file/b65a1bf1fa506ff54a4560465f987795.png" alt="Real Estate Summit II">
+        <div class="evt-tile-body">
+          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);">Real Estate</span></div>
+          <div class="evt-tile-name">Real Estate Summit II</div>
+          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; September 18, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
+          <div class="evt-tile-btns">
+            <button class="evt-tile-btn-reg" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button>
+            <button class="evt-tile-btn-speak" onclick="window.open('https://www.hmrealestatesummit.com/real-estate-summit-ii','_blank')">View Public Page →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. PODCAST POWER SUMMIT 2026 — SEP 30 -->
+      <div class="evt-tile" data-type="podcast">
+        <img class="evt-tile-img" src="https://images.clickfunnels.com/cdn-cgi/image/width=4480,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/ePGrQp/image/21611207/file/0cf9e6a8fdf5f868ebf6154c9eff9381.png" alt="Podcast Power Summit 2026">
+        <img class="evt-latpn-badge" src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/10523399/file/f9beb7a3d07f321202133d8fe956c5ee.png" alt="Los Angeles Tribune Podcast Network" title="Los Angeles Tribune Podcast Network">
+        <div class="evt-tile-body">
+          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(139,92,246,0.1);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">Podcast</span></div>
+          <div class="evt-tile-name">Podcast Power Summit 2026</div>
+          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; September 30, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
+          <div class="evt-tile-btns">
+            <button class="evt-tile-btn-reg" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button>
+            <button class="evt-tile-btn-speak" onclick="window.open('https://www.latpn.com/podcast-power-summit-2026','_blank')">View Public Page →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. DSS V — OCT 23 -->
+      <div class="evt-tile" data-type="direct-sales">
+        <img class="evt-tile-img" src="https://images.clickfunnels.com/cdn-cgi/image/width=1400,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/ePGrQp/image/22462367/file/dfbb56c4976ddca85f887e7b9fdda6d0.png" alt="Direct Sales Summit V">
+        <div class="evt-tile-body">
+          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(232,33,46,0.1);color:#f87171;border:1px solid rgba(232,33,46,0.2);">Direct Sales</span></div>
+          <div class="evt-tile-name">Direct Sales Summit V</div>
+          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; October 23, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
+          <div class="evt-tile-btns">
+            <button class="evt-tile-btn-reg" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button>
+            <button class="evt-tile-btn-speak" onclick="window.open('https://www.heromakerssummit.com/hero-maker-dss-05','_blank')">View Public Page →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. PAY IT FORWARD PUERTO RICO — NOV 12 -->
+      <div class="evt-tile" data-type="special">
+        <img class="evt-tile-img" src="https://images.clickfunnels.com/cdn-cgi/image/width=1400,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/ePGrQp/image/22462366/file/75be5f27a4f3413d8dedde583e1e5b1f.png" alt="Pay It Forward Puerto Rico">
+        <img class="evt-latpn-badge" src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/10523399/file/f9beb7a3d07f321202133d8fe956c5ee.png" alt="Los Angeles Tribune Podcast Network" title="Los Angeles Tribune Podcast Network">
+        <div class="evt-tile-body">
+          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(0,200,100,0.1);color:var(--green);border:1px solid rgba(0,200,100,0.2);">Pay It Forward</span></div>
+          <div class="evt-tile-name">Pay It Forward — Puerto Rico</div>
+          <div class="evt-tile-meta">📍 Puerto Rico &nbsp;·&nbsp; November 12, 2026 &nbsp;·&nbsp; Time TBC</div>
+          <div class="evt-tile-btns">
+            <button class="evt-tile-btn-reg" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button>
+            <button class="evt-tile-btn-speak" onclick="window.open('https://www.payitforwardpuertorico.com/pay-it-forward-puerto-rico-2026','_blank')">View Public Page →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. PEAK VITALITY II — DEC 10 -->
+      <div class="evt-tile" data-type="wellness">
+        <img class="evt-tile-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22486213/file/206c0d95f6a4e7951d9b63133c24d80e.png" alt="Peak Vitality Summit II">
+        <div class="evt-tile-body">
+          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(0,200,100,0.1);color:var(--green);border:1px solid rgba(0,200,100,0.2);">Wellness</span></div>
+          <div class="evt-tile-name">Peak Vitality Summit II</div>
+          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; December 10, 2026 &nbsp;·&nbsp; 5:00 PM Los Angeles Time</div>
+          <div class="evt-tile-btns">
+            <button class="evt-tile-btn-reg" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button>
+            <button class="evt-tile-btn-speak" onclick="window.open('https://www.heromakerssummit.com/peak-vitality-summit-ii','_blank')">View Public Page →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;padding:32px 44px 56px;border-top:1px solid var(--border);">
+      <span class="eyebrow" style="display:block;text-align:center;margin-bottom:12px;">Exclusive · Application Only</span>
+      <div class="section-title" style="font-size:56px;">APPLY TO <span>SPEAK</span></div>
+      <p class="body-text" style="max-width:480px;margin:0 auto 24px;">Speaking at a Hero Makers summit is by application only. Our team selects every speaker personally.</p>
+      <button class="btn-primary" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply for Consideration →</button>
+    </div>
+
+    <div class="footer"><div class="footer-inner"><div class="footer-logos"><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="HM"><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="VTI"><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI"><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272401/file/small-7bc29d04ade2b084581a8725f605b3f9.png" alt="LAT"></div><div class="footer-links"><span class="footer-link" onclick="goto('home')">Home</span><span class="footer-link" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply to Speak</span><span class="footer-link">Privacy</span><span class="footer-link">Terms</span></div></div></div>
+  </div>
+</div>
+
+<div class="screen" id="screen-speakerPortal">
+  <div class="sidebar-layout">
+    <div class="sidebar">
+      <div class="sidebar-event-info">
+        <div class="sidebar-event-tag">🎤 Speaker Access</div>
+        <div class="sidebar-event-name">Real Estate Summit</div>
+        <div class="sidebar-event-date">📅 June 4 · 4:00 PM LA Time</div>
+      </div>
+      <div class="sidebar-section">Speaker Dashboard</div>
+      <div class="nav-item active" id="sp-nav-dash" onclick="setSpeakerTab('dash',this)"><span class="nav-item-icon">⚡</span>Dashboard</div>
+      <div class="nav-item" id="sp-nav-assets" onclick="setSpeakerTab('assets',this)"><span class="nav-item-icon">🖼</span>Promo Assets</div>
+      <div class="nav-item" id="sp-nav-swipe" onclick="setSpeakerTab('swipe',this)"><span class="nav-item-icon">✉️</span>Swipe Copy</div>
+      <div class="nav-item" id="sp-nav-session" onclick="setSpeakerTab('session',this)"><span class="nav-item-icon">📅</span>My Session</div>
+      <div class="nav-item" id="sp-nav-tech" onclick="setSpeakerTab('tech',this)"><span class="nav-item-icon">🔧</span>Tech Checklist</div>
+      <div class="sidebar-section">Portal</div>
+      <div class="nav-item" onclick="goto('dashboard')"><span class="nav-item-icon">🏠</span>My Dashboard</div>
+      <div class="nav-item" onclick="goto('myEvent')"><span class="nav-item-icon">📅</span>My Event</div>
+      <div class="nav-item" onclick="goto('watch')"><span class="nav-item-icon">📡</span>Watch Live</div>
+      <div class="nav-item" onclick="goto('allEvents')"><span class="nav-item-icon">🌐</span>All Events</div>
+    </div>
+    <div class="main">
+      <div id="sp-dash">
+        <span class="eyebrow">Welcome, Speaker</span>
+        <div class="section-title">Your Speaker <span>Dashboard</span></div>
+        <p class="body-text" style="margin-bottom:28px;">Everything you need to prepare, promote and deliver your session at the Real Estate Summit.</p>
+        <div class="step-grid">
+          <div class="card step-card done"><div class="step-num">✓</div><div class="step-label">Application Approved</div><div class="step-status">Complete</div></div>
+          <div class="card step-card done"><div class="step-num">✓</div><div class="step-label">Profile Submitted</div><div class="step-status">Complete</div></div>
+          <div class="card step-card now"><div class="step-num">3</div><div class="step-label">Promote Your Session</div><div class="step-status">Action Required</div></div>
+          <div class="card step-card"><div class="step-num">4</div><div class="step-label">Go Live</div><div class="step-status">June 4 · 4:30 PM</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px;">
+          <div class="card card-red" style="padding:18px;cursor:pointer;" onclick="setSpeakerTab('assets',document.getElementById('sp-nav-assets'))">
+            <div style="font-size:24px;margin-bottom:10px;">🖼</div>
+            <div style="font-family:'Barlow Condensed';font-size:17px;font-weight:700;margin-bottom:4px;">Promo Assets</div>
+            <div style="font-size:12px;color:var(--grey-light);">6 assets ready to download</div>
+          </div>
+          <div class="card card-red" style="padding:18px;cursor:pointer;" onclick="setSpeakerTab('swipe',document.getElementById('sp-nav-swipe'))">
+            <div style="font-size:24px;margin-bottom:10px;">✉️</div>
+            <div style="font-family:'Barlow Condensed';font-size:17px;font-weight:700;margin-bottom:4px;">Swipe Copy</div>
+            <div style="font-size:12px;color:var(--grey-light);">Email + social ready to use</div>
+          </div>
+          <div class="card card-red" style="padding:18px;cursor:pointer;" onclick="setSpeakerTab('tech',document.getElementById('sp-nav-tech'))">
+            <div style="font-size:24px;margin-bottom:10px;">🔧</div>
+            <div style="font-family:'Barlow Condensed';font-size:17px;font-weight:700;margin-bottom:4px;">Tech Checklist</div>
+            <div style="font-size:12px;color:var(--grey-light);">3 of 6 items complete</div>
+          </div>
+        </div>
+      </div>
+      <div id="sp-assets" style="display:none;">
+        <span class="eyebrow">Download &amp; Share</span>
+        <div class="section-title">Promo <span>Assets</span></div>
+        <div class="assets-grid" style="margin-top:20px;">
+          <div class="card asset-card"><div class="asset-thumb" style="background:linear-gradient(135deg,#111,#1e1e1e);">🖼<div class="asset-badge-pill">1080×1080</div></div><div class="asset-body"><div class="asset-name">Speaker Tile — Square</div><div class="asset-desc">Instagram / Facebook</div><div class="asset-dl">⬇ Download PNG</div></div></div>
+          <div class="card asset-card"><div class="asset-thumb" style="background:linear-gradient(135deg,#0a0a0a,#161616);">🖼<div class="asset-badge-pill">1080×1920</div></div><div class="asset-body"><div class="asset-name">Speaker Tile — Story</div><div class="asset-desc">Instagram Story / Reels</div><div class="asset-dl">⬇ Download PNG</div></div></div>
+          <div class="card asset-card"><div class="asset-thumb" style="background:linear-gradient(135deg,#111,#0a0a0a);">🖼<div class="asset-badge-pill">1200×630</div></div><div class="asset-body"><div class="asset-name">Speaker Banner — Wide</div><div class="asset-desc">LinkedIn / Email Header</div><div class="asset-dl">⬇ Download PNG</div></div></div>
+          <div class="card asset-card"><div class="asset-thumb">✉️<div class="asset-badge-pill">EMAIL</div></div><div class="asset-body"><div class="asset-name">Email Swipe Copy</div><div class="asset-desc">3 email versions</div><div class="asset-dl">⬇ Download DOCX</div></div></div>
+          <div class="card asset-card"><div class="asset-thumb">📲<div class="asset-badge-pill">SOCIAL</div></div><div class="asset-body"><div class="asset-name">Social Captions Pack</div><div class="asset-desc">5 ready-to-post captions</div><div class="asset-dl">⬇ Download PDF</div></div></div>
+          <div class="card asset-card"><div class="asset-thumb">🔗<div class="asset-badge-pill">LINK</div></div><div class="asset-body"><div class="asset-name">Your Registration Link</div><div class="asset-desc">Personalised tracking URL</div><div class="asset-dl">📋 Copy Link</div></div></div>
+        </div>
+      </div>
+      <div id="sp-swipe" style="display:none;">
+        <span class="eyebrow">Ready to Use</span>
+        <div class="section-title">Swipe <span>Copy</span></div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:20px;">
+          <div class="card" style="padding:20px;"><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:8px;">Email — Announce to Your List</div><div style="font-size:14px;color:var(--grey-light);line-height:1.8;font-style:italic;">"I'm excited to share that I'll be speaking at the Hero Makers Real Estate Summit on June 4th. It's free to attend and I'd love for you to join me. [YOUR LINK]"</div><button class="btn-ghost" style="margin-top:10px;font-size:12px;padding:6px 14px;">📋 Copy</button></div>
+          <div class="card" style="padding:20px;"><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:8px;">Social — Announcement Post</div><div style="font-size:14px;color:var(--grey-light);line-height:1.8;font-style:italic;">"Big news — I'm speaking at the Hero Makers Real Estate Summit on June 4th alongside some incredible experts. It's free to register. Link below 👇"</div><button class="btn-ghost" style="margin-top:10px;font-size:12px;padding:6px 14px;">📋 Copy</button></div>
+          <div class="card" style="padding:20px;"><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:8px;">Social — Day Before</div><div style="font-size:14px;color:var(--grey-light);line-height:1.8;font-style:italic;">"Tomorrow I'm joining some of the sharpest minds in real estate at the Hero Makers Summit. Are you registered? Grab your free spot now. [YOUR LINK]"</div><button class="btn-ghost" style="margin-top:10px;font-size:12px;padding:6px 14px;">📋 Copy</button></div>
+        </div>
+      </div>
+      <div id="sp-session" style="display:none;">
+        <span class="eyebrow">Your Session</span>
+        <div class="section-title">June 4 · <span>4:30 PM</span></div>
+        <div class="card" style="padding:24px;margin-top:20px;max-width:640px;">
+          <div style="font-size:12px;color:var(--gold-light);font-weight:600;margin-bottom:6px;">⏰ June 4, 2026 · 4:30 PM Los Angeles Time</div>
+          <div style="font-family:'Barlow Condensed';font-size:22px;font-weight:700;margin-bottom:10px;">The AI Advantage in Real Estate</div>
+          <div style="font-size:14px;color:var(--grey-light);line-height:1.7;margin-bottom:18px;">Duration: 40 minutes including Q&amp;A. Delivered via StreamYard. Tech check link sent 48hrs prior.</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn-primary" style="font-size:14px;padding:10px 22px;">Access StreamYard Link</button>
+            <button class="btn-secondary" style="font-size:14px;padding:10px 22px;">Download Session Brief</button>
+          </div>
+        </div>
+      </div>
+      <div id="sp-tech" style="display:none;">
+        <span class="eyebrow">Before You Go Live</span>
+        <div class="section-title">Tech <span>Checklist</span></div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px;max-width:580px;">
+          <div class="card" style="padding:14px 18px;display:flex;gap:12px;align-items:center;"><div style="width:20px;height:20px;border-radius:50%;background:rgba(0,200,100,0.15);border:1px solid rgba(0,200,100,0.4);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--green);min-width:20px;">✓</div><div><div style="font-weight:600;font-size:14px;">StreamYard account created</div><div style="font-size:12px;color:var(--grey);">Broadcast link sent via email</div></div></div>
+          <div class="card" style="padding:14px 18px;display:flex;gap:12px;align-items:center;"><div style="width:20px;height:20px;border-radius:50%;background:rgba(0,200,100,0.15);border:1px solid rgba(0,200,100,0.4);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--green);min-width:20px;">✓</div><div><div style="font-weight:600;font-size:14px;">Quality audio confirmed</div><div style="font-size:12px;color:var(--grey);">AirPods or dedicated mic — no laptop speakers</div></div></div>
+          <div class="card" style="padding:14px 18px;display:flex;gap:12px;align-items:center;"><div style="width:20px;height:20px;border-radius:50%;background:rgba(0,200,100,0.15);border:1px solid rgba(0,200,100,0.4);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--green);min-width:20px;">✓</div><div><div style="font-weight:600;font-size:14px;">Background is clean and professional</div><div style="font-size:12px;color:var(--grey);">Solid wall, bookshelf or virtual background</div></div></div>
+          <div class="card" style="padding:14px 18px;display:flex;gap:12px;align-items:center;border-color:var(--border-red);"><div style="width:20px;height:20px;border-radius:50%;background:var(--red-dim);border:1px solid var(--border-red);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--red);min-width:20px;">○</div><div><div style="font-weight:600;font-size:14px;">Tech check with team</div><div style="font-size:12px;color:var(--red);">Scheduled 48hrs before — link coming</div></div></div>
+          <div class="card" style="padding:14px 18px;display:flex;gap:12px;align-items:center;"><div style="width:20px;height:20px;border-radius:50%;background:var(--dark3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--grey);min-width:20px;">○</div><div><div style="font-weight:600;font-size:14px;">Slides uploaded to StreamYard</div><div style="font-size:12px;color:var(--grey);">PDF or PowerPoint · max 50MB</div></div></div>
+          <div class="card" style="padding:14px 18px;display:flex;gap:12px;align-items:center;"><div style="width:20px;height:20px;border-radius:50%;background:var(--dark3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--grey);min-width:20px;">○</div><div><div style="font-weight:600;font-size:14px;">Minimum 3 promotional posts published</div><div style="font-size:12px;color:var(--grey);">Use your swipe copy pack</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: NOTIFY
+============================================================ -->
+<div class="modal-overlay" id="notifyModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('notifyModal')">✕</button>
+    <div id="notify-form-body">
+      <div style="font-size:32px;margin-bottom:10px;">🔔</div>
+      <div class="modal-title">Get Notified</div>
+      <div class="modal-sub">Be the first to know when registration opens. We'll send you everything you need.</div>
+      <div class="form-group"><label class="form-label">First Name</label><input class="form-input" placeholder="First name"></div>
+      <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="your@email.com"></div>
+      <button class="modal-btn" onclick="showNotifySuccess()">Notify Me →</button>
+      <div class="modal-fine">We respect your privacy. No spam, ever.</div>
+    </div>
+    <div class="success-state" id="notify-success">
+      <div class="success-icon">✅</div>
+      <div class="success-title">YOU'RE ON THE LIST</div>
+      <div class="success-text">We'll notify you as soon as registration opens for this event.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+  // ── Screen navigation ──
+  function goto(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + id).classList.add('active');
+    window.scrollTo(0, 0);
+    closeDropdown();
+  }
+
+  // ── Login / logout simulation ──
+  function login() {
+    document.getElementById('nav-public').style.display = 'none';
+    document.getElementById('nav-loggedin').style.display = 'flex';
+  }
+  function logout() {
+    document.getElementById('nav-loggedin').style.display = 'none';
+    document.getElementById('nav-public').style.display = 'flex';
+    goto('home');
+  }
+
+  // ── User dropdown ──
+  function toggleDropdown() {
+    document.getElementById('userDropdown').classList.toggle('open');
+  }
+  function closeDropdown() {
+    document.getElementById('userDropdown').classList.remove('open');
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-user')) closeDropdown();
+  });
+
+  // ── My Event tabs ──
+  function setEventTab(tab, el) {
+    ['overview','speakers','schedule'].forEach(t => {
+      const e = document.getElementById('tab-' + t);
+      if (e) e.style.display = (t === tab) ? 'block' : 'none';
+    });
+    document.querySelectorAll('#screen-myEvent .nav-item').forEach(n => n.classList.remove('active'));
+    if (el) el.classList.add('active');
+  }
+
+  // ── Speaker Portal tabs ──
+  function setSpeakerTab(tab, el) {
+    ['dash','assets','swipe','session','tech'].forEach(t => {
+      const e = document.getElementById('sp-' + t);
+      if (e) e.style.display = (t === tab) ? 'block' : 'none';
+    });
+    document.querySelectorAll('#screen-speakerPortal .nav-item').forEach(n => n.classList.remove('active'));
+    if (el) el.classList.add('active');
+  }
+
+  // ── Filter ──
+  function filterEvents(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // Support both old event-row and new evt-tile
+    document.querySelectorAll('.event-row, .evt-tile').forEach(row => {
+      row.style.display = (type === 'all' || row.dataset.type === type) ? '' : 'none';
+    });
+  }
+
+  // ── Modals ──
+  function openModal(id) { document.getElementById(id).classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', function(e) { if (e.target === this) closeModal(this.id); });
+  });
+
+  // ── Success states ──
+  function showNotifySuccess() {
+    document.getElementById('notify-form-body').style.display = 'none';
+    document.getElementById('notify-success').style.display = 'block';
+  }
+
+  // Auto-login for demo — comment out for public version
+  // login();
+</script>
+</body>
+</html>
