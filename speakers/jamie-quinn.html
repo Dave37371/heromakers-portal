@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Jamie Quinn · The Real Estate Summit · June 4, 2026</title>
+<meta name="description" content="Jamie Quinn — Realtor · Leader · Market Disruptor. Speaking at The Real Estate Summit, June 4, 2026. Hosted by Hero Makers, Voice to Influence &amp; AI Unlocked Media.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background:#162348; color:#FFFFFF; overflow-x:hidden; }
+body { font-family:'Barlow', sans-serif; line-height:1.5; }
+a { color:inherit; text-decoration:none; }
+img { display:block; max-width:100%; }
+
+:root {
+  --bg:#162348;
+  --bg-deep:#0D1B3E;
+  --bg-card:#1A2D5A;
+  --cyan:#4DD8E0;
+  --cyan-soft:rgba(77,216,224,0.18);
+  --cyan-faint:rgba(77,216,224,0.08);
+  --text-muted:#A8B8CC;
+  --text-faint:#7A8BA8;
+  --white:#FFFFFF;
+  --border:rgba(77,216,224,0.18);
+  --border-soft:rgba(255,255,255,0.07);
+}
+
+/* HEADER */
+.sp-hdr { width:100%; background:#000000; border-bottom:3px solid var(--cyan); padding:16px 40px; display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; box-shadow:0 2px 20px rgba(0,0,0,0.5); position:sticky; top:0; z-index:50; }
+.sp-hdr-logo { font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:22px; letter-spacing:3px; color:#FFFFFF; text-transform:uppercase; white-space:nowrap; }
+.sp-hdr-logo span { color:var(--cyan); }
+.sp-hdr-divider { width:1px; height:32px; background:rgba(77,216,224,0.3); }
+.sp-hdr-presenter { font-family:'Barlow', sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.45); font-style:italic; white-space:nowrap; }
+.sp-hdr-logos { display:flex; align-items:center; gap:16px; }
+.sp-hdr-img { height:48px; width:auto; object-fit:contain; opacity:0.95; filter:brightness(1.2); }
+.sp-hdr-img.wordmark { height:36px; }
+.sp-hdr-sep { color:rgba(77,216,224,0.3); font-size:14px; }
+
+/* BREADCRUMB */
+.sp-breadcrumb { background:var(--bg-deep); padding:14px 40px; border-bottom:1px solid var(--border); }
+.sp-breadcrumb-inner { max-width:1100px; margin:0 auto; font-family:'Barlow', sans-serif; font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--text-faint); }
+.sp-breadcrumb-inner a { color:var(--text-muted); transition:color 0.2s; }
+.sp-breadcrumb-inner a:hover { color:var(--cyan); }
+.sp-breadcrumb-inner span { margin:0 10px; color:rgba(255,255,255,0.25); }
+.sp-breadcrumb-current { color:var(--cyan) !important; }
+
+/* HERO */
+.sp-hero { background:linear-gradient(160deg, #1A2D5A 0%, #162348 65%); padding:64px 40px 56px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+.sp-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(77,216,224,0.08) 0%, transparent 65%); pointer-events:none; }
+.sp-hero-inner { max-width:1100px; margin:0 auto; display:flex; gap:48px; align-items:center; position:relative; z-index:2; }
+.sp-photo-wrap { width:240px; min-width:240px; height:240px; border-radius:50%; overflow:hidden; border:4px solid var(--cyan); box-shadow:0 0 0 8px rgba(77,216,224,0.1), 0 20px 60px rgba(0,0,0,0.5); }
+.sp-photo { width:100%; height:100%; object-fit:cover; }
+.sp-hero-info { flex:1; }
+.sp-event-tag { display:inline-block; background:rgba(77,216,224,0.12); border:1px solid rgba(77,216,224,0.4); color:var(--cyan); font-family:'Barlow', sans-serif; font-weight:600; font-size:11px; letter-spacing:3px; text-transform:uppercase; padding:6px 16px; border-radius:3px; margin-bottom:18px; }
+.sp-event-tag.is-host { background:rgba(232,33,46,0.12); border-color:rgba(232,33,46,0.4); color:#E8212E; }
+.sp-name { font-family:'Playfair Display', serif; font-weight:700; font-size:clamp(36px, 5vw, 60px); color:var(--white); line-height:1.05; margin-bottom:10px; letter-spacing:-0.5px; }
+.sp-title { font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:20px; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
+.sp-company { font-family:'Barlow', sans-serif; font-size:15px; color:var(--text-muted); margin-bottom:6px; }
+.sp-location { font-family:'Barlow', sans-serif; font-size:13px; color:var(--text-faint); margin-bottom:24px; }
+
+.sp-socials { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; }
+.sp-social-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:rgba(13,27,62,0.6); border:1px solid var(--border-soft); border-radius:6px; font-family:'Barlow', sans-serif; font-size:12px; color:var(--text-muted); transition:all 0.2s; }
+.sp-social-btn:hover { background:var(--cyan); color:#0D1B3E; border-color:var(--cyan); transform:translateY(-2px); }
+
+.sp-register-btn { display:inline-block; padding:14px 32px; background:var(--cyan); color:#0D1B3E; font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:15px; letter-spacing:2px; text-transform:uppercase; border-radius:6px; transition:all 0.2s; }
+.sp-register-btn:hover { background:#7ce4eb; transform:translateY(-2px); box-shadow:0 6px 24px rgba(77,216,224,0.4); }
+
+/* BODY */
+.sp-body { max-width:1100px; margin:0 auto; padding:64px 40px 80px; display:grid; grid-template-columns:1fr 360px; gap:48px; }
+.sp-section-label { font-family:'Barlow', sans-serif; font-weight:600; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--cyan); margin-bottom:14px; display:block; }
+.sp-bio { font-family:'Barlow', sans-serif; font-size:16px; color:var(--text-muted); line-height:1.75; margin-bottom:18px; }
+.sp-bio strong { color:var(--white); font-weight:600; }
+.sp-bio em { color:var(--cyan); font-style:italic; }
+.sp-list { list-style:none; margin-bottom:8px; }
+.sp-list li { font-family:'Barlow', sans-serif; font-size:15px; color:var(--text-muted); padding:8px 0 8px 28px; position:relative; }
+.sp-list li::before { content:'▸'; position:absolute; left:0; color:var(--cyan); font-weight:700; }
+.sp-topics { display:flex; gap:8px; flex-wrap:wrap; }
+.sp-topic { display:inline-block; background:rgba(77,216,224,0.08); border:1px solid rgba(77,216,224,0.25); color:var(--cyan); font-family:'Barlow', sans-serif; font-weight:600; font-size:11px; letter-spacing:1px; text-transform:uppercase; padding:6px 14px; border-radius:3px; }
+
+/* SIDEBAR */
+.sp-event-card { background:var(--bg-card); border:1px solid var(--cyan-soft); border-top:3px solid var(--cyan); border-radius:8px; padding:24px; margin-bottom:20px; }
+.sp-event-card-label { font-family:'Barlow', sans-serif; font-weight:700; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--cyan); margin-bottom:10px; display:block; }
+.sp-event-card-title { font-family:'Playfair Display', serif; font-weight:700; font-size:20px; color:var(--white); margin-bottom:8px; line-height:1.3; }
+.sp-event-card-date { font-family:'Barlow', sans-serif; font-size:13px; color:var(--text-muted); margin-bottom:4px; }
+.sp-event-card-time { font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:14px; color:var(--cyan); margin-bottom:6px; letter-spacing:0.5px; }
+.sp-event-card-host { font-family:'Barlow', sans-serif; font-size:12px; color:var(--text-faint); font-style:italic; margin-bottom:16px; }
+
+.sp-stats-card { background:rgba(13,27,62,0.7); border:1px solid var(--border-soft); border-radius:8px; padding:24px; margin-bottom:20px; }
+.sp-stat { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+.sp-stat:last-child { border-bottom:none; }
+.sp-stat-icon { font-size:18px; width:24px; text-align:center; }
+.sp-stat-text { font-family:'Barlow', sans-serif; font-size:13px; color:var(--text-muted); line-height:1.4; }
+.sp-stat-text strong { color:var(--white); font-weight:700; display:block; font-family:'Barlow Condensed', sans-serif; font-size:15px; letter-spacing:0.5px; }
+.sp-stat-text a { color:var(--cyan); text-decoration:none; }
+.sp-stat-text a:hover { text-decoration:underline; }
+
+/* FOOTER */
+.sp-footer { background:#000; padding:36px 24px; text-align:center; border-top:1px solid rgba(255,255,255,0.05); }
+.sp-footer-logos { display:flex; align-items:center; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:18px; }
+.sp-footer-logo { height:24px; width:auto; object-fit:contain; opacity:0.55; filter:brightness(1.15); }
+.sp-footer-logo.wordmark { height:18px; }
+.sp-footer-text { font-family:'Barlow', sans-serif; font-size:11px; color:rgba(255,255,255,0.35); line-height:1.9; }
+.sp-footer-text a { color:rgba(255,255,255,0.35); text-decoration:underline; }
+
+/* BACK NAV */
+.sp-back { text-align:center; padding:0 40px 64px; }
+.sp-back-btn { display:inline-block; padding:12px 28px; background:transparent; color:var(--cyan); border:2px solid var(--cyan); font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:13px; letter-spacing:2px; text-transform:uppercase; border-radius:4px; transition:all 0.2s; }
+.sp-back-btn:hover { background:var(--cyan); color:#0D1B3E; }
+
+/* RESPONSIVE */
+@media (max-width:900px) {
+  .sp-hero-inner { flex-direction:column; gap:32px; text-align:center; }
+  .sp-photo-wrap { width:200px; min-width:200px; height:200px; margin:0 auto; }
+  .sp-socials { justify-content:center; }
+  .sp-body { grid-template-columns:1fr; padding:48px 24px 64px; }
+}
+@media (max-width:640px) {
+  .sp-hdr { padding:14px 16px; gap:12px; }
+  .sp-hdr-logo { font-size:16px; }
+  .sp-hdr-img { height:32px; }
+  .sp-hdr-img.wordmark { height:24px; }
+  .sp-hdr-divider { display:none; }
+  .sp-breadcrumb { padding:12px 20px; }
+  .sp-hero { padding:48px 20px 40px; }
+  .sp-photo-wrap { width:160px; min-width:160px; height:160px; }
+  .sp-name { font-size:36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="sp-hdr">
+  <a class="sp-hdr-logo" href="../index.html">HERO <span>MAKERS</span> SUMMITS</a>
+  <div class="sp-hdr-divider"></div>
+  <span class="sp-hdr-presenter">Presented by</span>
+  <div class="sp-hdr-logos">
+    <img class="sp-hdr-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers">
+    <span class="sp-hdr-sep">/</span>
+    <img class="sp-hdr-img wordmark" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence">
+    <span class="sp-hdr-sep">/</span>
+    <img class="sp-hdr-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked">
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="sp-breadcrumb">
+  <div class="sp-breadcrumb-inner">
+    <a href="../realestate-watch.html">The Real Estate Summit</a>
+    <span>›</span>
+    <a href="../realestate-watch.html#speakers">Speakers</a>
+    <span>›</span>
+    <span class="sp-breadcrumb-current">Jamie Quinn</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="sp-hero">
+  <div class="sp-hero-inner">
+
+    <div class="sp-photo-wrap">
+      <img class="sp-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286378/file/small-ded1661463bc4ed9d6475110964e6d46.png" alt="Jamie Quinn">
+    </div>
+
+    <div class="sp-hero-info">
+      <div class="sp-event-tag ">● Panel · 5:30 – 5:55 PM LA Time</div>
+      <h1 class="sp-name">Jamie Quinn</h1>
+      <div class="sp-title">Realtor · Leader · Market Disruptor</div>
+      <div class="sp-company">Unlocked Team · KW Mike McCann Team</div>
+      <div class="sp-location">📍 Licensed in PA, NJ &amp; FL</div>
+      <div class="sp-socials">
+          <a class="sp-social-btn" href="https://www.instagram.com/jquinnstagram" target="_blank" rel="noopener">📷 Instagram</a>
+          <a class="sp-social-btn" href="https://www.facebook.com/jamie.quinn.775" target="_blank" rel="noopener">📘 Facebook</a>
+        </div>
+      <a class="sp-register-btn" href="https://www.hmrealestatesummit.com/sign-up" target="_blank" rel="noopener">
+        Register to Watch Jamie →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- BODY -->
+<div class="sp-body">
+
+  <!-- LEFT -->
+  <div>
+    <span class="sp-section-label">About Jamie</span>
+      <p class="sp-bio">Jamie Quinn is the powerhouse behind some of the most innovative moves in real estate today. With deep roots between Philly, South Jersey, and Florida, she blends bold marketing, tactical negotiation, and unbeatable local knowledge to help buyers, sellers, and investors win — every single time.</p>
+      <p class="sp-bio">A proud mom and wife to an Air Force veteran, Jamie brings discipline, heart, and hustle into everything she does. From landing bulk corporate relationships to creating viral Instagram campaigns, she's not just selling homes — she's scaling impact.</p>
+      <p class="sp-bio">She leads with strategy, mentors with heart, and turns every listing into a launchpad. If you're looking for someone who knows how to move the market, Jamie's your girl.</p>
+
+    <span class="sp-section-label" style="margin-top:36px;">Key Accomplishments</span>
+    <ul class="sp-list">
+        <li>Licensed Realtor in PA, NJ &amp; FL</li>
+        <li>Team Lead · KW Mike McCann Team</li>
+        <li>Bulk corporate relationships secured</li>
+        <li>Viral Instagram campaign creator</li>
+        <li>Multi-market specialist</li>
+    </ul>
+
+    <span class="sp-section-label" style="margin-top:36px;">Topics &amp; Expertise</span>
+    <div class="sp-topics">
+        <span class="sp-topic">Multi-State Real Estate</span>
+        <span class="sp-topic">Viral Social Marketing</span>
+        <span class="sp-topic">Corporate Relationships</span>
+        <span class="sp-topic">Tactical Negotiation</span>
+        <span class="sp-topic">Building Teams with Heart</span>
+        <span class="sp-topic">Marketing-Led Listings</span>
+        <span class="sp-topic">Discipline as a Differentiator</span>
+    </div>
+
+    <span class="sp-section-label" style="margin-top:36px;">Areas of Expertise</span>
+    <p class="sp-bio" style="margin-bottom:0;">Multi-state licensing (PA · NJ · FL) · Real estate marketing · Negotiation · Team leadership · Bulk corporate relationships · Viral content · Mentorship · Buyer / seller / investor representation</p>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside>
+
+    <div class="sp-event-card">
+      <span class="sp-event-card-label">Speaking At</span>
+      <div class="sp-event-card-title">The Real Estate Summit</div>
+      <div class="sp-event-card-date">📅 Wednesday, June 4, 2026</div>
+      <div class="sp-event-card-time">⏰ Panel · 5:30 – 5:55 PM LA Time</div>
+      <div class="sp-event-card-host">Hosted by Bruno &amp; Stacie</div>
+      <a class="sp-register-btn" style="font-size:13px;padding:12px 20px;display:block;text-align:center;" href="https://www.hmrealestatesummit.com/sign-up" target="_blank" rel="noopener">
+        Register Now →
+      </a>
+    </div>
+
+    <div class="sp-stats-card">
+      <span class="sp-section-label" style="margin-bottom:14px;">By The Numbers</span>
+        <div class="sp-stat"><span class="sp-stat-icon">🏠</span><div class="sp-stat-text"><strong>PA · NJ · FL</strong>Tri-State Licensed</div></div>
+        <div class="sp-stat"><span class="sp-stat-icon">📈</span><div class="sp-stat-text"><strong>Market</strong>Disruptor</div></div>
+        <div class="sp-stat"><span class="sp-stat-icon">📱</span><div class="sp-stat-text"><strong>Viral</strong>Social Campaigns</div></div>
+        <div class="sp-stat"><span class="sp-stat-icon">💪</span><div class="sp-stat-text"><strong>Air Force</strong>Veteran Spouse</div></div>
+    </div>
+    
+      <div class="sp-stats-card">
+        <span class="sp-section-label" style="margin-bottom:12px;">Connect with Jamie</span>
+        <div class="sp-stat"><span class="sp-stat-icon">✉️</span><div class="sp-stat-text"><a href="mailto:Jamie@UnlockedTeam.com" target="_blank">Jamie@UnlockedTeam.com</a></div></div>
+        <div class="sp-stat"><span class="sp-stat-icon">📞</span><div class="sp-stat-text"><a href="tel:+12154787218" target="_blank">215-478-7218</a></div></div>
+        <div class="sp-stat"><span class="sp-stat-icon">📷</span><div class="sp-stat-text"><a href="https://www.instagram.com/jquinnstagram" target="_blank">@jquinnstagram</a></div></div>
+      </div>
+
+  </aside>
+
+</div>
+
+<!-- BACK -->
+<div class="sp-back">
+  <a class="sp-back-btn" href="../realestate-watch.html">← Back to The Real Estate Summit</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="sp-footer">
+  <div class="sp-footer-logos">
+    <img class="sp-footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers">
+    <img class="sp-footer-logo wordmark" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence">
+    <img class="sp-footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked">
+  </div>
+  <p class="sp-footer-text">
+    © 2026 Hero Makers Summits. All rights reserved. &nbsp;·&nbsp;
+    <a href="https://www.voicetoinfluence.com/voice-to-influence-authority-site" target="_blank">Voice to Influence</a> &nbsp;·&nbsp;
+    <a href="#">Privacy</a> &nbsp;·&nbsp;
+    <a href="#">Terms</a>
+  </p>
+</footer>
+
+</body>
+</html>

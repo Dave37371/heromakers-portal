@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The Real Estate Summit · June 4, 2026 · Watch Live</title>
+<meta name="description" content="The Real Estate Summit — live June 4, 2026. Industry experts on AI, luxury, marketing, mortgage, and the future of real estate. Hosted by Jennie Lopez, Bruno & Stacie Marcinkowski.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   RESET & BASE — Real Estate Summit brand
+============================================================ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background:#162348; color:#FFFFFF; overflow-x:hidden; }
+body { font-family:'Barlow', sans-serif; }
+a { color:inherit; text-decoration:none; }
+img { display:block; max-width:100%; }
+
+:root {
+  --bg:#162348;
+  --bg-deep:#0D1B3E;
+  --bg-card:#1A2D5A;
+  --cyan:#4DD8E0;
+  --cyan-soft:rgba(77,216,224,0.18);
+  --cyan-faint:rgba(77,216,224,0.08);
+  --text-muted:#A8B8CC;
+  --text-faint:#7A8BA8;
+  --white:#FFFFFF;
+  --red:#E8212E;
+  --border:rgba(77,216,224,0.18);
+  --border-soft:rgba(255,255,255,0.07);
+}
+
+/* ============================================================
+   HEADER — HM / VTI / AI Unlocked
+============================================================ */
+.wp-hdr {
+  width:100%; background:#000000;
+  border-bottom:3px solid var(--cyan);
+  padding:16px 40px;
+  display:flex; align-items:center; justify-content:center;
+  gap:20px; flex-wrap:wrap;
+  box-shadow:0 2px 20px rgba(0,0,0,0.5);
+  position:sticky; top:0; z-index:50;
+}
+.wp-hdr-logo {
+  font-family:'Barlow Condensed', sans-serif; font-weight:800;
+  font-size:22px; letter-spacing:3px; color:#FFFFFF;
+  text-decoration:none; text-transform:uppercase; white-space:nowrap;
+}
+.wp-hdr-logo span { color:var(--cyan); }
+.wp-hdr-divider { width:1px; height:32px; background:rgba(77,216,224,0.3); }
+.wp-hdr-presenter {
+  font-family:'Barlow', sans-serif; font-size:10px;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,0.45); font-style:italic; white-space:nowrap;
+}
+.wp-hdr-logos { display:flex; align-items:center; gap:16px; }
+.wp-hdr-img { height:48px; width:auto; object-fit:contain; opacity:0.95; filter:brightness(1.2); }
+.wp-hdr-img.wordmark { height:36px; }
+.wp-hdr-sep { color:rgba(77,216,224,0.3); font-size:14px; }
+
+/* ============================================================
+   HERO
+============================================================ */
+.wp-hero {
+  width:100%;
+  background:linear-gradient(160deg, #1A2D5A 0%, #162348 65%);
+  padding:64px 40px 56px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+}
+.wp-hero::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(77,216,224,0.08) 0%, transparent 65%);
+  pointer-events:none;
+}
+.wp-hero-inner { max-width:1100px; margin:0 auto; position:relative; z-index:2; }
+
+.wp-event-tag {
+  display:inline-block;
+  background:rgba(77,216,224,0.12); border:1px solid rgba(77,216,224,0.4);
+  color:var(--cyan); font-family:'Barlow', sans-serif; font-weight:600;
+  font-size:11px; letter-spacing:3px; text-transform:uppercase;
+  padding:6px 16px; border-radius:3px; margin-bottom:18px;
+}
+
+.wp-event-title {
+  font-family:'Playfair Display', serif; font-weight:700;
+  font-size:clamp(40px, 6vw, 76px); color:var(--white);
+  line-height:1.05; margin-bottom:14px; letter-spacing:-0.5px;
+}
+.wp-event-title span { color:var(--cyan); font-style:italic; }
+
+.wp-event-meta {
+  font-family:'Barlow', sans-serif; font-size:16px;
+  color:var(--text-muted); margin-bottom:32px; line-height:1.6;
+}
+.wp-event-meta strong { color:var(--white); font-weight:600; }
+
+/* STATE BLOCKS */
+.wp-state { display:none; }
+.wp-state.active { display:block; }
+
+/* PRE-EVENT Countdown */
+.wp-countdown-card {
+  background:rgba(13,27,62,0.7);
+  border:1px solid var(--cyan-soft);
+  border-radius:14px;
+  padding:36px 32px;
+  margin-top:8px;
+}
+.wp-countdown-label {
+  font-family:'Barlow', sans-serif; font-weight:600;
+  font-size:11px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--cyan); margin-bottom:18px; display:block; text-align:center;
+}
+.wp-countdown {
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:14px;
+  max-width:680px; margin:0 auto 24px;
+}
+.wp-countdown-unit {
+  background:var(--bg-deep);
+  border:1px solid var(--cyan-soft);
+  border-radius:10px;
+  padding:18px 8px;
+  text-align:center;
+}
+.wp-countdown-value {
+  font-family:'Barlow Condensed', sans-serif; font-weight:800;
+  font-size:clamp(36px, 5vw, 56px);
+  color:var(--white); line-height:1;
+}
+.wp-countdown-label-sm {
+  font-family:'Barlow', sans-serif; font-size:11px;
+  color:var(--text-faint); letter-spacing:2px; text-transform:uppercase;
+  margin-top:8px;
+}
+.wp-countdown-cta { text-align:center; margin-top:8px; }
+.wp-countdown-sub {
+  font-family:'Barlow', sans-serif; font-size:14px;
+  color:var(--text-muted); margin-bottom:18px;
+}
+
+/* LIVE StreamYard embed */
+.wp-stream-card {
+  background:var(--bg-deep);
+  border:2px solid var(--cyan);
+  border-radius:14px;
+  overflow:hidden;
+  position:relative;
+}
+.wp-live-badge {
+  position:absolute; top:16px; left:16px; z-index:10;
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--red); color:#fff;
+  padding:6px 14px; border-radius:4px;
+  font-family:'Barlow Condensed', sans-serif; font-weight:800;
+  font-size:12px; letter-spacing:2px; text-transform:uppercase;
+}
+.wp-live-dot { width:8px; height:8px; background:#fff; border-radius:50%; animation:wp-pulse 1.4s infinite; }
+@keyframes wp-pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(1.3); } }
+.wp-stream-embed {
+  width:100%; aspect-ratio:16/9; background:#000;
+  position:relative; display:flex; align-items:center; justify-content:center;
+}
+.wp-stream-placeholder { text-align:center; padding:32px; }
+.wp-stream-placeholder-icon { font-size:48px; margin-bottom:14px; opacity:0.4; }
+.wp-stream-placeholder-text {
+  font-family:'Barlow', sans-serif; font-weight:600;
+  font-size:14px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--text-faint);
+}
+
+/* POST-EVENT Replay */
+.wp-replay-card {
+  background:var(--bg-deep);
+  border:1px solid var(--cyan-soft);
+  border-radius:14px;
+  padding:48px 32px;
+  text-align:center;
+}
+.wp-replay-icon { font-size:56px; margin-bottom:16px; }
+.wp-replay-title {
+  font-family:'Playfair Display', serif; font-weight:700;
+  font-size:32px; color:var(--white); margin-bottom:10px;
+}
+.wp-replay-sub {
+  font-family:'Barlow', sans-serif; font-size:15px;
+  color:var(--text-muted); margin-bottom:24px;
+  max-width:480px; margin-left:auto; margin-right:auto; line-height:1.6;
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.wp-btn-primary {
+  display:inline-block; padding:14px 36px;
+  background:var(--cyan); color:#0D1B3E;
+  font-family:'Barlow Condensed', sans-serif; font-weight:800;
+  font-size:15px; letter-spacing:2px; text-transform:uppercase;
+  border-radius:4px; text-decoration:none; border:none; cursor:pointer;
+  transition:background 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+.wp-btn-primary:hover { background:#7ce4eb; transform:translateY(-2px); box-shadow:0 6px 24px rgba(77,216,224,0.4); }
+
+.wp-btn-secondary {
+  display:inline-block; padding:13px 32px;
+  background:transparent; color:var(--cyan);
+  border:2px solid var(--cyan);
+  font-family:'Barlow Condensed', sans-serif; font-weight:700;
+  font-size:14px; letter-spacing:2px; text-transform:uppercase;
+  border-radius:4px; text-decoration:none; cursor:pointer;
+  transition:background 0.2s, color 0.2s;
+}
+.wp-btn-secondary:hover { background:var(--cyan); color:#0D1B3E; }
+
+.wp-btn-row { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+
+/* ============================================================
+   SECTION HEADINGS
+============================================================ */
+.wp-section-eyebrow {
+  font-family:'Barlow', sans-serif; font-weight:600;
+  font-size:11px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--cyan); margin-bottom:12px; display:block;
+}
+.wp-section-title {
+  font-family:'Playfair Display', serif; font-weight:700;
+  font-size:clamp(32px, 4vw, 52px); color:var(--white);
+  margin-bottom:8px; line-height:1.15;
+}
+.wp-section-title span { color:var(--cyan); font-style:italic; }
+.wp-section-sub {
+  font-family:'Barlow', sans-serif; font-size:15px;
+  color:var(--text-muted); margin-bottom:48px; line-height:1.6;
+}
+
+/* ============================================================
+   SPEAKERS — 5-col grid (matches Real Estate Summit CF2 page)
+============================================================ */
+.wp-speakers-section {
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:80px 40px 64px;
+}
+.wp-section-inner { max-width:1100px; margin:0 auto; }
+
+.wp-speakers-grid {
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:20px;
+}
+
+.wp-card {
+  background:var(--bg-card);
+  border:1px solid var(--border-soft);
+  border-radius:14px;
+  overflow:hidden;
+  transition:all 0.3s;
+  text-align:center;
+}
+.wp-card:hover {
+  border-color:var(--cyan-soft);
+  transform:translateY(-6px);
+  box-shadow:0 16px 48px rgba(0,0,0,0.5);
+}
+.wp-card-photo-wrap { width:100%; aspect-ratio:1/1; overflow:hidden; }
+.wp-card-photo {
+  width:100%; height:100%;
+  object-fit:cover; display:block;
+  transition:transform 0.3s;
+}
+.wp-card:hover .wp-card-photo { transform:scale(1.04); }
+.wp-card-body { padding:18px 14px 20px; }
+.wp-card-name {
+  font-family:'Barlow Condensed', sans-serif; font-weight:700;
+  font-size:20px; color:var(--white);
+  line-height:1.2; margin-bottom:4px;
+}
+.wp-card-role {
+  font-family:'Barlow', sans-serif; font-size:12px;
+  color:var(--text-muted); line-height:1.5;
+}
+.wp-card-badge {
+  display:inline-block;
+  background:rgba(77,216,224,0.12);
+  border:1px solid rgba(77,216,224,0.25);
+  color:var(--cyan);
+  font-family:'Barlow', sans-serif; font-weight:700;
+  font-size:9px; letter-spacing:1.5px; text-transform:uppercase;
+  padding:3px 8px; border-radius:3px; margin-top:6px;
+}
+
+/* HOSTS — 3-col centered grid */
+.wp-hosts-section {
+  background:var(--bg-deep);
+  border-top:1px solid rgba(77,216,224,0.12);
+  border-bottom:1px solid var(--border);
+  padding:64px 40px 80px;
+}
+.wp-hosts-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:20px;
+  max-width:760px;
+  margin:0 auto;
+}
+
+/* ============================================================
+   SCHEDULE
+============================================================ */
+.wp-schedule-section {
+  background:var(--bg);
+  padding:80px 40px 64px;
+  border-top:1px solid var(--border);
+}
+
+.wp-schedule {
+  background:rgba(13,27,62,0.5);
+  border:1px solid var(--border-soft);
+  border-radius:12px;
+  overflow:hidden;
+}
+.wp-schedule-row {
+  display:grid;
+  grid-template-columns:140px 110px 1fr 200px;
+  gap:24px;
+  padding:18px 24px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  align-items:center;
+}
+.wp-schedule-row:last-child { border-bottom:none; }
+.wp-schedule-row.is-break { background:rgba(13,27,62,0.3); }
+.wp-schedule-row.is-feature { background:rgba(77,216,224,0.06); border-left:3px solid var(--cyan); }
+
+.wp-schedule-time {
+  font-family:'Barlow Condensed', sans-serif; font-weight:800;
+  font-size:14px; color:var(--cyan); letter-spacing:1px;
+}
+.wp-schedule-type {
+  font-family:'Barlow', sans-serif; font-weight:700;
+  font-size:10px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--text-faint);
+  padding:4px 10px;
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:3px;
+  text-align:center;
+}
+.wp-schedule-type.is-solo { color:var(--cyan); border-color:var(--cyan-soft); }
+.wp-schedule-type.is-panel { color:#7fb2ff; border-color:rgba(127,178,255,0.3); }
+.wp-schedule-type.is-break { color:var(--text-faint); }
+.wp-schedule-content {
+  font-family:'Barlow', sans-serif; font-size:14px;
+  color:var(--text-muted); line-height:1.5;
+}
+.wp-schedule-content strong { color:var(--white); font-weight:600; }
+.wp-schedule-host {
+  font-family:'Barlow', sans-serif; font-size:12px;
+  color:var(--text-faint); text-align:right;
+}
+.wp-schedule-host strong { color:var(--cyan); font-weight:600; }
+
+/* ============================================================
+   CTA SECTION
+============================================================ */
+.wp-cta-section {
+  background:linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  padding:80px 40px;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.wp-cta-inner { max-width:1100px; margin:0 auto; }
+.wp-cta-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:24px;
+  margin-top:32px;
+}
+.wp-cta-card {
+  background:var(--bg-card);
+  border:1px solid var(--border-soft);
+  border-top:3px solid var(--cyan);
+  border-radius:12px;
+  padding:32px 24px;
+  text-align:center;
+  transition:transform 0.2s, border-color 0.2s, background 0.2s;
+}
+.wp-cta-card:hover {
+  transform:translateY(-4px);
+  border-color:var(--cyan-soft);
+  border-top-color:var(--cyan);
+}
+.wp-cta-icon { font-size:36px; margin-bottom:14px; }
+.wp-cta-card-title {
+  font-family:'Playfair Display', serif; font-weight:700;
+  font-size:22px; color:var(--white); margin-bottom:10px;
+}
+.wp-cta-card-text {
+  font-family:'Barlow', sans-serif; font-size:13px;
+  color:var(--text-muted); line-height:1.6; margin-bottom:20px;
+}
+
+/* CTA section title alignment */
+.wp-cta-section .wp-section-eyebrow,
+.wp-cta-section .wp-section-title,
+.wp-cta-section .wp-section-sub { text-align:center; }
+.wp-cta-section .wp-section-sub { max-width:560px; margin-left:auto; margin-right:auto; }
+
+/* Schedule section title alignment */
+.wp-schedule-section .wp-section-eyebrow,
+.wp-schedule-section .wp-section-title,
+.wp-schedule-section .wp-section-sub { text-align:center; }
+.wp-schedule-section .wp-section-sub { max-width:560px; margin-left:auto; margin-right:auto; }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.wp-footer {
+  background:#000;
+  padding:36px 24px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.05);
+}
+.wp-footer-logos {
+  display:flex; align-items:center; justify-content:center;
+  gap:24px; flex-wrap:wrap; margin-bottom:18px;
+}
+.wp-footer-logo { height:24px; width:auto; object-fit:contain; opacity:0.55; filter:brightness(1.15); }
+.wp-footer-logo.wordmark { height:18px; }
+.wp-footer-text {
+  font-family:'Barlow', sans-serif; font-size:11px;
+  color:rgba(255,255,255,0.35); line-height:1.9;
+}
+.wp-footer-text a { color:rgba(255,255,255,0.35); text-decoration:underline; }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:1000px) {
+  .wp-speakers-grid { grid-template-columns:repeat(3, 1fr); }
+}
+@media (max-width:900px) {
+  .wp-cta-grid { grid-template-columns:1fr; }
+  .wp-schedule-row { grid-template-columns:1fr; gap:8px; padding:16px 18px; }
+  .wp-schedule-host { text-align:left; }
+}
+@media (max-width:640px) {
+  .wp-hdr { padding:14px 16px; gap:12px; }
+  .wp-hdr-logo { font-size:16px; }
+  .wp-hdr-img { height:32px; }
+  .wp-hdr-img.wordmark { height:24px; }
+  .wp-hdr-divider { display:none; }
+  .wp-hero { padding:40px 20px 36px; }
+  .wp-speakers-section { padding:56px 20px 48px; }
+  .wp-hosts-section { padding:48px 20px 56px; }
+  .wp-schedule-section { padding:48px 20px; }
+  .wp-speakers-grid { grid-template-columns:repeat(2, 1fr); gap:12px; }
+  .wp-hosts-grid { grid-template-columns:repeat(2, 1fr); gap:12px; }
+  .wp-countdown { gap:8px; }
+  .wp-countdown-unit { padding:14px 4px; }
+  .wp-countdown-value { font-size:32px; }
+  .wp-cta-section { padding:48px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="wp-hdr">
+  <a class="wp-hdr-logo" href="#">HERO <span>MAKERS</span> SUMMITS</a>
+  <div class="wp-hdr-divider"></div>
+  <span class="wp-hdr-presenter">Presented by</span>
+  <div class="wp-hdr-logos">
+    <img class="wp-hdr-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers">
+    <span class="wp-hdr-sep">/</span>
+    <img class="wp-hdr-img wordmark" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence">
+    <span class="wp-hdr-sep">/</span>
+    <img class="wp-hdr-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked">
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="wp-hero">
+  <div class="wp-hero-inner">
+    <div class="wp-event-tag" id="wp-status-tag">● Upcoming Broadcast · June 4, 2026</div>
+    <h1 class="wp-event-title">The <span>Real Estate</span> Summit I</h1>
+    <p class="wp-event-meta">
+      <strong>📅 Wednesday, June 4, 2026</strong> &nbsp;·&nbsp;
+      <strong>⏰ 4:00 PM – 7:20 PM Los Angeles Time</strong> &nbsp;·&nbsp;
+      🌐 Virtual
+    </p>
+
+    <!-- PRE-EVENT -->
+    <div class="wp-state" id="wp-state-pre">
+      <div class="wp-countdown-card">
+        <span class="wp-countdown-label">⏱ Broadcast Begins In</span>
+        <div class="wp-countdown" id="wp-countdown">
+          <div class="wp-countdown-unit"><div class="wp-countdown-value" id="wp-days">--</div><div class="wp-countdown-label-sm">Days</div></div>
+          <div class="wp-countdown-unit"><div class="wp-countdown-value" id="wp-hours">--</div><div class="wp-countdown-label-sm">Hours</div></div>
+          <div class="wp-countdown-unit"><div class="wp-countdown-value" id="wp-minutes">--</div><div class="wp-countdown-label-sm">Minutes</div></div>
+          <div class="wp-countdown-unit"><div class="wp-countdown-value" id="wp-seconds">--</div><div class="wp-countdown-label-sm">Seconds</div></div>
+        </div>
+        <div class="wp-countdown-cta">
+          <p class="wp-countdown-sub">Haven't registered yet? Reserve your seat to watch live and access the replay.</p>
+          <a class="wp-btn-primary" href="https://www.hmrealestatesummit.com/sign-up" target="_blank" rel="noopener">Register Now →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE -->
+    <div class="wp-state" id="wp-state-live">
+      <div class="wp-stream-card">
+        <div class="wp-live-badge"><span class="wp-live-dot"></span>Live Now</div>
+        <div class="wp-stream-embed">
+          <!-- ============================================================
+               INSERT STREAMYARD EMBED IFRAME HERE
+               Replace this placeholder div with the StreamYard iframe.
+               <iframe src="https://streamyard.com/watch/XXXXX"
+                       width="100%" height="100%"
+                       allow="autoplay; fullscreen"></iframe>
+          ============================================================ -->
+          <div class="wp-stream-placeholder">
+            <div class="wp-stream-placeholder-icon">📡</div>
+            <div class="wp-stream-placeholder-text">StreamYard Embed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST-EVENT -->
+    <div class="wp-state" id="wp-state-post">
+      <div class="wp-replay-card">
+        <div class="wp-replay-icon">🎬</div>
+        <div class="wp-replay-title">The Broadcast Has Ended</div>
+        <div class="wp-replay-sub">Couldn't make it live? Watch the full replay on YouTube. Then browse our upcoming summits below.</div>
+        <div class="wp-btn-row">
+          <!-- INSERT YOUTUBE REPLAY URL BELOW -->
+          <a class="wp-btn-primary" href="#" target="_blank" rel="noopener">▶ Watch the Replay</a>
+          <a class="wp-btn-secondary" href="https://www.voicetoinfluence.com/events" target="_blank" rel="noopener">Browse Upcoming Summits</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SPEAKERS — 5-col grid
+============================================================ -->
+<section class="wp-speakers-section">
+  <div class="wp-section-inner">
+    <div class="wp-section-eyebrow">Featured Speakers</div>
+    <h2 class="wp-section-title">Meet the <span>Experts</span></h2>
+    <p class="wp-section-sub">Ten industry leaders sharing what's actually working in real estate right now — from luxury sales and mortgage strategy to AI-powered marketing and team building.</p>
+
+    <div class="wp-speakers-grid">
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286375/file/small-978b2670dd73390a0788b9ed6321bbdf.png" alt="Joseph Bograd">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Joseph Bograd</div>
+          <div class="wp-card-role">Broker/Owner · Luxury &amp; Mega Agent · PA, NJ, FL</div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286373/file/small-f1b4b847cd97333c28f1b584a13e5f98.png" alt="Amanda Erwin">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Amanda Erwin</div>
+          <div class="wp-card-role">Luxury Real Estate Specialist · John R Wood Christie's International · Naples FL</div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286376/file/small-8a010c2a8e8eef2f943d944c4f338b91.png" alt="Sam DeMaio">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Sam DeMaio</div>
+          <div class="wp-card-role">Owner/Operator · Showcase Remodels · Builder &amp; Investor</div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286377/file/small-ebbcfc1476f153103a3ebb1e136f18c1.png" alt="Jen Conkey">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Jen Conkey</div>
+          <div class="wp-card-role">Mindset Strategist · Co-Founder Warriors of Wealth</div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286386/file/small-21ad6dfb9aac8bafedb6838fe40fc456.png" alt="Justin Gaul">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Justin Gaul</div>
+          <div class="wp-card-role">Operating Principal · Keller Williams · Real Estate Investor</div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286385/file/small-7e6cf5e72426669fe0209d8725494d11.png" alt="Patrick Lopez">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Patrick Lopez</div>
+          <div class="wp-card-role">Mortgage Banker · Host, The Real Estate Show · 45K+ YouTube</div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286383/file/small-19eb4952077bc6be2f8588ac468fefec.png" alt="Amy Stoehr">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Amy Stoehr</div>
+          <div class="wp-card-role">CEO · Star Power NatRealtors Network · Denver CO</div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286380/file/small-e2099c21e339a8d970feadac14dacc8b.png" alt="John Duffin">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">John Duffin</div>
+          <div class="wp-card-role">Voice Coach · Real Estate Specialist · Communications Expert</div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286378/file/small-ded1661463bc4ed9d6475110964e6d46.png" alt="Jamie Quinn">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Jamie Quinn</div>
+          <div class="wp-card-role">Realtor · Leader · Market Disruptor · PA, NJ &amp; FL</div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286374/file/small-efa5d1a8f66a3a7af75e303011219664.png" alt="Skye Michiels">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Skye Michiels</div>
+          <div class="wp-card-role">Founder &amp; CEO · With Heart Coaching · Ex-National Head of Coaching, Compass</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOSTS — 3-col centered grid
+============================================================ -->
+<section class="wp-hosts-section">
+  <div class="wp-section-inner">
+    <div class="wp-section-eyebrow" style="text-align:center;">Your Hosts</div>
+    <h2 class="wp-section-title" style="text-align:center;">Meet the <span>Hosts</span></h2>
+
+    <div class="wp-hosts-grid">
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286381/file/small-f90c5e03e69ca8470e20920f82be06d3.png" alt="Jennie Lopez">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Jennie Lopez</div>
+          <div class="wp-card-role">TEDx Speaker · Bestselling Author · Founder, International Unicorn</div>
+          <div class="wp-card-badge">Host</div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286379/file/small-fcfab806ba6c69dc2a9a991333e9ffe3.png" alt="Bruno Marcinkowski">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Bruno Marcinkowski</div>
+          <div class="wp-card-role">The Dream Team 1 · AI Unlocked · Real Estate Investor</div>
+          <div class="wp-card-badge">Host</div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <div class="wp-card-photo-wrap">
+          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286382/file/small-c5f1d2a5e9bc94e9a1f3d2b0fa74ef2e.png" alt="Stacie Marcinkowski">
+        </div>
+        <div class="wp-card-body">
+          <div class="wp-card-name">Stacie Marcinkowski</div>
+          <div class="wp-card-role">The Dream Team 1 · AI Unlocked · Real Estate &amp; Legal Expert</div>
+          <div class="wp-card-badge">Host</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCHEDULE
+============================================================ -->
+<section class="wp-schedule-section">
+  <div class="wp-section-inner">
+    <div class="wp-section-eyebrow">Run of Show</div>
+    <h2 class="wp-section-title">Schedule &amp; <span>Sessions</span></h2>
+    <p class="wp-section-sub">All times Los Angeles Time. The broadcast runs continuously from 4:00 PM to 7:20 PM with short commercial breaks.</p>
+
+    <div class="wp-schedule">
+
+      <div class="wp-schedule-row">
+        <div class="wp-schedule-time">4:00 – 4:10 PM</div>
+        <div class="wp-schedule-type">Open</div>
+        <div class="wp-schedule-content"><strong>Opening &amp; Welcome</strong> — Setting the stage for the next 3 hours</div>
+        <div class="wp-schedule-host">Hosted by <strong>Jennie, Bruno &amp; Stacie</strong></div>
+      </div>
+
+      <div class="wp-schedule-row is-feature">
+        <div class="wp-schedule-time">4:10 – 4:30 PM</div>
+        <div class="wp-schedule-type is-solo">Solo</div>
+        <div class="wp-schedule-content"><strong>Justin Gaul</strong> — Operating Principal, Keller Williams · Real Estate Investor</div>
+        <div class="wp-schedule-host">Host: <strong>Michael Silvers</strong></div>
+      </div>
+
+      <div class="wp-schedule-row is-feature">
+        <div class="wp-schedule-time">4:30 – 4:50 PM</div>
+        <div class="wp-schedule-type is-solo">Solo</div>
+        <div class="wp-schedule-content"><strong>Joseph Bograd</strong> — Broker/Owner · Luxury &amp; Mega Agent (PA · NJ · FL)</div>
+        <div class="wp-schedule-host">Host: <strong>Michael Silvers</strong></div>
+      </div>
+
+      <div class="wp-schedule-row is-break">
+        <div class="wp-schedule-time">4:50 – 5:00 PM</div>
+        <div class="wp-schedule-type is-break">Break</div>
+        <div class="wp-schedule-content">Commercial break</div>
+        <div class="wp-schedule-host"></div>
+      </div>
+
+      <div class="wp-schedule-row is-feature">
+        <div class="wp-schedule-time">5:00 – 5:25 PM</div>
+        <div class="wp-schedule-type is-panel">Panel</div>
+        <div class="wp-schedule-content"><strong>Skye Michiels · Amanda Erwin · Sam DeMaio</strong></div>
+        <div class="wp-schedule-host">Hosts: <strong>Bruno &amp; Stacie</strong></div>
+      </div>
+
+      <div class="wp-schedule-row is-break">
+        <div class="wp-schedule-time">5:25 – 5:30 PM</div>
+        <div class="wp-schedule-type is-break">Break</div>
+        <div class="wp-schedule-content">Short transition</div>
+        <div class="wp-schedule-host"></div>
+      </div>
+
+      <div class="wp-schedule-row is-feature">
+        <div class="wp-schedule-time">5:30 – 5:55 PM</div>
+        <div class="wp-schedule-type is-panel">Panel</div>
+        <div class="wp-schedule-content"><strong>John Duffin · Amy Stoehr · Jamie Quinn · Patrick Lopez</strong></div>
+        <div class="wp-schedule-host">Hosts: <strong>Bruno &amp; Stacie</strong></div>
+      </div>
+
+      <div class="wp-schedule-row is-break">
+        <div class="wp-schedule-time">5:55 – 6:00 PM</div>
+        <div class="wp-schedule-type is-break">Break</div>
+        <div class="wp-schedule-content">Commercial break</div>
+        <div class="wp-schedule-host"></div>
+      </div>
+
+      <div class="wp-schedule-row is-feature">
+        <div class="wp-schedule-time">6:00 – 6:25 PM</div>
+        <div class="wp-schedule-type is-solo">Solo</div>
+        <div class="wp-schedule-content"><strong>Jen Conkey</strong> — Mindset Strategist · Co-Founder Warriors of Wealth</div>
+        <div class="wp-schedule-host">Host: <strong>Jeff Ross</strong></div>
+      </div>
+
+      <div class="wp-schedule-row is-break">
+        <div class="wp-schedule-time">6:25 – 6:30 PM</div>
+        <div class="wp-schedule-type is-break">Break</div>
+        <div class="wp-schedule-content">Commercial break</div>
+        <div class="wp-schedule-host"></div>
+      </div>
+
+      <div class="wp-schedule-row">
+        <div class="wp-schedule-time">6:30 – 6:50 PM</div>
+        <div class="wp-schedule-type is-solo">Solo</div>
+        <div class="wp-schedule-content"><strong>Speaker To Be Announced</strong></div>
+        <div class="wp-schedule-host">Host: <strong>TBC</strong></div>
+      </div>
+
+      <div class="wp-schedule-row">
+        <div class="wp-schedule-time">6:50 – 7:10 PM</div>
+        <div class="wp-schedule-type is-solo">Solo</div>
+        <div class="wp-schedule-content"><strong>Speaker To Be Announced</strong></div>
+        <div class="wp-schedule-host">Host: <strong>TBC</strong></div>
+      </div>
+
+      <div class="wp-schedule-row">
+        <div class="wp-schedule-time">7:10 – 7:20 PM</div>
+        <div class="wp-schedule-type">Close</div>
+        <div class="wp-schedule-content"><strong>Closing &amp; Send-Off</strong> — Key takeaways and what's next</div>
+        <div class="wp-schedule-host">Hosted by <strong>Jennie, Bruno &amp; Stacie</strong></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="wp-cta-section">
+  <div class="wp-cta-inner">
+    <div class="wp-section-eyebrow">Don't Stop Here</div>
+    <h2 class="wp-section-title">Keep <span>Going</span></h2>
+    <p class="wp-section-sub">Three ways to stay in the conversation, build your authority, and join the next summit.</p>
+
+    <div class="wp-cta-grid">
+
+      <div class="wp-cta-card">
+        <div class="wp-cta-icon">📅</div>
+        <div class="wp-cta-card-title">Browse 2026 Summits</div>
+        <div class="wp-cta-card-text">15+ live summits across 2026. Register for the ones that matter to you.</div>
+        <a class="wp-btn-primary" href="https://www.voicetoinfluence.com/events" target="_blank" rel="noopener" style="font-size:13px;padding:12px 28px;">View Events →</a>
+      </div>
+
+      <div class="wp-cta-card">
+        <div class="wp-cta-icon">🎓</div>
+        <div class="wp-cta-card-title">Join the Community</div>
+        <div class="wp-cta-card-text">Voice to Influence Skool — where speakers, coaches and experts sharpen their craft together.</div>
+        <a class="wp-btn-primary" href="https://www.voicetoinfluence.com/skool" target="_blank" rel="noopener" style="font-size:13px;padding:12px 28px;">Join Skool →</a>
+      </div>
+
+      <div class="wp-cta-card">
+        <div class="wp-cta-icon">🎤</div>
+        <div class="wp-cta-card-title">Apply to Speak</div>
+        <div class="wp-cta-card-text">Got something worth saying? Apply to share your expertise on one of our upcoming stages.</div>
+        <a class="wp-btn-primary" href="https://www.laptoplifestyledads.com/hero-makers-speaker-application" target="_blank" rel="noopener" style="font-size:13px;padding:12px 28px;">Apply Now →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="wp-footer">
+  <div class="wp-footer-logos">
+    <img class="wp-footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers">
+    <img class="wp-footer-logo wordmark" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence">
+    <img class="wp-footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked">
+  </div>
+  <p class="wp-footer-text">
+    © 2026 Hero Makers Summits. All rights reserved. &nbsp;·&nbsp;
+    <a href="https://www.voicetoinfluence.com/voice-to-influence-authority-site" target="_blank">Voice to Influence</a> &nbsp;·&nbsp;
+    <a href="#">Privacy</a> &nbsp;·&nbsp;
+    <a href="#">Terms</a>
+  </p>
+</footer>
+
+<!-- SCRIPT: State machine + Countdown -->
+<script>
+(function(){
+  // June 4, 2026 at 4:00 PM Los Angeles Time
+  // June PDT = UTC-7, so 4 PM LA = 23:00 UTC
+  var EVENT_START_UTC = new Date('2026-06-04T23:00:00Z');
+  var EVENT_END_UTC = new Date('2026-06-05T02:20:00Z');
+
+  var statePre  = document.getElementById('wp-state-pre');
+  var stateLive = document.getElementById('wp-state-live');
+  var statePost = document.getElementById('wp-state-post');
+  var statusTag = document.getElementById('wp-status-tag');
+
+  function updateState() {
+    var now = new Date();
+    if (now < EVENT_START_UTC) {
+      statePre.classList.add('active');
+      stateLive.classList.remove('active');
+      statePost.classList.remove('active');
+      statusTag.textContent = '● Upcoming Broadcast · June 4, 2026';
+      updateCountdown();
+    } else if (now >= EVENT_START_UTC && now < EVENT_END_UTC) {
+      statePre.classList.remove('active');
+      stateLive.classList.add('active');
+      statePost.classList.remove('active');
+      statusTag.textContent = '● LIVE NOW · Broadcasting';
+      statusTag.style.background = 'rgba(232,33,46,0.15)';
+      statusTag.style.borderColor = 'rgba(232,33,46,0.4)';
+      statusTag.style.color = '#E8212E';
+    } else {
+      statePre.classList.remove('active');
+      stateLive.classList.remove('active');
+      statePost.classList.add('active');
+      statusTag.textContent = '● Broadcast Ended · Replay Available';
+    }
+  }
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateCountdown() {
+    var now = new Date();
+    var diff = EVENT_START_UTC - now;
+    if (diff <= 0) { updateState(); return; }
+    var days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+    var hours   = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    var minutes = Math.floor((diff / (1000 * 60)) % 60);
+    var seconds = Math.floor((diff / 1000) % 60);
+    document.getElementById('wp-days').textContent    = pad(days);
+    document.getElementById('wp-hours').textContent   = pad(hours);
+    document.getElementById('wp-minutes').textContent = pad(minutes);
+    document.getElementById('wp-seconds').textContent = pad(seconds);
+  }
+
+  updateState();
+  setInterval(function(){ updateCountdown(); }, 1000);
+  setInterval(updateState, 30000);
+})();
+</script>
+
+</body>
+</html>

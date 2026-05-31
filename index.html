@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hero Maker Speaker Portal</title>
+<title>The Speakers Portal · Voice to Influence</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Barlow+Condensed:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
@@ -71,6 +71,14 @@ body::before {
   filter:brightness(1.15); cursor:pointer; transition:opacity 0.2s;
 }
 .nav-logo-img:hover { opacity:0.8; }
+.nav-logo-hero {
+  height:64px; max-width:240px;
+  filter:brightness(1.25);
+}
+.nav-logo-partner {
+  height:56px; opacity:0.95;
+  filter:brightness(1.2);
+}
 .nav-divider { width:1px; height:36px; background:rgba(255,255,255,0.2); }
 
 .nav-right { display:flex; gap:10px; align-items:center; position:relative; }
@@ -242,11 +250,12 @@ body::before {
 .presenter-strip {
   position:relative; z-index:2; width:100%;
   border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-  background:var(--dark); padding:24px 32px;
-  display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap;
+  background:var(--dark); padding:32px 32px;
+  display:flex; align-items:center; justify-content:center; gap:28px; flex-wrap:wrap;
 }
 .presenter-label { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--white); font-style:italic; opacity:0.7; }
 .presenter-logo { height:32px; width:auto; object-fit:contain; filter:brightness(1.05); opacity:0.85; }
+.presenter-logo-hero { max-width:200px; }
 .presenter-sep { font-size:14px; color:var(--border); }
 
 /* Upcoming events strip */
@@ -391,8 +400,10 @@ body::before {
 ============================================================ */
 .footer { background:var(--dark); border-top:1px solid var(--border); padding:36px 44px; }
 .footer-inner { max-width:1000px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; }
-.footer-logos { display:flex; gap:20px; align-items:center; flex-wrap:wrap; justify-content:center; }
-.footer-logo { height:22px; width:auto; object-fit:contain; opacity:0.5; filter:brightness(1.1); }
+.footer-logos { display:flex; gap:24px; align-items:center; flex-wrap:wrap; justify-content:center; }
+.footer-logo { height:42px; width:auto; object-fit:contain; opacity:0.8; filter:brightness(1.25); }
+.footer-logo-hero { height:54px; max-width:180px; opacity:0.95; filter:brightness(1.3); }
+.footer-logo-sep { font-family:'Barlow'; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.45); font-style:italic; padding:0 4px; }
 .footer-links { display:flex; gap:18px; flex-wrap:wrap; justify-content:center; }
 .footer-link { font-size:11px; color:var(--grey); text-decoration:none; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:color 0.2s; }
 .footer-link:hover { color:var(--red); }
@@ -413,6 +424,8 @@ body::before {
 @media(max-width:600px){
   .nav { padding:0 16px; }
   .nav-logo-img { height:28px; }
+  .nav-logo-hero { height:40px; max-width:160px; }
+  .nav-logo-partner { height:36px; }
   .home-title { font-size:72px; }
   .main, .all-events-hero, .events-list { padding-left:20px; padding-right:20px; }
   .watch-body, .watch-header { padding-left:20px; padding-right:20px; }
@@ -432,12 +445,11 @@ body::before {
 ============================================================ -->
 <nav class="nav">
   <div class="nav-left">
-    <span class="nav-presented-label">Presented by</span>
-    <img class="nav-logo-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers" onclick="goto('home')">
+    <img class="nav-logo-img nav-logo-hero" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence" onclick="goto('home')">
     <div class="nav-divider"></div>
-    <img class="nav-logo-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence" onclick="goto('home')">
-    <div class="nav-divider"></div>
-    <img class="nav-logo-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked" onclick="goto('home')">
+    <span class="nav-presented-label">In partnership with</span>
+    <img class="nav-logo-img nav-logo-partner" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers" onclick="goto('home')">
+    <img class="nav-logo-img nav-logo-partner" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked" onclick="goto('home')">
   </div>
   <div class="nav-right">
     <!-- Public nav (shown when not logged in) -->
@@ -491,24 +503,26 @@ body::before {
     <div class="home-content">
       <div class="home-badge"><span class="home-badge-dot"></span>Now Accepting Speaker Applications · 2026 Season</div>
       <div class="home-title">THE<br><span>SPEAKERS</span><br>PORTAL</div>
-      <div class="home-sub">Where world-class experts apply to speak, prepare for showtime, and amplify their reach.<br><br>Browse our 2026 summit calendar. Apply to speak on one of our expert stages. Access your speaker asset pack.<br><br>Presented by Hero Makers · Voice to Influence · AI Unlocked Media · Los Angeles Tribune Podcast Network.</div>
+      <div class="home-sub">Where world-class experts apply to speak, prepare for showtime, and amplify their reach.<br><br>Browse our 2026 summit calendar. Apply to speak on one of our expert stages. Access your speaker asset pack.<br><br><strong style="color:#fff;opacity:0.85;">Voice to Influence</strong> · In partnership with Hero Makers &amp; AI Unlocked Media.</div>
       <div class="home-ctas">
         <button class="btn-primary" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply to Speak →</button>
         <button class="btn-secondary" onclick="login();goto('dashboard')">📋 Speaker Resources</button>
         <button class="btn-ghost" onclick="goto('allEvents')">Browse 2026 Calendar</button>
       </div>
       <div class="home-stats">
-        <div><div class="stat-num">11</div><div class="stat-label">2026 Summits</div></div>
-        <div><div class="stat-num">4K+</div><div class="stat-label">Audience Reach</div></div>
-        <div><div class="stat-num">4</div><div class="stat-label">Brand Partners</div></div>
+        <div><div class="stat-num">15+</div><div class="stat-label">Global Summits</div></div>
+        <div><div class="stat-num">100K+</div><div class="stat-label">Audience Reach</div></div>
+        <div><div class="stat-num" style="font-size:38px;letter-spacing:1px;">GLOBAL</div><div class="stat-label">Partner Ecosystem</div></div>
       </div>
     </div>
   </div>
 
-  <!-- Presenter strip -->
+  <!-- Partner strip -->
   <div class="presenter-strip">
-    <span class="presenter-label">Proudly Sponsored by</span>
-    <img class="presenter-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272401/file/small-7bc29d04ade2b084581a8725f605b3f9.png" alt="LA Tribune Podcast Network" style="height:48px;opacity:1;filter:brightness(1.3);">
+    <img class="presenter-logo presenter-logo-hero" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence" style="height:64px;opacity:0.95;filter:brightness(1.3);">
+    <span class="presenter-label">In Partnership With</span>
+    <img class="presenter-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers" style="height:56px;opacity:0.95;filter:brightness(1.25);">
+    <img class="presenter-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked Media" style="height:56px;opacity:0.95;filter:brightness(1.25);">
   </div>
 
   <!-- Upcoming events -->
@@ -563,7 +577,7 @@ body::before {
     <div style="position:relative;z-index:2;max-width:540px;margin:0 auto;">
       <span class="eyebrow" style="display:block;text-align:center;margin-bottom:12px;">Exclusive · Application Only</span>
       <div class="section-title" style="font-size:56px;">WANT TO <span>SPEAK?</span></div>
-      <p class="body-text" style="margin-bottom:28px;">Speaking at a Hero Makers summit is by application only. Our curation team selects every speaker personally. Submitting an application does not guarantee selection.</p>
+      <p class="body-text" style="margin-bottom:28px;">Speaking at one of our global summits is by application only. Our curation team selects every speaker personally. Submitting an application does not guarantee selection.</p>
       <button class="btn-primary" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply for Consideration →</button>
     </div>
   </div>
@@ -571,10 +585,10 @@ body::before {
   <div class="footer">
     <div class="footer-inner">
       <div class="footer-logos">
-        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="HM">
-        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="VTI">
-        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI">
-        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272401/file/small-7bc29d04ade2b084581a8725f605b3f9.png" alt="LAT">
+        <img class="footer-logo footer-logo-hero" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence">
+        <span class="footer-logo-sep">In partnership with</span>
+        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers">
+        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked Media">
       </div>
       <div class="footer-links">
         <span class="footer-link" onclick="goto('allEvents')">All Events</span>
@@ -975,11 +989,11 @@ body::before {
     <div style="text-align:center;padding:32px 44px 56px;border-top:1px solid var(--border);">
       <span class="eyebrow" style="display:block;text-align:center;margin-bottom:12px;">Exclusive · Application Only</span>
       <div class="section-title" style="font-size:56px;">APPLY TO <span>SPEAK</span></div>
-      <p class="body-text" style="max-width:480px;margin:0 auto 24px;">Speaking at a Hero Makers summit is by application only. Our team selects every speaker personally.</p>
+      <p class="body-text" style="max-width:480px;margin:0 auto 24px;">Speaking at one of our global summits is by application only. Our team selects every speaker personally.</p>
       <button class="btn-primary" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply for Consideration →</button>
     </div>
 
-    <div class="footer"><div class="footer-inner"><div class="footer-logos"><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="HM"><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="VTI"><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI"><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272401/file/small-7bc29d04ade2b084581a8725f605b3f9.png" alt="LAT"></div><div class="footer-links"><span class="footer-link" onclick="goto('home')">Home</span><span class="footer-link" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply to Speak</span><span class="footer-link">Privacy</span><span class="footer-link">Terms</span></div></div></div>
+    <div class="footer"><div class="footer-inner"><div class="footer-logos"><img class="footer-logo footer-logo-hero" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence"><span class="footer-logo-sep">In partnership with</span><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers"><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked"></div><div class="footer-links"><span class="footer-link" onclick="goto('home')">Home</span><span class="footer-link" onclick="window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">Apply to Speak</span><span class="footer-link">Privacy</span><span class="footer-link">Terms</span></div></div></div>
   </div>
 </div>
 
