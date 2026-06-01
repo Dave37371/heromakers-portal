@@ -11,9 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
 
 <style>
-/* ============================================================
-   RESET & BASE — Real Estate Summit brand
-============================================================ */
+/* RESET & BASE */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { background:#162348; color:#FFFFFF; overflow-x:hidden; }
 body { font-family:'Barlow', sans-serif; }
@@ -35,237 +33,86 @@ img { display:block; max-width:100%; }
   --border-soft:rgba(255,255,255,0.07);
 }
 
-/* ============================================================
-   HEADER — HM / VTI / AI Unlocked
-============================================================ */
-.wp-hdr {
-  width:100%; background:#000000;
-  border-bottom:3px solid var(--cyan);
-  padding:16px 40px;
-  display:flex; align-items:center; justify-content:center;
-  gap:20px; flex-wrap:wrap;
-  box-shadow:0 2px 20px rgba(0,0,0,0.5);
-  position:sticky; top:0; z-index:50;
-}
-.wp-hdr-logo {
-  font-family:'Barlow Condensed', sans-serif; font-weight:800;
-  font-size:22px; letter-spacing:3px; color:#FFFFFF;
-  text-decoration:none; text-transform:uppercase; white-space:nowrap;
-}
+/* HEADER */
+.wp-hdr { width:100%; background:#000000; border-bottom:3px solid var(--cyan); padding:16px 40px; display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; box-shadow:0 2px 20px rgba(0,0,0,0.5); position:sticky; top:0; z-index:50; }
+.wp-hdr-logo { font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:22px; letter-spacing:3px; color:#FFFFFF; text-transform:uppercase; white-space:nowrap; }
 .wp-hdr-logo span { color:var(--cyan); }
 .wp-hdr-divider { width:1px; height:32px; background:rgba(77,216,224,0.3); }
-.wp-hdr-presenter {
-  font-family:'Barlow', sans-serif; font-size:10px;
-  letter-spacing:2px; text-transform:uppercase;
-  color:rgba(255,255,255,0.45); font-style:italic; white-space:nowrap;
-}
+.wp-hdr-presenter { font-family:'Barlow', sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.45); font-style:italic; white-space:nowrap; }
 .wp-hdr-logos { display:flex; align-items:center; gap:16px; }
 .wp-hdr-img { height:48px; width:auto; object-fit:contain; opacity:0.95; filter:brightness(1.2); }
 .wp-hdr-img.wordmark { height:36px; }
 .wp-hdr-sep { color:rgba(77,216,224,0.3); font-size:14px; }
 
-/* ============================================================
-   HERO
-============================================================ */
-.wp-hero {
-  width:100%;
-  background:linear-gradient(160deg, #1A2D5A 0%, #162348 65%);
-  padding:64px 40px 56px;
-  border-bottom:1px solid var(--border);
-  position:relative;
-  overflow:hidden;
-}
-.wp-hero::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(77,216,224,0.08) 0%, transparent 65%);
-  pointer-events:none;
-}
+/* HERO */
+.wp-hero { width:100%; background:linear-gradient(160deg, #1A2D5A 0%, #162348 65%); padding:64px 40px 56px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+.wp-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(77,216,224,0.08) 0%, transparent 65%); pointer-events:none; }
 .wp-hero-inner { max-width:1100px; margin:0 auto; position:relative; z-index:2; }
 
-.wp-event-tag {
-  display:inline-block;
-  background:rgba(77,216,224,0.12); border:1px solid rgba(77,216,224,0.4);
-  color:var(--cyan); font-family:'Barlow', sans-serif; font-weight:600;
-  font-size:11px; letter-spacing:3px; text-transform:uppercase;
-  padding:6px 16px; border-radius:3px; margin-bottom:18px;
-}
-
-.wp-event-title {
-  font-family:'Playfair Display', serif; font-weight:700;
-  font-size:clamp(40px, 6vw, 76px); color:var(--white);
-  line-height:1.05; margin-bottom:14px; letter-spacing:-0.5px;
-}
+.wp-event-tag { display:inline-block; background:rgba(77,216,224,0.12); border:1px solid rgba(77,216,224,0.4); color:var(--cyan); font-family:'Barlow', sans-serif; font-weight:600; font-size:11px; letter-spacing:3px; text-transform:uppercase; padding:6px 16px; border-radius:3px; margin-bottom:18px; }
+.wp-event-title { font-family:'Playfair Display', serif; font-weight:700; font-size:clamp(40px, 6vw, 76px); color:var(--white); line-height:1.05; margin-bottom:14px; letter-spacing:-0.5px; }
 .wp-event-title span { color:var(--cyan); font-style:italic; }
-
-.wp-event-meta {
-  font-family:'Barlow', sans-serif; font-size:16px;
-  color:var(--text-muted); margin-bottom:32px; line-height:1.6;
-}
+.wp-event-meta { font-family:'Barlow', sans-serif; font-size:16px; color:var(--text-muted); margin-bottom:32px; line-height:1.6; }
 .wp-event-meta strong { color:var(--white); font-weight:600; }
 
 /* STATE BLOCKS */
 .wp-state { display:none; }
 .wp-state.active { display:block; }
 
-/* PRE-EVENT Countdown */
-.wp-countdown-card {
-  background:rgba(13,27,62,0.7);
-  border:1px solid var(--cyan-soft);
-  border-radius:14px;
-  padding:36px 32px;
-  margin-top:8px;
-}
-.wp-countdown-label {
-  font-family:'Barlow', sans-serif; font-weight:600;
-  font-size:11px; letter-spacing:3px; text-transform:uppercase;
-  color:var(--cyan); margin-bottom:18px; display:block; text-align:center;
-}
-.wp-countdown {
-  display:grid; grid-template-columns:repeat(4, 1fr); gap:14px;
-  max-width:680px; margin:0 auto 24px;
-}
-.wp-countdown-unit {
-  background:var(--bg-deep);
-  border:1px solid var(--cyan-soft);
-  border-radius:10px;
-  padding:18px 8px;
-  text-align:center;
-}
-.wp-countdown-value {
-  font-family:'Barlow Condensed', sans-serif; font-weight:800;
-  font-size:clamp(36px, 5vw, 56px);
-  color:var(--white); line-height:1;
-}
-.wp-countdown-label-sm {
-  font-family:'Barlow', sans-serif; font-size:11px;
-  color:var(--text-faint); letter-spacing:2px; text-transform:uppercase;
-  margin-top:8px;
-}
+.wp-countdown-card { background:rgba(13,27,62,0.7); border:1px solid var(--cyan-soft); border-radius:14px; padding:36px 32px; margin-top:8px; }
+.wp-countdown-label { font-family:'Barlow', sans-serif; font-weight:600; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--cyan); margin-bottom:18px; display:block; text-align:center; }
+.wp-countdown { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; max-width:680px; margin:0 auto 24px; }
+.wp-countdown-unit { background:var(--bg-deep); border:1px solid var(--cyan-soft); border-radius:10px; padding:18px 8px; text-align:center; }
+.wp-countdown-value { font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:clamp(36px, 5vw, 56px); color:var(--white); line-height:1; }
+.wp-countdown-label-sm { font-family:'Barlow', sans-serif; font-size:11px; color:var(--text-faint); letter-spacing:2px; text-transform:uppercase; margin-top:8px; }
 .wp-countdown-cta { text-align:center; margin-top:8px; }
-.wp-countdown-sub {
-  font-family:'Barlow', sans-serif; font-size:14px;
-  color:var(--text-muted); margin-bottom:18px;
-}
+.wp-countdown-sub { font-family:'Barlow', sans-serif; font-size:14px; color:var(--text-muted); margin-bottom:18px; }
 
-/* LIVE StreamYard embed */
-.wp-stream-card {
-  background:var(--bg-deep);
-  border:2px solid var(--cyan);
-  border-radius:14px;
-  overflow:hidden;
-  position:relative;
-}
-.wp-live-badge {
-  position:absolute; top:16px; left:16px; z-index:10;
-  display:inline-flex; align-items:center; gap:8px;
-  background:var(--red); color:#fff;
-  padding:6px 14px; border-radius:4px;
-  font-family:'Barlow Condensed', sans-serif; font-weight:800;
-  font-size:12px; letter-spacing:2px; text-transform:uppercase;
-}
+.wp-stream-card { background:var(--bg-deep); border:2px solid var(--cyan); border-radius:14px; overflow:hidden; position:relative; }
+.wp-live-badge { position:absolute; top:16px; left:16px; z-index:10; display:inline-flex; align-items:center; gap:8px; background:var(--red); color:#fff; padding:6px 14px; border-radius:4px; font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:12px; letter-spacing:2px; text-transform:uppercase; }
 .wp-live-dot { width:8px; height:8px; background:#fff; border-radius:50%; animation:wp-pulse 1.4s infinite; }
 @keyframes wp-pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(1.3); } }
-.wp-stream-embed {
-  width:100%; aspect-ratio:16/9; background:#000;
-  position:relative; display:flex; align-items:center; justify-content:center;
-}
+.wp-stream-embed { width:100%; aspect-ratio:16/9; background:#000; position:relative; display:flex; align-items:center; justify-content:center; }
 .wp-stream-placeholder { text-align:center; padding:32px; }
 .wp-stream-placeholder-icon { font-size:48px; margin-bottom:14px; opacity:0.4; }
-.wp-stream-placeholder-text {
-  font-family:'Barlow', sans-serif; font-weight:600;
-  font-size:14px; letter-spacing:2px; text-transform:uppercase;
-  color:var(--text-faint);
-}
+.wp-stream-placeholder-text { font-family:'Barlow', sans-serif; font-weight:600; font-size:14px; letter-spacing:2px; text-transform:uppercase; color:var(--text-faint); }
 
-/* POST-EVENT Replay */
-.wp-replay-card {
-  background:var(--bg-deep);
-  border:1px solid var(--cyan-soft);
-  border-radius:14px;
-  padding:48px 32px;
-  text-align:center;
-}
+.wp-replay-card { background:var(--bg-deep); border:1px solid var(--cyan-soft); border-radius:14px; padding:48px 32px; text-align:center; }
 .wp-replay-icon { font-size:56px; margin-bottom:16px; }
-.wp-replay-title {
-  font-family:'Playfair Display', serif; font-weight:700;
-  font-size:32px; color:var(--white); margin-bottom:10px;
-}
-.wp-replay-sub {
-  font-family:'Barlow', sans-serif; font-size:15px;
-  color:var(--text-muted); margin-bottom:24px;
-  max-width:480px; margin-left:auto; margin-right:auto; line-height:1.6;
-}
+.wp-replay-title { font-family:'Playfair Display', serif; font-weight:700; font-size:32px; color:var(--white); margin-bottom:10px; }
+.wp-replay-sub { font-family:'Barlow', sans-serif; font-size:15px; color:var(--text-muted); margin-bottom:24px; max-width:480px; margin-left:auto; margin-right:auto; line-height:1.6; }
 
-/* ============================================================
-   BUTTONS
-============================================================ */
-.wp-btn-primary {
-  display:inline-block; padding:14px 36px;
-  background:var(--cyan); color:#0D1B3E;
-  font-family:'Barlow Condensed', sans-serif; font-weight:800;
-  font-size:15px; letter-spacing:2px; text-transform:uppercase;
-  border-radius:4px; text-decoration:none; border:none; cursor:pointer;
-  transition:background 0.2s, transform 0.1s, box-shadow 0.2s;
-}
+/* BUTTONS */
+.wp-btn-primary { display:inline-block; padding:14px 36px; background:var(--cyan); color:#0D1B3E; font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:15px; letter-spacing:2px; text-transform:uppercase; border-radius:4px; text-decoration:none; border:none; cursor:pointer; transition:background 0.2s, transform 0.1s, box-shadow 0.2s; }
 .wp-btn-primary:hover { background:#7ce4eb; transform:translateY(-2px); box-shadow:0 6px 24px rgba(77,216,224,0.4); }
-
-.wp-btn-secondary {
-  display:inline-block; padding:13px 32px;
-  background:transparent; color:var(--cyan);
-  border:2px solid var(--cyan);
-  font-family:'Barlow Condensed', sans-serif; font-weight:700;
-  font-size:14px; letter-spacing:2px; text-transform:uppercase;
-  border-radius:4px; text-decoration:none; cursor:pointer;
-  transition:background 0.2s, color 0.2s;
-}
+.wp-btn-secondary { display:inline-block; padding:13px 32px; background:transparent; color:var(--cyan); border:2px solid var(--cyan); font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:14px; letter-spacing:2px; text-transform:uppercase; border-radius:4px; text-decoration:none; cursor:pointer; transition:background 0.2s, color 0.2s; }
 .wp-btn-secondary:hover { background:var(--cyan); color:#0D1B3E; }
-
 .wp-btn-row { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
 
-/* ============================================================
-   SECTION HEADINGS
-============================================================ */
-.wp-section-eyebrow {
-  font-family:'Barlow', sans-serif; font-weight:600;
-  font-size:11px; letter-spacing:4px; text-transform:uppercase;
-  color:var(--cyan); margin-bottom:12px; display:block;
-}
-.wp-section-title {
-  font-family:'Playfair Display', serif; font-weight:700;
-  font-size:clamp(32px, 4vw, 52px); color:var(--white);
-  margin-bottom:8px; line-height:1.15;
-}
+/* SECTION HEADINGS */
+.wp-section-eyebrow { font-family:'Barlow', sans-serif; font-weight:600; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--cyan); margin-bottom:12px; display:block; }
+.wp-section-title { font-family:'Playfair Display', serif; font-weight:700; font-size:clamp(32px, 4vw, 52px); color:var(--white); margin-bottom:8px; line-height:1.15; }
 .wp-section-title span { color:var(--cyan); font-style:italic; }
-.wp-section-sub {
-  font-family:'Barlow', sans-serif; font-size:15px;
-  color:var(--text-muted); margin-bottom:48px; line-height:1.6;
-}
+.wp-section-sub { font-family:'Barlow', sans-serif; font-size:15px; color:var(--text-muted); margin-bottom:48px; line-height:1.6; }
 
 /* ============================================================
-   SPEAKERS — 5-col grid (matches Real Estate Summit CF2 page)
+   SPEAKERS — Clickable cards (anchor tags act as cards)
 ============================================================ */
-.wp-speakers-section {
-  background:var(--bg);
-  border-top:1px solid var(--border);
-  padding:80px 40px 64px;
-}
+.wp-speakers-section { background:var(--bg); border-top:1px solid var(--border); padding:80px 40px 64px; }
 .wp-section-inner { max-width:1100px; margin:0 auto; }
 
-.wp-speakers-grid {
-  display:grid;
-  grid-template-columns:repeat(5, 1fr);
-  gap:20px;
-}
+.wp-speakers-grid { display:grid; grid-template-columns:repeat(5, 1fr); gap:20px; }
 
 .wp-card {
+  display:block;
   background:var(--bg-card);
   border:1px solid var(--border-soft);
   border-radius:14px;
   overflow:hidden;
   transition:all 0.3s;
   text-align:center;
-  display:block;
   color:inherit;
+  text-decoration:none;
   position:relative;
   cursor:pointer;
 }
@@ -274,17 +121,19 @@ img { display:block; max-width:100%; }
   transform:translateY(-6px);
   box-shadow:0 16px 48px rgba(0,0,0,0.5);
 }
+.wp-card-photo-wrap { width:100%; aspect-ratio:1/1; overflow:hidden; position:relative; }
+.wp-card-photo { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.3s; }
+.wp-card:hover .wp-card-photo { transform:scale(1.04); }
+
 .wp-card-cta {
   position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  padding:10px 14px;
+  bottom:0; left:0; right:0;
+  padding:12px 14px;
   background:linear-gradient(180deg, transparent 0%, rgba(77,216,224,0.95) 100%);
   color:#0D1B3E;
   font-family:'Barlow Condensed', sans-serif;
   font-weight:800;
-  font-size:11px;
+  font-size:12px;
   letter-spacing:1.5px;
   text-transform:uppercase;
   opacity:0;
@@ -292,189 +141,58 @@ img { display:block; max-width:100%; }
   pointer-events:none;
 }
 .wp-card:hover .wp-card-cta { opacity:1; }
-.wp-card-photo-wrap-link {
-  position:relative;
-}
-.wp-card-photo-wrap { width:100%; aspect-ratio:1/1; overflow:hidden; }
-.wp-card-photo {
-  width:100%; height:100%;
-  object-fit:cover; display:block;
-  transition:transform 0.3s;
-}
-.wp-card:hover .wp-card-photo { transform:scale(1.04); }
+
 .wp-card-body { padding:18px 14px 20px; }
-.wp-card-name {
-  font-family:'Barlow Condensed', sans-serif; font-weight:700;
-  font-size:20px; color:var(--white);
-  line-height:1.2; margin-bottom:4px;
-}
-.wp-card-role {
-  font-family:'Barlow', sans-serif; font-size:12px;
-  color:var(--text-muted); line-height:1.5;
-}
-.wp-card-badge {
-  display:inline-block;
-  background:rgba(77,216,224,0.12);
-  border:1px solid rgba(77,216,224,0.25);
-  color:var(--cyan);
-  font-family:'Barlow', sans-serif; font-weight:700;
-  font-size:9px; letter-spacing:1.5px; text-transform:uppercase;
-  padding:3px 8px; border-radius:3px; margin-top:6px;
-}
+.wp-card-name { font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:20px; color:var(--white); line-height:1.2; margin-bottom:4px; }
+.wp-card-role { font-family:'Barlow', sans-serif; font-size:12px; color:var(--text-muted); line-height:1.5; }
+.wp-card-badge { display:inline-block; background:rgba(77,216,224,0.12); border:1px solid rgba(77,216,224,0.25); color:var(--cyan); font-family:'Barlow', sans-serif; font-weight:700; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; padding:3px 8px; border-radius:3px; margin-top:6px; }
 
 /* HOSTS — 3-col centered grid */
-.wp-hosts-section {
-  background:var(--bg-deep);
-  border-top:1px solid rgba(77,216,224,0.12);
-  border-bottom:1px solid var(--border);
-  padding:64px 40px 80px;
-}
-.wp-hosts-grid {
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:20px;
-  max-width:760px;
-  margin:0 auto;
-}
+.wp-hosts-section { background:var(--bg-deep); border-top:1px solid rgba(77,216,224,0.12); border-bottom:1px solid var(--border); padding:64px 40px 80px; }
+.wp-hosts-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; max-width:760px; margin:0 auto; }
 
-/* ============================================================
-   SCHEDULE
-============================================================ */
-.wp-schedule-section {
-  background:var(--bg);
-  padding:80px 40px 64px;
-  border-top:1px solid var(--border);
-}
-
-.wp-schedule {
-  background:rgba(13,27,62,0.5);
-  border:1px solid var(--border-soft);
-  border-radius:12px;
-  overflow:hidden;
-}
-.wp-schedule-row {
-  display:grid;
-  grid-template-columns:140px 110px 1fr 200px;
-  gap:24px;
-  padding:18px 24px;
-  border-bottom:1px solid rgba(255,255,255,0.05);
-  align-items:center;
-}
+/* SCHEDULE */
+.wp-schedule-section { background:var(--bg); padding:80px 40px 64px; border-top:1px solid var(--border); }
+.wp-schedule { background:rgba(13,27,62,0.5); border:1px solid var(--border-soft); border-radius:12px; overflow:hidden; }
+.wp-schedule-row { display:grid; grid-template-columns:140px 110px 1fr 200px; gap:24px; padding:18px 24px; border-bottom:1px solid rgba(255,255,255,0.05); align-items:center; }
 .wp-schedule-row:last-child { border-bottom:none; }
 .wp-schedule-row.is-break { background:rgba(13,27,62,0.3); }
 .wp-schedule-row.is-feature { background:rgba(77,216,224,0.06); border-left:3px solid var(--cyan); }
-
-.wp-schedule-time {
-  font-family:'Barlow Condensed', sans-serif; font-weight:800;
-  font-size:14px; color:var(--cyan); letter-spacing:1px;
-}
-.wp-schedule-type {
-  font-family:'Barlow', sans-serif; font-weight:700;
-  font-size:10px; letter-spacing:2px; text-transform:uppercase;
-  color:var(--text-faint);
-  padding:4px 10px;
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:3px;
-  text-align:center;
-}
+.wp-schedule-time { font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:14px; color:var(--cyan); letter-spacing:1px; }
+.wp-schedule-type { font-family:'Barlow', sans-serif; font-weight:700; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--text-faint); padding:4px 10px; border:1px solid rgba(255,255,255,0.08); border-radius:3px; text-align:center; }
 .wp-schedule-type.is-solo { color:var(--cyan); border-color:var(--cyan-soft); }
 .wp-schedule-type.is-panel { color:#7fb2ff; border-color:rgba(127,178,255,0.3); }
 .wp-schedule-type.is-break { color:var(--text-faint); }
-.wp-schedule-content {
-  font-family:'Barlow', sans-serif; font-size:14px;
-  color:var(--text-muted); line-height:1.5;
-}
+.wp-schedule-content { font-family:'Barlow', sans-serif; font-size:14px; color:var(--text-muted); line-height:1.5; }
 .wp-schedule-content strong { color:var(--white); font-weight:600; }
-.wp-schedule-host {
-  font-family:'Barlow', sans-serif; font-size:12px;
-  color:var(--text-faint); text-align:right;
-}
+.wp-schedule-host { font-family:'Barlow', sans-serif; font-size:12px; color:var(--text-faint); text-align:right; }
 .wp-schedule-host strong { color:var(--cyan); font-weight:600; }
 
-/* ============================================================
-   CTA SECTION
-============================================================ */
-.wp-cta-section {
-  background:linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
-  padding:80px 40px;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-}
+/* CTA */
+.wp-cta-section { background:linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%); padding:80px 40px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
 .wp-cta-inner { max-width:1100px; margin:0 auto; }
-.wp-cta-grid {
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:24px;
-  margin-top:32px;
-}
-.wp-cta-card {
-  background:var(--bg-card);
-  border:1px solid var(--border-soft);
-  border-top:3px solid var(--cyan);
-  border-radius:12px;
-  padding:32px 24px;
-  text-align:center;
-  transition:transform 0.2s, border-color 0.2s, background 0.2s;
-}
-.wp-cta-card:hover {
-  transform:translateY(-4px);
-  border-color:var(--cyan-soft);
-  border-top-color:var(--cyan);
-}
+.wp-cta-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; margin-top:32px; }
+.wp-cta-card { background:var(--bg-card); border:1px solid var(--border-soft); border-top:3px solid var(--cyan); border-radius:12px; padding:32px 24px; text-align:center; transition:transform 0.2s, border-color 0.2s, background 0.2s; }
+.wp-cta-card:hover { transform:translateY(-4px); border-color:var(--cyan-soft); border-top-color:var(--cyan); }
 .wp-cta-icon { font-size:36px; margin-bottom:14px; }
-.wp-cta-card-title {
-  font-family:'Playfair Display', serif; font-weight:700;
-  font-size:22px; color:var(--white); margin-bottom:10px;
-}
-.wp-cta-card-text {
-  font-family:'Barlow', sans-serif; font-size:13px;
-  color:var(--text-muted); line-height:1.6; margin-bottom:20px;
-}
-
-/* CTA section title alignment */
-.wp-cta-section .wp-section-eyebrow,
-.wp-cta-section .wp-section-title,
-.wp-cta-section .wp-section-sub { text-align:center; }
+.wp-cta-card-title { font-family:'Playfair Display', serif; font-weight:700; font-size:22px; color:var(--white); margin-bottom:10px; }
+.wp-cta-card-text { font-family:'Barlow', sans-serif; font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:20px; }
+.wp-cta-section .wp-section-eyebrow, .wp-cta-section .wp-section-title, .wp-cta-section .wp-section-sub { text-align:center; }
 .wp-cta-section .wp-section-sub { max-width:560px; margin-left:auto; margin-right:auto; }
-
-/* Schedule section title alignment */
-.wp-schedule-section .wp-section-eyebrow,
-.wp-schedule-section .wp-section-title,
-.wp-schedule-section .wp-section-sub { text-align:center; }
+.wp-schedule-section .wp-section-eyebrow, .wp-schedule-section .wp-section-title, .wp-schedule-section .wp-section-sub { text-align:center; }
 .wp-schedule-section .wp-section-sub { max-width:560px; margin-left:auto; margin-right:auto; }
 
-/* ============================================================
-   FOOTER
-============================================================ */
-.wp-footer {
-  background:#000;
-  padding:36px 24px;
-  text-align:center;
-  border-top:1px solid rgba(255,255,255,0.05);
-}
-.wp-footer-logos {
-  display:flex; align-items:center; justify-content:center;
-  gap:24px; flex-wrap:wrap; margin-bottom:18px;
-}
+/* FOOTER */
+.wp-footer { background:#000; padding:36px 24px; text-align:center; border-top:1px solid rgba(255,255,255,0.05); }
+.wp-footer-logos { display:flex; align-items:center; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:18px; }
 .wp-footer-logo { height:24px; width:auto; object-fit:contain; opacity:0.55; filter:brightness(1.15); }
 .wp-footer-logo.wordmark { height:18px; }
-.wp-footer-text {
-  font-family:'Barlow', sans-serif; font-size:11px;
-  color:rgba(255,255,255,0.35); line-height:1.9;
-}
+.wp-footer-text { font-family:'Barlow', sans-serif; font-size:11px; color:rgba(255,255,255,0.35); line-height:1.9; }
 .wp-footer-text a { color:rgba(255,255,255,0.35); text-decoration:underline; }
 
-/* ============================================================
-   RESPONSIVE
-============================================================ */
-@media (max-width:1000px) {
-  .wp-speakers-grid { grid-template-columns:repeat(3, 1fr); }
-}
-@media (max-width:900px) {
-  .wp-cta-grid { grid-template-columns:1fr; }
-  .wp-schedule-row { grid-template-columns:1fr; gap:8px; padding:16px 18px; }
-  .wp-schedule-host { text-align:left; }
-}
+/* RESPONSIVE */
+@media (max-width:1000px) { .wp-speakers-grid { grid-template-columns:repeat(3, 1fr); } }
+@media (max-width:900px) { .wp-cta-grid { grid-template-columns:1fr; } .wp-schedule-row { grid-template-columns:1fr; gap:8px; padding:16px 18px; } .wp-schedule-host { text-align:left; } }
 @media (max-width:640px) {
   .wp-hdr { padding:14px 16px; gap:12px; }
   .wp-hdr-logo { font-size:16px; }
@@ -498,7 +216,7 @@ img { display:block; max-width:100%; }
 
 <!-- HEADER -->
 <header class="wp-hdr">
-  <a class="wp-hdr-logo" href="#">HERO <span>MAKERS</span> SUMMITS</a>
+  <a class="wp-hdr-logo" href="index.html">HERO <span>MAKERS</span> SUMMITS</a>
   <div class="wp-hdr-divider"></div>
   <span class="wp-hdr-presenter">Presented by</span>
   <div class="wp-hdr-logos">
@@ -521,7 +239,6 @@ img { display:block; max-width:100%; }
       🌐 Virtual
     </p>
 
-    <!-- PRE-EVENT -->
     <div class="wp-state" id="wp-state-pre">
       <div class="wp-countdown-card">
         <span class="wp-countdown-label">⏱ Broadcast Begins In</span>
@@ -538,18 +255,11 @@ img { display:block; max-width:100%; }
       </div>
     </div>
 
-    <!-- LIVE -->
     <div class="wp-state" id="wp-state-live">
       <div class="wp-stream-card">
         <div class="wp-live-badge"><span class="wp-live-dot"></span>Live Now</div>
         <div class="wp-stream-embed">
-          <!-- ============================================================
-               INSERT STREAMYARD EMBED IFRAME HERE
-               Replace this placeholder div with the StreamYard iframe.
-               <iframe src="https://streamyard.com/watch/XXXXX"
-                       width="100%" height="100%"
-                       allow="autoplay; fullscreen"></iframe>
-          ============================================================ -->
+          <!-- INSERT STREAMYARD EMBED IFRAME HERE -->
           <div class="wp-stream-placeholder">
             <div class="wp-stream-placeholder-icon">📡</div>
             <div class="wp-stream-placeholder-text">StreamYard Embed</div>
@@ -558,7 +268,6 @@ img { display:block; max-width:100%; }
       </div>
     </div>
 
-    <!-- POST-EVENT -->
     <div class="wp-state" id="wp-state-post">
       <div class="wp-replay-card">
         <div class="wp-replay-icon">🎬</div>
@@ -576,13 +285,13 @@ img { display:block; max-width:100%; }
 </section>
 
 <!-- ============================================================
-     SPEAKERS — 5-col grid
+     SPEAKERS — Clickable cards
 ============================================================ -->
 <section class="wp-speakers-section">
   <div class="wp-section-inner">
     <div class="wp-section-eyebrow">Featured Speakers</div>
     <h2 class="wp-section-title">Meet the <span>Experts</span></h2>
-    <p class="wp-section-sub">Ten industry leaders sharing what's actually working in real estate right now — from luxury sales and mortgage strategy to AI-powered marketing and team building.</p>
+    <p class="wp-section-sub">Ten industry leaders sharing what's actually working in real estate right now — from luxury sales and mortgage strategy to AI-powered marketing and team building. Click any speaker to view their profile.</p>
 
     <div class="wp-speakers-grid">
 
@@ -593,10 +302,9 @@ img { display:block; max-width:100%; }
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Joseph Bograd</div>
-          <div class="wp-card-role">Broker/Owner · Luxury &amp; Mega Agent · PA, NJ, FL
+          <div class="wp-card-role">Broker/Owner · Luxury &amp; Mega Agent · PA, NJ, FL</div>
         </div>
       </a>
-      </div>
 
       <a class="wp-card" href="speakers/amanda-erwin.html">
         <div class="wp-card-photo-wrap">
@@ -605,10 +313,9 @@ img { display:block; max-width:100%; }
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Amanda Erwin</div>
-          <div class="wp-card-role">Luxury Real Estate Specialist · John R Wood Christie's International · Naples FL
+          <div class="wp-card-role">Luxury Real Estate Specialist · John R Wood Christie's International · Naples FL</div>
         </div>
       </a>
-      </div>
 
       <a class="wp-card" href="speakers/sam-demaio.html">
         <div class="wp-card-photo-wrap">
@@ -617,10 +324,9 @@ img { display:block; max-width:100%; }
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Sam DeMaio</div>
-          <div class="wp-card-role">Owner/Operator · Showcase Remodels · Builder &amp; Investor
+          <div class="wp-card-role">Owner/Operator · Showcase Remodels · Builder &amp; Investor</div>
         </div>
       </a>
-      </div>
 
       <a class="wp-card" href="speakers/jen-conkey.html">
         <div class="wp-card-photo-wrap">
@@ -629,10 +335,9 @@ img { display:block; max-width:100%; }
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Jen Conkey</div>
-          <div class="wp-card-role">Mindset Strategist · Co-Founder Warriors of Wealth
+          <div class="wp-card-role">Mindset Strategist · Co-Founder Warriors of Wealth</div>
         </div>
       </a>
-      </div>
 
       <a class="wp-card" href="speakers/justin-gaul.html">
         <div class="wp-card-photo-wrap">
@@ -641,10 +346,9 @@ img { display:block; max-width:100%; }
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Justin Gaul</div>
-          <div class="wp-card-role">Operating Principal · Keller Williams · Real Estate Investor
+          <div class="wp-card-role">Operating Principal · Keller Williams · Real Estate Investor</div>
         </div>
       </a>
-      </div>
 
       <a class="wp-card" href="speakers/patrick-lopez.html">
         <div class="wp-card-photo-wrap">
@@ -653,10 +357,9 @@ img { display:block; max-width:100%; }
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Patrick Lopez</div>
-          <div class="wp-card-role">Mortgage Banker · Host, The Real Estate Show · 45K+ YouTube
+          <div class="wp-card-role">Mortgage Banker · Host, The Real Estate Show · 45K+ YouTube</div>
         </div>
       </a>
-      </div>
 
       <a class="wp-card" href="speakers/amy-stoehr.html">
         <div class="wp-card-photo-wrap">
@@ -665,10 +368,9 @@ img { display:block; max-width:100%; }
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Amy Stoehr</div>
-          <div class="wp-card-role">CEO · Star Power NatRealtors Network · Denver CO
+          <div class="wp-card-role">CEO · Star Power NatRealtors Network · Denver CO</div>
         </div>
       </a>
-      </div>
 
       <a class="wp-card" href="speakers/john-duffin.html">
         <div class="wp-card-photo-wrap">
@@ -677,10 +379,9 @@ img { display:block; max-width:100%; }
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">John Duffin</div>
-          <div class="wp-card-role">Voice Coach · Real Estate Specialist · Communications Expert
+          <div class="wp-card-role">Voice Coach · Real Estate Specialist · Communications Expert</div>
         </div>
       </a>
-      </div>
 
       <a class="wp-card" href="speakers/jamie-quinn.html">
         <div class="wp-card-photo-wrap">
@@ -689,10 +390,9 @@ img { display:block; max-width:100%; }
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Jamie Quinn</div>
-          <div class="wp-card-role">Realtor · Leader · Market Disruptor · PA, NJ &amp; FL
+          <div class="wp-card-role">Realtor · Leader · Market Disruptor · PA, NJ &amp; FL</div>
         </div>
       </a>
-      </div>
 
       <a class="wp-card" href="speakers/skye-michiels.html">
         <div class="wp-card-photo-wrap">
@@ -701,17 +401,16 @@ img { display:block; max-width:100%; }
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Skye Michiels</div>
-          <div class="wp-card-role">Founder &amp; CEO · With Heart Coaching · Ex-National Head of Coaching, Compass
+          <div class="wp-card-role">Founder &amp; CEO · With Heart Coaching · Ex-National Head of Coaching, Compass</div>
         </div>
       </a>
-      </div>
 
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     HOSTS — 3-col centered grid
+     HOSTS — Clickable cards
 ============================================================ -->
 <section class="wp-hosts-section">
   <div class="wp-section-inner">
@@ -728,10 +427,9 @@ img { display:block; max-width:100%; }
         <div class="wp-card-body">
           <div class="wp-card-name">Jennie Lopez</div>
           <div class="wp-card-role">TEDx Speaker · Bestselling Author · Founder, International Unicorn</div>
-          <div class="wp-card-badge">Host
+          <div class="wp-card-badge">Host</div>
         </div>
       </a>
-      </div>
 
       <a class="wp-card" href="speakers/bruno-marcinkowski.html">
         <div class="wp-card-photo-wrap">
@@ -741,10 +439,9 @@ img { display:block; max-width:100%; }
         <div class="wp-card-body">
           <div class="wp-card-name">Bruno Marcinkowski</div>
           <div class="wp-card-role">The Dream Team 1 · AI Unlocked · Real Estate Investor</div>
-          <div class="wp-card-badge">Host
+          <div class="wp-card-badge">Host</div>
         </div>
       </a>
-      </div>
 
       <a class="wp-card" href="speakers/stacie-marcinkowski.html">
         <div class="wp-card-photo-wrap">
@@ -754,18 +451,15 @@ img { display:block; max-width:100%; }
         <div class="wp-card-body">
           <div class="wp-card-name">Stacie Marcinkowski</div>
           <div class="wp-card-role">The Dream Team 1 · AI Unlocked · Real Estate &amp; Legal Expert</div>
-          <div class="wp-card-badge">Host
+          <div class="wp-card-badge">Host</div>
         </div>
       </a>
-      </div>
 
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     SCHEDULE
-============================================================ -->
+<!-- SCHEDULE -->
 <section class="wp-schedule-section">
   <div class="wp-section-inner">
     <div class="wp-section-eyebrow">Run of Show</div>
@@ -918,11 +612,9 @@ img { display:block; max-width:100%; }
   </p>
 </footer>
 
-<!-- SCRIPT: State machine + Countdown -->
+<!-- SCRIPT -->
 <script>
 (function(){
-  // June 4, 2026 at 4:00 PM Los Angeles Time
-  // June PDT = UTC-7, so 4 PM LA = 23:00 UTC
   var EVENT_START_UTC = new Date('2026-06-04T23:00:00Z');
   var EVENT_END_UTC = new Date('2026-06-05T02:20:00Z');
 
