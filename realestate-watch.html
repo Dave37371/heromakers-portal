@@ -73,6 +73,7 @@ img { display:block; max-width:100%; }
 .wp-live-dot { width:8px; height:8px; background:#fff; border-radius:50%; animation:wp-pulse 1.4s infinite; }
 @keyframes wp-pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(1.3); } }
 .wp-stream-embed { width:100%; aspect-ratio:16/9; background:#000; position:relative; display:flex; align-items:center; justify-content:center; }
+.wp-stream-embed iframe { width:100%; height:100%; border:none; position:absolute; inset:0; }
 .wp-stream-placeholder { text-align:center; padding:32px; }
 .wp-stream-placeholder-icon { font-size:48px; margin-bottom:14px; opacity:0.4; }
 .wp-stream-placeholder-text { font-family:'Barlow', sans-serif; font-weight:600; font-size:14px; letter-spacing:2px; text-transform:uppercase; color:var(--text-faint); }
@@ -259,11 +260,14 @@ img { display:block; max-width:100%; }
       <div class="wp-stream-card">
         <div class="wp-live-badge"><span class="wp-live-dot"></span>Live Now</div>
         <div class="wp-stream-embed">
-          <!-- INSERT STREAMYARD EMBED IFRAME HERE -->
-          <div class="wp-stream-placeholder">
-            <div class="wp-stream-placeholder-icon">📡</div>
-            <div class="wp-stream-placeholder-text">StreamYard Embed</div>
-          </div>
+          <!-- ============================================================
+               STREAMYARD EMBED — TEST BROADCAST (Tue Jun 2, 9:15 AM AEST)
+               Broadcast ID: bVujJj8XbKbX
+               REPLACE WITH PRODUCTION EMBED URL BEFORE JUNE 4 EVENT
+          ============================================================ -->
+          <iframe src="https://streamyard.com/watch/bVujJj8XbKbX?embed=true"
+                  frameborder="0"
+                  allow="autoplay; fullscreen"></iframe>
         </div>
       </div>
     </div>
@@ -623,27 +627,50 @@ img { display:block; max-width:100%; }
   var statePost = document.getElementById('wp-state-post');
   var statusTag = document.getElementById('wp-status-tag');
 
+  // PREVIEW MODE — force any state via URL param for testing
+  // Usage: ?preview=pre | ?preview=live | ?preview=replay
+  var urlParams = new URLSearchParams(window.location.search);
+  var previewMode = urlParams.get('preview');
+
+  function setLiveState() {
+    statePre.classList.remove('active');
+    stateLive.classList.add('active');
+    statePost.classList.remove('active');
+    statusTag.textContent = '● LIVE NOW · Broadcasting';
+    statusTag.style.background = 'rgba(232,33,46,0.15)';
+    statusTag.style.borderColor = 'rgba(232,33,46,0.4)';
+    statusTag.style.color = '#E8212E';
+  }
+
+  function setPreState() {
+    statePre.classList.add('active');
+    stateLive.classList.remove('active');
+    statePost.classList.remove('active');
+    statusTag.textContent = '● Upcoming Broadcast · June 4, 2026';
+    updateCountdown();
+  }
+
+  function setPostState() {
+    statePre.classList.remove('active');
+    stateLive.classList.remove('active');
+    statePost.classList.add('active');
+    statusTag.textContent = '● Broadcast Ended · Replay Available';
+  }
+
   function updateState() {
+    // PREVIEW MODE OVERRIDE
+    if (previewMode === 'live') { setLiveState(); return; }
+    if (previewMode === 'replay' || previewMode === 'post') { setPostState(); return; }
+    if (previewMode === 'pre') { setPreState(); return; }
+
+    // NORMAL TIME-BASED STATE
     var now = new Date();
     if (now < EVENT_START_UTC) {
-      statePre.classList.add('active');
-      stateLive.classList.remove('active');
-      statePost.classList.remove('active');
-      statusTag.textContent = '● Upcoming Broadcast · June 4, 2026';
-      updateCountdown();
+      setPreState();
     } else if (now >= EVENT_START_UTC && now < EVENT_END_UTC) {
-      statePre.classList.remove('active');
-      stateLive.classList.add('active');
-      statePost.classList.remove('active');
-      statusTag.textContent = '● LIVE NOW · Broadcasting';
-      statusTag.style.background = 'rgba(232,33,46,0.15)';
-      statusTag.style.borderColor = 'rgba(232,33,46,0.4)';
-      statusTag.style.color = '#E8212E';
+      setLiveState();
     } else {
-      statePre.classList.remove('active');
-      stateLive.classList.remove('active');
-      statePost.classList.add('active');
-      statusTag.textContent = '● Broadcast Ended · Replay Available';
+      setPostState();
     }
   }
 
@@ -664,8 +691,8 @@ img { display:block; max-width:100%; }
   }
 
   updateState();
-  setInterval(function(){ updateCountdown(); }, 1000);
-  setInterval(updateState, 30000);
+  setInterval(function(){ if (!previewMode) updateCountdown(); }, 1000);
+  setInterval(function(){ if (!previewMode) updateState(); }, 30000);
 })();
 </script>
 
