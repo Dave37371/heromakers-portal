@@ -264,11 +264,36 @@ img { display:block; max-width:100%; }
   overflow:hidden;
   transition:all 0.3s;
   text-align:center;
+  display:block;
+  color:inherit;
+  position:relative;
+  cursor:pointer;
 }
 .wp-card:hover {
-  border-color:var(--cyan-soft);
+  border-color:var(--cyan);
   transform:translateY(-6px);
   box-shadow:0 16px 48px rgba(0,0,0,0.5);
+}
+.wp-card-cta {
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:10px 14px;
+  background:linear-gradient(180deg, transparent 0%, rgba(77,216,224,0.95) 100%);
+  color:#0D1B3E;
+  font-family:'Barlow Condensed', sans-serif;
+  font-weight:800;
+  font-size:11px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  opacity:0;
+  transition:opacity 0.3s;
+  pointer-events:none;
+}
+.wp-card:hover .wp-card-cta { opacity:1; }
+.wp-card-photo-wrap-link {
+  position:relative;
 }
 .wp-card-photo-wrap { width:100%; aspect-ratio:1/1; overflow:hidden; }
 .wp-card-photo {
@@ -561,104 +586,124 @@ img { display:block; max-width:100%; }
 
     <div class="wp-speakers-grid">
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/joseph-bograd.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286375/file/small-978b2670dd73390a0788b9ed6321bbdf.png" alt="Joseph Bograd">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Joseph Bograd</div>
-          <div class="wp-card-role">Broker/Owner · Luxury &amp; Mega Agent · PA, NJ, FL</div>
+          <div class="wp-card-role">Broker/Owner · Luxury &amp; Mega Agent · PA, NJ, FL
         </div>
+      </a>
       </div>
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/amanda-erwin.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286373/file/small-f1b4b847cd97333c28f1b584a13e5f98.png" alt="Amanda Erwin">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Amanda Erwin</div>
-          <div class="wp-card-role">Luxury Real Estate Specialist · John R Wood Christie's International · Naples FL</div>
+          <div class="wp-card-role">Luxury Real Estate Specialist · John R Wood Christie's International · Naples FL
         </div>
+      </a>
       </div>
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/sam-demaio.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286376/file/small-8a010c2a8e8eef2f943d944c4f338b91.png" alt="Sam DeMaio">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Sam DeMaio</div>
-          <div class="wp-card-role">Owner/Operator · Showcase Remodels · Builder &amp; Investor</div>
+          <div class="wp-card-role">Owner/Operator · Showcase Remodels · Builder &amp; Investor
         </div>
+      </a>
       </div>
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/jen-conkey.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286377/file/small-ebbcfc1476f153103a3ebb1e136f18c1.png" alt="Jen Conkey">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Jen Conkey</div>
-          <div class="wp-card-role">Mindset Strategist · Co-Founder Warriors of Wealth</div>
+          <div class="wp-card-role">Mindset Strategist · Co-Founder Warriors of Wealth
         </div>
+      </a>
       </div>
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/justin-gaul.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286386/file/small-21ad6dfb9aac8bafedb6838fe40fc456.png" alt="Justin Gaul">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Justin Gaul</div>
-          <div class="wp-card-role">Operating Principal · Keller Williams · Real Estate Investor</div>
+          <div class="wp-card-role">Operating Principal · Keller Williams · Real Estate Investor
         </div>
+      </a>
       </div>
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/patrick-lopez.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286385/file/small-7e6cf5e72426669fe0209d8725494d11.png" alt="Patrick Lopez">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Patrick Lopez</div>
-          <div class="wp-card-role">Mortgage Banker · Host, The Real Estate Show · 45K+ YouTube</div>
+          <div class="wp-card-role">Mortgage Banker · Host, The Real Estate Show · 45K+ YouTube
         </div>
+      </a>
       </div>
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/amy-stoehr.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286383/file/small-19eb4952077bc6be2f8588ac468fefec.png" alt="Amy Stoehr">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Amy Stoehr</div>
-          <div class="wp-card-role">CEO · Star Power NatRealtors Network · Denver CO</div>
+          <div class="wp-card-role">CEO · Star Power NatRealtors Network · Denver CO
         </div>
+      </a>
       </div>
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/john-duffin.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286380/file/small-e2099c21e339a8d970feadac14dacc8b.png" alt="John Duffin">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">John Duffin</div>
-          <div class="wp-card-role">Voice Coach · Real Estate Specialist · Communications Expert</div>
+          <div class="wp-card-role">Voice Coach · Real Estate Specialist · Communications Expert
         </div>
+      </a>
       </div>
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/jamie-quinn.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286378/file/small-ded1661463bc4ed9d6475110964e6d46.png" alt="Jamie Quinn">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Jamie Quinn</div>
-          <div class="wp-card-role">Realtor · Leader · Market Disruptor · PA, NJ &amp; FL</div>
+          <div class="wp-card-role">Realtor · Leader · Market Disruptor · PA, NJ &amp; FL
         </div>
+      </a>
       </div>
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/skye-michiels.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286374/file/small-efa5d1a8f66a3a7af75e303011219664.png" alt="Skye Michiels">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Skye Michiels</div>
-          <div class="wp-card-role">Founder &amp; CEO · With Heart Coaching · Ex-National Head of Coaching, Compass</div>
+          <div class="wp-card-role">Founder &amp; CEO · With Heart Coaching · Ex-National Head of Coaching, Compass
         </div>
+      </a>
       </div>
 
     </div>
@@ -675,37 +720,43 @@ img { display:block; max-width:100%; }
 
     <div class="wp-hosts-grid">
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/jennie-lopez.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286381/file/small-f90c5e03e69ca8470e20920f82be06d3.png" alt="Jennie Lopez">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Jennie Lopez</div>
           <div class="wp-card-role">TEDx Speaker · Bestselling Author · Founder, International Unicorn</div>
-          <div class="wp-card-badge">Host</div>
+          <div class="wp-card-badge">Host
         </div>
+      </a>
       </div>
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/bruno-marcinkowski.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286379/file/small-fcfab806ba6c69dc2a9a991333e9ffe3.png" alt="Bruno Marcinkowski">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Bruno Marcinkowski</div>
           <div class="wp-card-role">The Dream Team 1 · AI Unlocked · Real Estate Investor</div>
-          <div class="wp-card-badge">Host</div>
+          <div class="wp-card-badge">Host
         </div>
+      </a>
       </div>
 
-      <div class="wp-card">
+      <a class="wp-card" href="speakers/stacie-marcinkowski.html">
         <div class="wp-card-photo-wrap">
           <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22286382/file/small-c5f1d2a5e9bc94e9a1f3d2b0fa74ef2e.png" alt="Stacie Marcinkowski">
+          <div class="wp-card-cta">View Profile →</div>
         </div>
         <div class="wp-card-body">
           <div class="wp-card-name">Stacie Marcinkowski</div>
           <div class="wp-card-role">The Dream Team 1 · AI Unlocked · Real Estate &amp; Legal Expert</div>
-          <div class="wp-card-badge">Host</div>
+          <div class="wp-card-badge">Host
         </div>
+      </a>
       </div>
 
     </div>
