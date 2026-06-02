@@ -426,15 +426,47 @@ body::before {
   .nav-logo-img { height:28px; }
   .nav-logo-hero { height:40px; max-width:160px; }
   .nav-logo-partner { height:36px; }
-  .home-title { font-size:72px; }
-  .main, .all-events-hero, .events-list { padding-left:20px; padding-right:20px; }
-  .watch-body, .watch-header { padding-left:20px; padding-right:20px; }
-  .profile-hero, .profile-body { padding:24px 20px; }
+  .home-title { font-size:52px; }
+  .main, .all-events-hero, .events-list { padding-left:16px; padding-right:16px; }
+  .watch-body, .watch-header { padding-left:16px; padding-right:16px; }
+  .profile-hero, .profile-body { padding:24px 16px; }
   .form-row { grid-template-columns:1fr; }
-  .event-row { grid-template-columns:1fr; }
-  .event-row-date { flex-direction:row; gap:8px; border-right:none; border-bottom:1px solid var(--border); padding:12px 16px; justify-content:flex-start; }
-  .event-row-cta { border-left:none; border-top:1px solid var(--border); flex-direction:row; flex-wrap:wrap; min-width:unset; }
   .home-stats { gap:28px; }
+
+  /* ── Event tiles (home page cards) ── */
+  .event-tile {
+    flex-direction:column;
+    align-items:flex-start;
+    gap:14px;
+    padding:18px 16px;
+  }
+  .event-tile-date {
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    min-width:unset; width:auto; padding:8px 14px; border-radius:8px;
+  }
+  .event-tile-day { font-size:28px; }
+  .event-tile-info { width:100%; }
+  .event-tile-name { font-size:19px; }
+  .event-tile-actions {
+    width:100%; display:flex; flex-direction:column; gap:8px; min-width:unset !important;
+  }
+  .event-tile-actions button,
+  .event-tile-actions a {
+    width:100% !important; min-width:unset !important; box-sizing:border-box;
+  }
+
+  /* ── Event rows (all-events list) ── */
+  .event-row { grid-template-columns:1fr; }
+  .event-row-date {
+    flex-direction:row; gap:8px; border-right:none;
+    border-bottom:1px solid var(--border); padding:12px 16px; justify-content:flex-start;
+  }
+  .event-row-cta {
+    border-left:none; border-top:1px solid var(--border);
+    flex-direction:column; align-items:stretch; min-width:unset;
+    padding:12px 16px; gap:8px;
+  }
+  .event-row-cta .btn-small { width:100%; text-align:center; }
 }
 </style>
 </head>
@@ -539,7 +571,7 @@ body::before {
           <div class="event-tile-name">The Real Estate Summit I</div>
           <div class="event-tile-meta">🌐 Virtual · June 4, 2026 · 4:00 PM Los Angeles Time</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:8px;min-width:160px;">
+        <div class="event-tile-actions" style="display:flex;flex-direction:column;gap:8px;min-width:160px;">
           <button class="btn-primary" style="font-size:13px;padding:9px 18px;" onclick="event.stopPropagation();window.location.href='res-speaker-assets.html'">📋 Speaker Assets</button>
           <button class="btn-secondary" style="font-size:12px;padding:7px 18px;" onclick="event.stopPropagation();window.location.href='realestate-watch.html'">View Watch Page →</button>
         </div>
@@ -552,7 +584,7 @@ body::before {
           <div class="event-tile-name">Direct Sales Summit IV</div>
           <div class="event-tile-meta">🌐 Virtual · July 23, 2026 · 4:00 PM Los Angeles Time</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:8px;min-width:160px;"><button class="btn-primary" style="font-size:13px;padding:9px 18px;" onclick="event.stopPropagation();window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button><button class="btn-secondary" style="font-size:12px;padding:7px 18px;" onclick="event.stopPropagation();window.open('https://www.heromakerssummit.com/hero-makers-dss-04','_blank')">View Public Page →</button></div>
+        <div class="event-tile-actions" style="display:flex;flex-direction:column;gap:8px;min-width:160px;"><button class="btn-primary" style="font-size:13px;padding:9px 18px;" onclick="event.stopPropagation();window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button><button class="btn-secondary" style="font-size:12px;padding:7px 18px;" onclick="event.stopPropagation();window.open('https://www.heromakerssummit.com/hero-makers-dss-04','_blank')">View Public Page →</button></div>
       </div>
 
       <div class="event-tile" onclick="goto('allEvents')">
@@ -562,7 +594,7 @@ body::before {
           <div class="event-tile-name">Storyteller Summit</div>
           <div class="event-tile-meta">🌐 Virtual · August 13, 2026 · 4:00 PM Los Angeles Time</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:8px;min-width:160px;"><button class="btn-primary" style="font-size:13px;padding:9px 18px;" onclick="event.stopPropagation();window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button><button class="btn-secondary" style="font-size:12px;padding:7px 18px;" onclick="event.stopPropagation();window.open('https://www.heromakerssummit.com/the-storyteller-summit-2026','_blank')">View Public Page →</button></div>
+        <div class="event-tile-actions" style="display:flex;flex-direction:column;gap:8px;min-width:160px;"><button class="btn-primary" style="font-size:13px;padding:9px 18px;" onclick="event.stopPropagation();window.open('https://www.laptoplifestyledads.com/hero-makers-speaker-application','_blank')">🎤 Apply to Speak</button><button class="btn-secondary" style="font-size:12px;padding:7px 18px;" onclick="event.stopPropagation();window.open('https://www.heromakerssummit.com/the-storyteller-summit-2026','_blank')">View Public Page →</button></div>
       </div>
 
       <div style="text-align:center;margin-top:28px;">
