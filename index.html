@@ -433,7 +433,14 @@ body::before {
   .form-row { grid-template-columns:1fr; }
   .home-stats { gap:28px; }
 
-  /* ── Event tiles (home page cards) ── */
+  /* ── Dash event cards (Speaker Resources list) ── */
+  .dash-event-card { flex-direction:column; }
+  .dash-event-body { flex-direction:column; align-items:flex-start; gap:12px; padding:16px; }
+  .dash-event-actions { width:100%; flex-direction:column; gap:8px; }
+  .dash-event-actions .btn-view,
+  .dash-event-actions .btn-small,
+  .dash-event-actions button { width:100%; text-align:center; box-sizing:border-box; }
+  .dash-event-accent { width:100%; min-width:unset; height:4px; }
   .event-tile {
     flex-direction:column;
     align-items:flex-start;
