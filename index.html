@@ -1052,6 +1052,21 @@ body::before {
     document.getElementById('notify-form-body').style.display = 'none';
     document.getElementById('notify-success').style.display = 'block';
   }
+
+  // ── Deep link: open a screen straight from the URL hash ──
+  // e.g. speakersportal.voicetoinfluence.com/#calendar → 2026 Calendar
+  function routeFromHash() {
+    var h = (location.hash || '').replace('#', '').toLowerCase();
+    if (h === 'calendar' || h === 'allevents' || h === 'events') {
+      goto('allEvents');
+    } else if (h === 'dashboard' || h === 'resources') {
+      login(); goto('dashboard');
+    } else if (h === 'home') {
+      goto('home');
+    }
+  }
+  routeFromHash();
+  window.addEventListener('hashchange', routeFromHash);
 </script>
 </body>
 </html>
