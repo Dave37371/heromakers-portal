@@ -305,11 +305,45 @@ img { display:block; max-width:100%; }
   padding:64px 40px 80px;
 }
 .wp-hosts-grid {
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:20px;
-  max-width:760px;
-  margin:0 auto;
+  display:flex; justify-content:center; flex-wrap:wrap;
+  gap:20px; max-width:1040px; margin:0 auto;
+}
+
+/* HEADLINE SPEAKER (landscape feature) */
+.wp-headline {
+  max-width:780px; margin:0 auto 40px;
+  display:flex; align-items:stretch;
+  background:var(--bg-card); border:1px solid var(--accent-soft);
+  border-top:3px solid var(--accent); border-radius:16px; overflow:hidden;
+  transition:transform .3s, box-shadow .3s, border-color .3s;
+}
+.wp-headline:hover { transform:translateY(-4px); box-shadow:0 18px 50px rgba(0,0,0,.55); border-color:var(--accent); }
+.wp-headline-photo { width:300px; min-width:300px; padding:26px; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.28); }
+.wp-headline-photo img { width:100%; height:auto; border-radius:10px; display:block; }
+.wp-headline-body { flex:1; padding:28px 34px; display:flex; flex-direction:column; justify-content:center; }
+.wp-headline-eyebrow { font-family:'Barlow', sans-serif; font-weight:700; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+.wp-headline-name { font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:34px; color:var(--white); line-height:1.05; margin-bottom:8px; }
+.wp-headline-role { font-family:'Barlow', sans-serif; font-size:14px; color:var(--text-muted); line-height:1.55; }
+
+/* HOST CARD (landscape) */
+.wp-host-card {
+  display:flex; align-items:center; gap:18px;
+  background:var(--bg-card); border:1px solid var(--border-soft);
+  border-radius:14px; padding:24px 28px; width:500px; max-width:100%;
+  text-align:left; transition:transform .3s, box-shadow .3s, border-color .3s;
+}
+.wp-host-card:hover { border-color:var(--accent-soft); transform:translateY(-4px); box-shadow:0 16px 48px rgba(0,0,0,.5); }
+.wp-host-photo { width:168px; min-width:168px; height:168px; border-radius:14px; overflow:hidden; }
+.wp-host-photo img { width:100%; height:100%; object-fit:cover; }
+.wp-host-info { flex:1; }
+.wp-host-name { font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:26px; color:var(--white); line-height:1.2; margin-bottom:5px; }
+.wp-host-role { font-family:'Barlow', sans-serif; font-size:13px; color:var(--text-muted); line-height:1.45; margin-bottom:10px; }
+.wp-host-badge { display:inline-block; background:rgba(245,51,63,.12); border:1px solid rgba(245,51,63,.25); color:var(--accent); font-family:'Barlow', sans-serif; font-weight:700; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; padding:3px 8px; border-radius:3px; }
+@media (max-width:640px){
+  .wp-headline { flex-direction:column; }
+  .wp-headline-photo { width:100%; min-width:0; }
+  .wp-host-card { width:100%; }
+  .wp-host-photo { width:130px; min-width:130px; height:130px; }
 }
 
 /* ============================================================
@@ -553,6 +587,15 @@ img { display:block; max-width:100%; }
     <h2 class="wp-section-title">Voices That <span>Move the World</span></h2>
     <p class="wp-section-sub">The most influential Latin leaders, entrepreneurs and changemakers — sharing what's actually building culture, leadership and legacy right now. More speakers announced soon.</p>
 
+    <a class="wp-headline" href="speakers/yhonny-atella.html" target="_blank" rel="noopener">
+      <div class="wp-headline-photo"><img src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/22839847/file/93fd808d8b65d4282d33da8766c9267a.png" alt="Yhonny Atella"></div>
+      <div class="wp-headline-body">
+        <div class="wp-headline-eyebrow">★ Headline Speaker</div>
+        <div class="wp-headline-name">Yhonny Atella</div>
+        <div class="wp-headline-role">Multi-Platinum Producer · Songwriter · Music Executive — credits with J Balvin, Luis Fonsi, Sebastián Yatra &amp; more.</div>
+      </div>
+    </a>
+
     <div class="wp-speakers-grid">
 
       <a class="wp-card" href="speakers/gaby-natale.html" target="_blank" rel="noopener">
@@ -625,16 +668,6 @@ img { display:block; max-width:100%; }
         </div>
       </a>
 
-      <a class="wp-card" href="speakers/yhonny-atella.html" target="_blank" rel="noopener">
-        <div class="wp-card-photo-wrap">
-          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/22839847/file/93fd808d8b65d4282d33da8766c9267a.png" alt="Yhonny Atella">
-        </div>
-        <div class="wp-card-body">
-          <div class="wp-card-name">Yhonny Atella</div>
-          <div class="wp-card-role">Multi-Platinum Producer · Songwriter · Music Executive</div>
-        </div>
-      </a>
-
     </div>
   </div>
 </section>
@@ -649,25 +682,21 @@ img { display:block; max-width:100%; }
 
     <div class="wp-hosts-grid">
 
-      <a class="wp-card" href="speakers/jennie-lopez.html" target="_blank" rel="noopener">
-        <div class="wp-card-photo-wrap">
-          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/22760458/file/f1ef9754ae4ed5448125548bc71905b7.png" alt="Jennie Lopez">
-        </div>
-        <div class="wp-card-body">
-          <div class="wp-card-name">Jennie Lopez</div>
-          <div class="wp-card-role">TEDx Speaker · Bestselling Author · Founder, International Unicorn</div>
-          <div class="wp-card-badge">Host</div>
+      <a class="wp-host-card" href="speakers/jennie-lopez.html" target="_blank" rel="noopener">
+        <div class="wp-host-photo"><img src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/22760458/file/f1ef9754ae4ed5448125548bc71905b7.png" alt="Jennie Lopez"></div>
+        <div class="wp-host-info">
+          <div class="wp-host-name">Jennie Lopez</div>
+          <div class="wp-host-role">TEDx Speaker · Bestselling Author · Founder, International Unicorn</div>
+          <span class="wp-host-badge">Host</span>
         </div>
       </a>
 
-      <a class="wp-card" href="speakers/pablo-alsina.html" target="_blank" rel="noopener">
-        <div class="wp-card-photo-wrap">
-          <img class="wp-card-photo" src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/22760463/file/76b0804a27837fe93289a44ddc6c3411.png" alt="Pablo Alsina">
-        </div>
-        <div class="wp-card-body">
-          <div class="wp-card-name">Pablo Alsina</div>
-          <div class="wp-card-role">National Sports Anchor · TV Host · SAG-AFTRA Actor</div>
-          <div class="wp-card-badge">Host</div>
+      <a class="wp-host-card" href="speakers/pablo-alsina.html" target="_blank" rel="noopener">
+        <div class="wp-host-photo"><img src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/22760463/file/76b0804a27837fe93289a44ddc6c3411.png" alt="Pablo Alsina"></div>
+        <div class="wp-host-info">
+          <div class="wp-host-name">Pablo Alsina</div>
+          <div class="wp-host-role">National Sports Anchor · TV Host · SAG-AFTRA Actor</div>
+          <span class="wp-host-badge">Host</span>
         </div>
       </a>
 
@@ -787,7 +816,7 @@ img { display:block; max-width:100%; }
         <div class="wp-cta-icon">📅</div>
         <div class="wp-cta-card-title">Browse 2026 Summits</div>
         <div class="wp-cta-card-text">15+ live summits across 2026. Register for the ones that matter to you.</div>
-        <a class="wp-btn-primary" href="https://www.voicetoinfluence.com/events" target="_blank" rel="noopener" style="font-size:13px;padding:12px 28px;">View Events →</a>
+        <a class="wp-btn-primary" href="https://speakersportal.voicetoinfluence.com/#calendar" target="_blank" rel="noopener" style="font-size:13px;padding:12px 28px;">View 2026 Calendar →</a>
       </div>
 
       <div class="wp-cta-card">
