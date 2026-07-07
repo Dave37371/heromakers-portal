@@ -1,0 +1,349 @@
+<!-- ===== DIRECT SALES SUMMIT IV — SPEAKER ASSET DOWNLOAD PAGE ===== -->
+<!-- Single custom code block — standalone Netlify page -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700;800&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+
+<div class="sa4">
+<style>
+  .sa4 * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #0A0A0A !important; }
+  .page-container, .section, .section-container, .row, .column { background: transparent !important; background-color: transparent !important; }
+
+  /* ── HEADER ── */
+  .sa4-hdr {
+    width: 100%; background: #000000;
+    border-bottom: 3px solid #E8212E;
+    padding: 16px 40px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; flex-wrap: wrap;
+  }
+  .sa4-brand { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 22px; letter-spacing: 3px; text-transform: uppercase; color: #FFFFFF; text-decoration: none; white-space: nowrap; }
+  .sa4-brand span { color: #E8212E; }
+  .sa4-hdr-divider { width: 1px; height: 32px; background: rgba(232,33,46,0.3); }
+  .sa4-presented { font-family: 'Barlow', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); font-style: italic; }
+  .sa4-hdr-logos { display: flex; align-items: center; gap: 16px; }
+  .sa4-hdr-img { height: 48px; width: auto; object-fit: contain; opacity: 0.95; filter: brightness(1.2); }
+  .sa4-hdr-img.wordmark { height: 36px; }
+  .sa4-hdr-sep { color: rgba(232,33,46,0.35); font-size: 14px; }
+
+  /* ── HERO ── */
+  .sa4-hero {
+    background: linear-gradient(160deg, #141414 0%, #0A0A0A 65%);
+    padding: 64px 40px 56px; text-align: center;
+    border-bottom: 1px solid rgba(232,33,46,0.12);
+  }
+  .sa4-eyebrow { font-family: 'Barlow', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #E8212E; font-weight: 600; margin-bottom: 12px; display: block; }
+  .sa4-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(36px, 6vw, 64px); letter-spacing: 2px; text-transform: uppercase; color: #FFFFFF; line-height: 0.95; margin-bottom: 16px; }
+  .sa4-title span { color: #E8212E; }
+  .sa4-sub { font-family: 'Barlow', sans-serif; font-size: 17px; color: #AAAAAA; line-height: 1.7; max-width: 580px; margin: 0 auto 32px; font-weight: 300; }
+
+  /* ── INSTRUCTIONS CARD ── */
+  .sa4-instructions {
+    background: #111111; border: 1px solid rgba(232,33,46,0.2);
+    border-left: 4px solid #E8212E; border-radius: 8px;
+    max-width: 720px; margin: 0 auto; padding: 28px 32px;
+    text-align: left;
+  }
+  .sa4-instructions-title { font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #E8212E; margin-bottom: 14px; }
+  .sa4-instructions ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .sa4-instructions li { font-family: 'Barlow', sans-serif; font-size: 14px; color: #AAAAAA; line-height: 1.6; padding-left: 16px; position: relative; }
+  .sa4-instructions li::before { content: '→'; position: absolute; left: 0; color: #E8212E; font-weight: 700; }
+
+  /* ── MAIN ── */
+  .sa4-main { background: #0A0A0A; padding: 72px 40px 80px; }
+  .sa4-inner { max-width: 1000px; margin: 0 auto; }
+
+  /* ── DOCUMENTS SECTION ── */
+  .sa4-section { margin-bottom: 64px; }
+  .sa4-section-label { font-family: 'Barlow', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #E8212E; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid rgba(232,33,46,0.18); display: block; }
+  .sa4-section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(24px, 3vw, 36px); text-transform: uppercase; letter-spacing: 1px; color: #FFFFFF; margin-bottom: 8px; }
+  .sa4-section-title span { color: #E8212E; }
+  .sa4-section-desc { font-family: 'Barlow', sans-serif; font-size: 15px; color: #AAAAAA; margin-bottom: 28px; font-weight: 300; line-height: 1.6; }
+
+  /* ── DOC CARDS ── */
+  .sa4-doc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .sa4-doc-card { background: #111111; border: 1px solid rgba(232,33,46,0.15); border-radius: 10px; padding: 24px; display: flex; align-items: flex-start; gap: 16px; transition: border-color 0.2s, transform 0.2s; }
+  .sa4-doc-card:hover { border-color: rgba(232,33,46,0.4); transform: translateY(-2px); }
+  .sa4-doc-icon { font-size: 32px; flex-shrink: 0; }
+  .sa4-doc-info { flex: 1; }
+  .sa4-doc-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 18px; color: #FFFFFF; margin-bottom: 4px; }
+  .sa4-doc-desc { font-family: 'Barlow', sans-serif; font-size: 13px; color: #AAAAAA; line-height: 1.5; margin-bottom: 14px; }
+  .sa4-doc-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 20px; background: linear-gradient(135deg, #E8212E 0%, #B81920 100%); color: #FFFFFF; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+  .sa4-doc-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,33,46,0.35); }
+
+  /* ── IMAGE FORMAT CARDS ── */
+  .sa4-img-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .sa4-img-card { background: #111111; border: 1px solid rgba(232,33,46,0.15); border-radius: 12px; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+  .sa4-img-card:hover { border-color: rgba(232,33,46,0.4); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+
+  /* Format preview block */
+  .sa4-img-preview {
+    background: #0A0A0A; padding: 24px;
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid rgba(232,33,46,0.1);
+    min-height: 120px;
+  }
+  .sa4-format-visual { border: 2px solid rgba(232,33,46,0.3); border-radius: 6px; background: rgba(232,33,46,0.05); display: flex; align-items: center; justify-content: center; }
+  .sa4-format-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; color: #E8212E; letter-spacing: 1px; }
+
+  /* Square 1080x1080 */
+  .sa4-fmt-square .sa4-format-visual { width: 80px; height: 80px; }
+  /* Landscape 1920x1080 */
+  .sa4-fmt-landscape .sa4-format-visual { width: 120px; height: 68px; }
+  /* Portrait 1080x1920 */
+  .sa4-fmt-portrait .sa4-format-visual { width: 55px; height: 98px; }
+  /* Cover */
+  .sa4-fmt-cover .sa4-format-visual { width: 130px; height: 50px; }
+
+  .sa4-img-body { padding: 20px 24px 24px; }
+  .sa4-img-format-badge { display: inline-block; background: rgba(232,33,46,0.1); border: 1px solid rgba(232,33,46,0.25); color: #E8212E; font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 1px; padding: 3px 10px; border-radius: 3px; margin-bottom: 10px; }
+  .sa4-img-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 22px; color: #FFFFFF; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .sa4-img-desc { font-family: 'Barlow', sans-serif; font-size: 13px; color: #AAAAAA; line-height: 1.6; margin-bottom: 16px; font-weight: 300; }
+  .sa4-img-count { font-family: 'Barlow', sans-serif; font-size: 12px; color: #777777; margin-bottom: 16px; }
+  .sa4-img-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: linear-gradient(135deg, #E8212E 0%, #B81920 100%); color: #FFFFFF; border-radius: 6px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: all 0.2s; width: 100%; justify-content: center; }
+  .sa4-img-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,33,46,0.35); }
+
+  /* ── PROMO TIPS ── */
+  .sa4-tips { background: #141414; border-top: 1px solid rgba(232,33,46,0.12); padding: 56px 40px; }
+  .sa4-tips-inner { max-width: 1000px; margin: 0 auto; }
+  .sa4-tips-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(24px, 3vw, 36px); text-transform: uppercase; letter-spacing: 1px; color: #FFFFFF; margin-bottom: 8px; }
+  .sa4-tips-title span { color: #E8212E; }
+  .sa4-tips-sub { font-family: 'Barlow', sans-serif; font-size: 15px; color: #AAAAAA; margin-bottom: 32px; font-weight: 300; }
+  .sa4-tips-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .sa4-tip { background: #161616; border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 20px; }
+  .sa4-tip-icon { font-size: 24px; margin-bottom: 10px; }
+  .sa4-tip-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; color: #FFFFFF; margin-bottom: 6px; }
+  .sa4-tip-desc { font-family: 'Barlow', sans-serif; font-size: 13px; color: #AAAAAA; line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  .sa4-footer { background: #000000; border-top: 1px solid rgba(232,33,46,0.12); padding: 36px 24px; text-align: center; }
+  .sa4-footer-logos { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
+  .sa4-footer-logo { height: 22px; width: auto; object-fit: contain; opacity: 0.5; filter: brightness(1.2); }
+  .sa4-footer p { font-family: 'Barlow', sans-serif; font-size: 12px; color: #777777; line-height: 1.9; }
+
+  @media (max-width: 768px) {
+    .sa4-hdr { padding: 14px 16px; gap: 12px; }
+    .sa4-hdr-divider { display: none; }
+    .sa4-hdr-img { height: 32px; }
+    .sa4-hero { padding: 48px 16px 40px; }
+    .sa4-main { padding: 48px 16px 56px; }
+    .sa4-doc-grid { grid-template-columns: 1fr; }
+    .sa4-img-grid { grid-template-columns: 1fr; }
+    .sa4-tips { padding: 40px 16px; }
+    .sa4-tips-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+    <!-- HEADER -->
+  <div class="sa4-hdr">
+    <a class="sa4-brand" href="https://www.voicetoinfluence.com/dss-04-home">DIRECT SALES <span>SUMMIT IV</span></a>
+    <div class="sa4-hdr-divider"></div>
+    <span class="sa4-presented">Presented by</span>
+    <div class="sa4-hdr-logos">
+      <img class="sa4-hdr-img" src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/22769185/file/bfff1238c5a234519828e8ca28486b5d.png" alt="Los Angeles Tribune Podcast Network" style="height:44px;">
+    </div>
+    <div class="sa4-hdr-divider"></div>
+    <span class="sa4-presented">Sponsored by</span>
+    <div class="sa4-hdr-logos">
+      <img class="sa4-hdr-img wordmark" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence">
+      <span class="sa4-hdr-sep">/</span>
+      <img class="sa4-hdr-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers">
+      <span class="sa4-hdr-sep">/</span>
+      <img class="sa4-hdr-img" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked">
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="sa4-hero">
+    <span class="sa4-eyebrow">Speaker Resource Centre</span>
+    <div class="sa4-title">YOUR SPEAKER<br><span>ASSETS</span></div>
+    <p class="sa4-sub">Everything you need to promote your appearance at Direct Sales Summit IV. Download your images, access your documents and start sharing today.</p>
+    <div class="sa4-instructions">
+      <div class="sa4-instructions-title">How to Use These Assets</div>
+      <ul>
+        <li>Choose the image format that suits the platform you are posting on</li>
+        <li>Open the folder and download the variation that features you</li>
+        <li>Use the swipe copy document for ready-made captions and email copy</li>
+        <li>Tag Voice to Influence and use #DirectSalesSummit in all your posts</li>
+        <li>Registration link to share: <strong style="color:#E8212E;">https://www.voicetoinfluence.com/dss-04-home</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="sa4-main">
+    <div class="sa4-inner">
+
+      <!-- DOCUMENTS SECTION -->
+      <div class="sa4-section">
+        <span class="sa4-section-label">Speaker Documents</span>
+        <div class="sa4-section-title">DOCUMENTS &amp; <span>SWIPE FILES</span></div>
+        <p class="sa4-section-desc">Your speaker expectations document and ready-made swipe copy for social media and email. Everything you need in one place.</p>
+
+        <div class="sa4-doc-grid">
+          <div class="sa4-doc-card">
+            <div class="sa4-doc-icon">&#128203;</div>
+            <div class="sa4-doc-info">
+              <div class="sa4-doc-title">Speaker Document</div>
+              <div class="sa4-doc-desc">Event details, expectations, StreamYard access instructions and everything you need to prepare for July 23, 2026.</div>
+              <a class="sa4-doc-btn" href="https://docs.google.com/document/d/10xC4Cp6dqvQJ7Yzdfq09K1WTfYyalJeN/edit?usp=drive_link&ouid=114563152201132072910&rtpof=true&sd=true" target="_blank" rel="noopener">
+                &#128229; Open Document
+              </a>
+            </div>
+          </div>
+          <div class="sa4-doc-card">
+            <div class="sa4-doc-icon">&#9997;&#65039;</div>
+            <div class="sa4-doc-info">
+              <div class="sa4-doc-title">Social Media Swipe Copy</div>
+              <div class="sa4-doc-desc">Ready-made captions, email templates, LinkedIn posts, Instagram story frames and SMS invites. Copy, paste and post.</div>
+              <a class="sa4-doc-btn" href="https://docs.google.com/document/d/1Q-TjSX0S3_OC1nL_UHhntWK4dT2iDsOi/edit?usp=drive_link&ouid=114563152201132072910&rtpof=true&sd=true" target="_blank" rel="noopener">
+                &#128229; Open Swipe File
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMAGES SECTION -->
+      <div class="sa4-section">
+        <span class="sa4-section-label">Promotional Images</span>
+        <div class="sa4-section-title">DOWNLOAD YOUR <span>IMAGES</span></div>
+        <p class="sa4-section-desc">Four formats for every platform. Open the folder for your chosen format, find the image featuring you and download it directly from Google Drive.</p>
+
+        <div class="sa4-img-grid">
+
+          <!-- SQUARE 1080x1080 -->
+          <div class="sa4-img-card sa4-fmt-square">
+            <div class="sa4-img-preview">
+              <div class="sa4-format-visual">
+                <span class="sa4-format-label">1:1</span>
+              </div>
+            </div>
+            <div class="sa4-img-body">
+              <div class="sa4-img-format-badge">1080 × 1080 px</div>
+              <div class="sa4-img-title">Square Format</div>
+              <div class="sa4-img-desc">Perfect for Instagram feed posts, Facebook posts and LinkedIn image posts. The most versatile format — works everywhere.</div>
+              <div class="sa4-img-count">Group speaker graphics · 4 speakers featured</div>
+              <a class="sa4-img-btn" href="https://drive.google.com/drive/folders/1AS5_HwTQmeAkSvCg0nupwUozJWhNXELK" target="_blank" rel="noopener">
+                📥 Open Folder
+              </a>
+            </div>
+          </div>
+
+          <!-- LANDSCAPE 1920x1080 -->
+          <div class="sa4-img-card sa4-fmt-landscape">
+            <div class="sa4-img-preview">
+              <div class="sa4-format-visual">
+                <span class="sa4-format-label">16:9</span>
+              </div>
+            </div>
+            <div class="sa4-img-body">
+              <div class="sa4-img-format-badge">1920 × 1080 px</div>
+              <div class="sa4-img-title">Landscape Format</div>
+              <div class="sa4-img-desc">Ideal for LinkedIn articles, YouTube community posts, Facebook cover photos and desktop sharing. Widescreen format.</div>
+              <div class="sa4-img-count">Group speaker graphics · 5 speakers featured</div>
+              <a class="sa4-img-btn" href="https://drive.google.com/drive/folders/1wcVA2tBCBqqLQiByTVWEnga9IZuXC_Vh" target="_blank" rel="noopener">
+                📥 Open Folder
+              </a>
+            </div>
+          </div>
+
+          <!-- PORTRAIT 1080x1920 -->
+          <div class="sa4-img-card sa4-fmt-portrait">
+            <div class="sa4-img-preview">
+              <div class="sa4-format-visual">
+                <span class="sa4-format-label">9:16</span>
+              </div>
+            </div>
+            <div class="sa4-img-body">
+              <div class="sa4-img-format-badge">1080 × 1920 px</div>
+              <div class="sa4-img-title">Portrait Format</div>
+              <div class="sa4-img-desc">Built for Instagram Stories, Facebook Stories, TikTok and Reels. Full-screen vertical format optimised for mobile.</div>
+              <div class="sa4-img-count">Group speaker graphics · 4 speakers featured</div>
+              <a class="sa4-img-btn" href="https://drive.google.com/drive/folders/1aKzwVLaCGttLMvK7rEOPP9qBPphBSp7M" target="_blank" rel="noopener">
+                📥 Open Folder
+              </a>
+            </div>
+          </div>
+
+          <!-- COVER PHOTO -->
+          <div class="sa4-img-card sa4-fmt-cover">
+            <div class="sa4-img-preview">
+              <div class="sa4-format-visual">
+                <span class="sa4-format-label">Cover</span>
+              </div>
+            </div>
+            <div class="sa4-img-body">
+              <div class="sa4-img-format-badge">Cover Photo Size</div>
+              <div class="sa4-img-title">Cover Photo Format</div>
+              <div class="sa4-img-desc">Sized for Facebook cover photos and event banners. Update your profile cover to show your audience you are speaking at Direct Sales Summit IV.</div>
+              <div class="sa4-img-count">Group speaker graphics · 5 speakers featured</div>
+              <a class="sa4-img-btn" href="https://drive.google.com/drive/folders/1jgDyMWOR7IJ7wEqtiXbQ6q3Gzk0S0foN" target="_blank" rel="noopener">
+                📥 Open Folder
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROMOTION TIPS -->
+  <div class="sa4-tips">
+    <div class="sa4-tips-inner">
+      <div class="sa4-tips-title">PROMOTION <span>TIPS</span></div>
+      <p class="sa4-tips-sub">The more you promote, the bigger the room. Here is how to get the most out of your speaker appearance.</p>
+      <div class="sa4-tips-grid">
+        <div class="sa4-tip">
+          <div class="sa4-tip-icon">📱</div>
+          <div class="sa4-tip-title">Post Early & Often</div>
+          <div class="sa4-tip-desc">Start promoting now and post multiple times leading up to July 23. Use the countdown as a hook — 2 weeks, 1 week, tomorrow, today.</div>
+        </div>
+        <div class="sa4-tip">
+          <div class="sa4-tip-icon">🏷️</div>
+          <div class="sa4-tip-title">Tag & Hashtag</div>
+          <div class="sa4-tip-desc">Tag Voice to Influence and use #DirectSalesSummit in every post. Tag other speakers to cross-promote and expand reach.</div>
+        </div>
+        <div class="sa4-tip">
+          <div class="sa4-tip-icon">📩</div>
+          <div class="sa4-tip-title">Email Your List</div>
+          <div class="sa4-tip-desc">A personal email invite to your list converts far higher than social posts. Use the email swipe copy in your document — personalise the opening line.</div>
+        </div>
+        <div class="sa4-tip">
+          <div class="sa4-tip-icon">💬</div>
+          <div class="sa4-tip-title">SMS & WhatsApp</div>
+          <div class="sa4-tip-desc">Personal messages to your top contacts. Short, direct, personal. Use the SMS templates in the swipe file — they work.</div>
+        </div>
+        <div class="sa4-tip">
+          <div class="sa4-tip-icon">🔗</div>
+          <div class="sa4-tip-title">Registration Link</div>
+          <div class="sa4-tip-desc">Always include the registration link in every post and email. Every click counts. Link: voicetoinfluence.com/dss-04-home</div>
+        </div>
+        <div class="sa4-tip">
+          <div class="sa4-tip-icon">🎥</div>
+          <div class="sa4-tip-title">Record a Quick Video</div>
+          <div class="sa4-tip-desc">A 30-second personal invite video performs better than any graphic. Tell your audience why you are speaking and why they should show up.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="sa4-footer">
+    <div class="sa4-footer-logos">
+      <img class="sa4-footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers">
+      <img class="sa4-footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence">
+      <img class="sa4-footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked">
+      <img class="sa4-footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272401/file/small-7bc29d04ade2b084581a8725f605b3f9.png" alt="LA Tribune">
+    </div>
+    <p>© 2026 Direct Sales Summit IV. All rights reserved.<br>
+    Presented by the Los Angeles Tribune Podcast Network<br>
+    Sponsored by Voice to Influence · Hero Makers · AI Unlocked</p>
+  </div>
+
+</div>
+<!-- ===== END DSS IV SPEAKER ASSET DOWNLOAD PAGE ===== -->
