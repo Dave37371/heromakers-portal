@@ -75,6 +75,7 @@ img { display:block; max-width:100%; }
 /* LIVE StreamYard embed */
 .wp-stream-card { background:var(--bg-deep); border:2px solid var(--accent); border-radius:14px; overflow:hidden; position:relative; }
 .wp-live-badge { position:absolute; top:16px; left:16px; z-index:10; display:inline-flex; align-items:center; gap:8px; background:var(--red); color:#fff; padding:6px 14px; border-radius:4px; font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:12px; letter-spacing:2px; text-transform:uppercase; }
+.wp-replay-badge { position:absolute; top:16px; left:16px; z-index:10; display:inline-flex; align-items:center; gap:8px; background:var(--gold); color:#0A0A0A; padding:6px 14px; border-radius:4px; font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:12px; letter-spacing:2px; text-transform:uppercase; }
 .wp-live-dot { width:8px; height:8px; background:#fff; border-radius:50%; animation:wp-pulse 1.4s infinite; }
 @keyframes wp-pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(1.3); } }
 .wp-stream-embed { width:100%; aspect-ratio:16/9; background:#000; position:relative; }
@@ -245,14 +246,15 @@ img { display:block; max-width:100%; }
 
     <!-- POST-EVENT -->
     <div class="wp-state" id="wp-state-post">
-      <div class="wp-replay-card">
-        <div class="wp-replay-icon">&#127916;</div>
-        <div class="wp-replay-title">The Broadcast Has Ended</div>
-        <div class="wp-replay-sub">Couldn&rsquo;t make it live? Watch the full replay on YouTube. Then browse our upcoming summits below.</div>
-        <div class="wp-btn-row">
-          <a class="wp-btn-primary" href="https://youtu.be/0ln4SQTyTAg" target="_blank" rel="noopener">&#9654; Watch the Replay</a>
-          <a class="wp-btn-secondary" href="https://www.voicetoinfluence.com/events" target="_blank" rel="noopener">Browse Upcoming Summits</a>
+      <div class="wp-stream-card">
+        <div class="wp-replay-badge">&#9654; Replay</div>
+        <div class="wp-stream-embed">
+          <iframe src="https://www.youtube.com/embed/qk3lxuNtN5c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
+      </div>
+      <div class="wp-btn-row" style="margin-top:24px;">
+        <a class="wp-btn-primary" href="https://youtu.be/qk3lxuNtN5c" target="_blank" rel="noopener">&#9654; Watch on YouTube</a>
+        <a class="wp-btn-secondary" href="https://www.voicetoinfluence.com/events" target="_blank" rel="noopener">Browse Upcoming Summits</a>
       </div>
     </div>
 
