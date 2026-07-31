@@ -42,21 +42,28 @@ img { display:block; max-width:100%; }
 .sa-hdr-img.podgo { height:34px; }
 
 /* HERO */
-.sa-hero { background:linear-gradient(160deg,#141414 0%,#0A0A0A 65%); padding:56px 40px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; text-align:center; }
-.sa-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,0.09) 0%, transparent 65%); pointer-events:none; }
-.sa-hero-inner { max-width:820px; margin:0 auto; position:relative; z-index:2; }
+.sa-hero { background:linear-gradient(160deg,#141414 0%,#0A0A0A 65%); padding:56px 40px 52px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; text-align:center; }
+.sa-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,.09) 0%, transparent 65%); pointer-events:none; }
+.sa-hero-inner { max-width:760px; margin:0 auto; position:relative; z-index:2; }
 .sa-eyebrow { display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:18px; }
 .sa-eyebrow span { font-size:11px; letter-spacing:6px; text-transform:uppercase; color:var(--gold); font-weight:700; }
 .sa-eyebrow i { display:block; width:32px; height:1px; background:rgba(201,168,76,.55); }
-.sa-h1 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(38px,5.6vw,66px); line-height:1.0; color:#fff; text-transform:uppercase; letter-spacing:1px; margin-bottom:14px; }
+.sa-h1 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(38px,6vw,72px); line-height:.96; color:#fff; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
 .sa-h1 span { color:var(--gold); font-style:italic; }
-.sa-sub { font-size:16px; color:var(--text-muted); line-height:1.8; font-weight:300; max-width:620px; margin:0 auto 28px; }
-.sa-pills { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+.sa-sub { font-size:16px; color:var(--text-muted); line-height:1.8; font-weight:300; margin:0 auto 26px; }
+.sa-pills { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:34px; }
 .sa-pill { background:rgba(232,33,46,.08); border:1px solid rgba(232,33,46,.4); border-radius:100px; padding:8px 20px; font-weight:700; font-size:11px; color:var(--accent); letter-spacing:2px; text-transform:uppercase; }
 
+.sa-howto { background:rgba(0,0,0,.4); border:1px solid var(--border-soft); border-left:3px solid var(--accent); border-radius:10px; padding:24px 26px; text-align:left; }
+.sa-howto-title { font-weight:800; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.sa-howto ul { list-style:none; display:flex; flex-direction:column; gap:9px; }
+.sa-howto li { font-size:14px; color:var(--text-muted); line-height:1.65; font-weight:300; padding-left:18px; position:relative; }
+.sa-howto li::before { content:'\2192'; position:absolute; left:0; top:0; color:var(--accent); font-weight:700; }
+.sa-howto li b { color:var(--white); font-weight:600; }
+
 /* SECTIONS */
-.sa-section { padding:70px 40px 56px; border-top:1px solid var(--border); }
-.sa-inner { max-width:1100px; margin:0 auto; }
+.sa-section { padding:70px 40px 58px; border-top:1px solid var(--border); }
+.sa-inner { max-width:900px; margin:0 auto; }
 .sa-sec-eyebrow { display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:14px; }
 .sa-sec-eyebrow span { font-weight:700; font-size:11px; letter-spacing:5px; text-transform:uppercase; color:var(--accent); }
 .sa-sec-eyebrow i { display:block; width:32px; height:1px; background:rgba(232,33,46,.5); }
@@ -65,39 +72,59 @@ img { display:block; max-width:100%; }
 .sa-h2 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(32px,4.2vw,50px); text-transform:uppercase; color:#fff; margin-bottom:10px; line-height:1.05; letter-spacing:1px; text-align:center; }
 .sa-h2 span { color:var(--accent); font-style:italic; }
 .sa-h2 span.gold { color:var(--gold); }
-.sa-sec-sub { font-size:15px; color:var(--text-muted); margin:0 auto 44px; line-height:1.7; text-align:center; max-width:600px; font-weight:300; }
+.sa-sec-sub { font-size:15px; color:var(--text-muted); margin:0 auto 42px; line-height:1.7; text-align:center; max-width:620px; font-weight:300; }
 
-/* CARDS — flex column + margin-top:auto keeps buttons bottom-aligned */
-.sa-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:22px; }
-.sa-card { width:340px; background:var(--bg-card); border:1px solid var(--border-soft); border-top:3px solid var(--accent); border-radius:12px; padding:30px 28px 28px; display:flex; flex-direction:column; text-align:left; transition:transform .3s, box-shadow .3s, border-color .3s; }
-.sa-card:hover { transform:translateY(-5px); box-shadow:0 16px 44px rgba(0,0,0,.5); border-color:rgba(232,33,46,.35); }
-.sa-card.gold { border:1px solid var(--gold-soft); border-top:3px solid var(--gold); }
-.sa-card.gold:hover { border-color:var(--gold); }
-.sa-card-label { font-size:10px; font-weight:800; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
-.sa-card.gold .sa-card-label { color:var(--gold); }
-.sa-card h3 { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:25px; color:#fff; margin-bottom:12px; text-transform:uppercase; line-height:1.15; letter-spacing:.5px; }
-.sa-card p { font-size:14px; color:var(--text-muted); line-height:1.75; font-weight:300; margin-bottom:18px; }
-.sa-spec { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:22px; }
-.sa-spec span { background:rgba(255,255,255,.04); border:1px solid var(--border-soft); color:var(--text-faint); font-size:11px; letter-spacing:1px; text-transform:uppercase; font-weight:600; padding:5px 11px; border-radius:3px; }
-.sa-btn { margin-top:auto; display:block; text-align:center; padding:14px 20px; background:var(--accent); color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:14px; letter-spacing:2px; text-transform:uppercase; border-radius:4px; transition:background .2s; }
-.sa-btn:hover { background:var(--accent-hov); }
-.sa-btn.gold { background:var(--gold); color:#0A0A0A; }
-.sa-btn.gold:hover { background:#DBBB63; }
-.sa-btn.ghost { background:transparent; border:2px solid var(--accent); color:var(--accent); padding:12px 20px; }
-.sa-btn.ghost:hover { background:var(--accent); color:#fff; }
+/* DOC CARDS — horizontal */
+.sa-doc-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
+.sa-doc-card { width:430px; background:var(--bg-card); border:1px solid var(--gold-soft); border-top:3px solid var(--gold); border-radius:10px; padding:26px 26px 24px; display:flex; align-items:flex-start; gap:18px; transition:border-color .2s, transform .2s, box-shadow .2s; }
+.sa-doc-card:hover { border-color:var(--gold); transform:translateY(-3px); box-shadow:0 14px 40px rgba(0,0,0,.45); }
+.sa-doc-mark { flex-shrink:0; width:52px; height:52px; border:2px solid var(--gold-soft); border-radius:8px; background:rgba(201,168,76,.07); display:flex; align-items:center; justify-content:center; font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:15px; letter-spacing:1px; color:var(--gold); }
+.sa-doc-info { flex:1; min-width:0; display:flex; flex-direction:column; }
+.sa-doc-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:23px; color:#fff; text-transform:uppercase; letter-spacing:.5px; margin-bottom:9px; }
+.sa-doc-desc { font-size:13.5px; color:var(--text-muted); line-height:1.7; font-weight:300; margin-bottom:18px; }
+.sa-doc-btn { margin-top:auto; align-self:flex-start; display:inline-block; background:var(--gold); color:#0A0A0A; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:13px; letter-spacing:2px; text-transform:uppercase; padding:11px 22px; border-radius:4px; transition:background .2s; }
+.sa-doc-btn:hover { background:#DBBB63; }
+
+/* IMAGE CARDS — vertical with aspect-ratio preview */
+.sa-img-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
+.sa-img-card { width:430px; background:var(--bg-card); border:1px solid var(--border-soft); border-top:3px solid var(--accent); border-radius:12px; overflow:hidden; display:flex; flex-direction:column; transition:border-color .2s, transform .2s, box-shadow .2s; }
+.sa-img-card:hover { border-color:rgba(232,33,46,.45); transform:translateY(-3px); box-shadow:0 14px 40px rgba(0,0,0,.45); }
+.sa-img-preview { background:var(--bg-deep); border-bottom:1px solid var(--border-soft); height:150px; display:flex; align-items:center; justify-content:center; }
+.sa-fmt-visual { border:2px solid rgba(232,33,46,.35); border-radius:6px; background:rgba(232,33,46,.05); display:flex; align-items:center; justify-content:center; }
+.sa-fmt-label { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:17px; letter-spacing:1px; color:var(--accent); }
+.sa-fmt-square .sa-fmt-visual { width:96px; height:96px; }
+.sa-fmt-vertical .sa-fmt-visual { width:62px; height:110px; }
+.sa-img-body { padding:24px 26px 26px; display:flex; flex-direction:column; flex:1; }
+.sa-img-badge { display:inline-block; align-self:flex-start; background:rgba(232,33,46,.1); border:1px solid rgba(232,33,46,.35); color:var(--accent); font-size:10px; font-weight:800; letter-spacing:2px; text-transform:uppercase; padding:5px 11px; border-radius:3px; margin-bottom:13px; }
+.sa-img-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:24px; color:#fff; text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px; }
+.sa-img-desc { font-size:13.5px; color:var(--text-muted); line-height:1.7; font-weight:300; margin-bottom:12px; }
+.sa-img-note { font-size:12px; color:var(--text-faint); letter-spacing:.5px; margin-bottom:20px; }
+.sa-img-btn { margin-top:auto; display:block; text-align:center; background:var(--accent); color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:14px; letter-spacing:2px; text-transform:uppercase; padding:13px 20px; border-radius:4px; transition:background .2s; }
+.sa-img-btn:hover { background:var(--accent-hov); }
+
+/* LINK CARDS */
+.sa-link-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
+.sa-link-card { width:430px; background:var(--bg-card); border:1px solid var(--border-soft); border-top:3px solid var(--accent); border-radius:12px; padding:28px 26px 26px; display:flex; flex-direction:column; }
+.sa-link-label { font-size:10px; font-weight:800; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:11px; }
+.sa-link-card h3 { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:24px; color:#fff; text-transform:uppercase; letter-spacing:.5px; margin-bottom:11px; }
+.sa-link-card p { font-size:13.5px; color:var(--text-muted); line-height:1.7; font-weight:300; margin-bottom:20px; }
+.sa-link-btn { margin-top:auto; display:block; text-align:center; background:var(--accent); color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:14px; letter-spacing:2px; text-transform:uppercase; padding:13px 20px; border-radius:4px; transition:background .2s; }
+.sa-link-btn:hover { background:var(--accent-hov); }
+.sa-link-btn.ghost { background:transparent; border:2px solid var(--accent); color:var(--accent); padding:11px 20px; }
+.sa-link-btn.ghost:hover { background:var(--accent); color:#fff; }
 
 /* CHECKLIST */
 .sa-list { max-width:760px; margin:0 auto; display:flex; flex-direction:column; align-items:center; }
-.sa-item { width:100%; max-width:760px; box-sizing:border-box; display:flex; gap:16px; align-items:flex-start; background:var(--bg-card); border:1px solid var(--border-soft); border-left:3px solid var(--accent); border-radius:8px; padding:18px 22px; margin-bottom:12px; }
-.sa-item-num { flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--accent); line-height:1.2; letter-spacing:1px; min-width:26px; }
+.sa-item { width:100%; box-sizing:border-box; display:flex; gap:16px; align-items:flex-start; background:var(--bg-card); border:1px solid var(--border-soft); border-left:3px solid var(--accent); border-radius:8px; padding:17px 22px; margin-bottom:11px; }
+.sa-item-num { flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:21px; color:var(--accent); line-height:1.25; letter-spacing:1px; min-width:24px; }
 .sa-item-text { font-size:14px; color:var(--text-muted); line-height:1.7; font-weight:300; }
 .sa-item-text b { color:var(--white); font-weight:600; }
 
 /* HASHTAGS */
-.sa-tags { max-width:760px; margin:32px auto 0; background:var(--bg-deep); border:1px solid var(--border-soft); border-radius:10px; padding:26px 28px; text-align:center; }
+.sa-tags { max-width:760px; margin:30px auto 0; background:var(--bg-deep); border:1px solid var(--border-soft); border-radius:10px; padding:24px 26px; text-align:center; }
 .sa-tags-label { font-size:10px; font-weight:800; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
 .sa-tags-row { display:flex; flex-wrap:wrap; justify-content:center; gap:9px; }
-.sa-tag { background:rgba(201,168,76,.1); border:1px solid var(--gold-soft); color:var(--gold); font-size:12px; font-weight:600; letter-spacing:.5px; padding:6px 13px; border-radius:3px; }
+.sa-tag { background:rgba(201,168,76,.1); border:1px solid var(--gold-soft); color:var(--gold); font-size:12px; font-weight:600; padding:6px 13px; border-radius:3px; }
 
 /* FOOTER */
 .sa-footer { background:#050505; border-top:1px solid var(--border); padding:44px 40px 40px; text-align:center; }
@@ -108,14 +135,18 @@ img { display:block; max-width:100%; }
 .sa-footer-text { font-size:12px; color:var(--text-faint); line-height:1.9; font-weight:300; }
 .sa-footer-text a:hover { color:var(--accent); }
 
-@media (max-width:820px) {
+@media (max-width:940px) {
   .sa-hdr { padding:12px 16px; gap:14px; }
   .sa-hdr-divider { display:none; }
   .sa-hdr-logo { font-size:17px; }
-  .sa-hero { padding:40px 18px 38px; }
-  .sa-section { padding:52px 18px 44px; }
+  .sa-hero { padding:40px 18px 42px; }
+  .sa-section { padding:52px 18px 46px; }
   .sa-eyebrow i, .sa-sec-eyebrow i { width:20px; }
-  .sa-card { width:100%; max-width:400px; }
+  .sa-doc-card, .sa-img-card, .sa-link-card { width:100%; max-width:430px; }
+}
+@media (max-width:520px) {
+  .sa-doc-card { flex-direction:column; gap:14px; }
+  .sa-doc-btn { align-self:stretch; text-align:center; }
 }
 </style>
 </head>
@@ -137,55 +168,85 @@ img { display:block; max-width:100%; }
 
 <section class="sa-hero">
   <div class="sa-hero-inner">
-    <div class="sa-eyebrow"><i></i><span>For Confirmed Speakers</span><i></i></div>
-    <h1 class="sa-h1">Speaker <span>Resource Centre</span></h1>
-    <p class="sa-sub">Everything you need to promote your segment &mdash; graphics, swipe copy and event details. Grab what you need and post whenever suits your audience.</p>
+    <div class="sa-eyebrow"><i></i><span>Speaker Resource Centre</span><i></i></div>
+    <h1 class="sa-h1">Your Speaker<br><span>Assets</span></h1>
+    <p class="sa-sub">Everything you need to promote your appearance at the Peak Vitality Global Summit. Download your images, open your documents and start sharing today.</p>
     <div class="sa-pills">
       <span class="sa-pill">August 27, 2026</span>
       <span class="sa-pill">4:00 PM LA Time</span>
       <span class="sa-pill">Live Virtual</span>
+    </div>
+
+    <div class="sa-howto">
+      <div class="sa-howto-title">How to Use These Assets</div>
+      <ul>
+        <li>Open the <b>Speaker Resources</b> document first &mdash; it has your backstage link and everything you need for the day.</li>
+        <li>Download your graphic from the folder for your chosen format. <b>Find the image featuring you.</b></li>
+        <li>Grab a post from the <b>Swipe Copy</b> document, adjust it to sound like you, and keep the links exact.</li>
+        <li>Always link the <b>registration page</b> &mdash; never the watch page.</li>
+      </ul>
     </div>
   </div>
 </section>
 
 <section class="sa-section">
   <div class="sa-inner">
-    <div class="sa-sec-eyebrow"><i></i><span>Download</span><i></i></div>
-    <h2 class="sa-h2">Graphics &amp; <span>Copy</span></h2>
-    <p class="sa-sec-sub">All assets are ready to use. Square for feed posts, vertical for stories and reels.</p>
+    <div class="sa-sec-eyebrow gold"><i></i><span>Speaker Documents</span><i></i></div>
+    <h2 class="sa-h2">Documents &amp; <span class="gold">Swipe Files</span></h2>
+    <p class="sa-sec-sub">Your briefing document and ready-made copy for social media and email. Everything in one place.</p>
 
-    <div class="sa-grid">
+    <div class="sa-doc-grid">
 
-      <div class="sa-card">
-        <div class="sa-card-label">Speaker Graphics</div>
-        <h3>Square Format</h3>
-        <p>Your speaker graphic sized for feed posts on LinkedIn, Facebook and Instagram. Find your name in the folder.</p>
-        <div class="sa-spec"><span>3000 &times; 3000</span><span>Feed Posts</span><span>PNG</span></div>
-        <a class="sa-btn" href="https://drive.google.com/drive/folders/1PMbOztT9kwTxd5gtdNJOmu4ghytEvxjG" target="_blank" rel="noopener">Open Folder</a>
+      <div class="sa-doc-card">
+        <div class="sa-doc-mark">DOC</div>
+        <div class="sa-doc-info">
+          <div class="sa-doc-title">Speaker Resources</div>
+          <div class="sa-doc-desc">Event details, speaking format, your StreamYard backstage link and on-camera best practice. Read this before August 27.</div>
+          <a class="sa-doc-btn" href="https://docs.google.com/document/d/1tCe_k_lfDx1eeIS_B2VsHYFHEPxd4LaY/edit?usp=sharing&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener">Open Document</a>
+        </div>
       </div>
 
-      <div class="sa-card">
-        <div class="sa-card-label">Speaker Graphics</div>
-        <h3>Vertical Format</h3>
-        <p>Full-screen vertical graphics for Instagram and Facebook stories, reels and TikTok.</p>
-        <div class="sa-spec"><span>1080 &times; 1920</span><span>Stories &amp; Reels</span><span>PNG</span></div>
-        <a class="sa-btn" href="https://drive.google.com/drive/folders/1GMI_IFKSkQ8Q_-fvp8U5_lc2T2kXGda4" target="_blank" rel="noopener">Open Folder</a>
+      <div class="sa-doc-card">
+        <div class="sa-doc-mark">COPY</div>
+        <div class="sa-doc-info">
+          <div class="sa-doc-title">Swipe Copy</div>
+          <div class="sa-doc-desc">Ready-made captions, email templates, LinkedIn and Facebook posts, story frames and SMS invites. Copy, paste and post.</div>
+          <a class="sa-doc-btn" href="https://docs.google.com/document/d/1hdOcBg5NmgFkX2vzVT8zQfu5W-_xz_79/edit?usp=drive_link&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener">Open Document</a>
+        </div>
       </div>
 
-      <div class="sa-card gold">
-        <div class="sa-card-label">Document</div>
-        <h3>Speaker Resources</h3>
-        <p>Your full briefing &mdash; event details, speaking format, your StreamYard backstage link, and on-camera best practice. Read this before the day.</p>
-        <div class="sa-spec"><span>Google Doc</span><span>Read First</span></div>
-        <a class="sa-btn gold" href="https://docs.google.com/document/d/1tCe_k_lfDx1eeIS_B2VsHYFHEPxd4LaY/edit?usp=sharing&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener">Open Document</a>
+    </div>
+  </div>
+</section>
+
+<section class="sa-section">
+  <div class="sa-inner">
+    <div class="sa-sec-eyebrow"><i></i><span>Promotional Images</span><i></i></div>
+    <h2 class="sa-h2">Download Your <span>Images</span></h2>
+    <p class="sa-sec-sub">Two formats covering every platform. Open the folder for your chosen format, find the image featuring you and download it directly from Google Drive.</p>
+
+    <div class="sa-img-grid">
+
+      <div class="sa-img-card sa-fmt-square">
+        <div class="sa-img-preview"><div class="sa-fmt-visual"><span class="sa-fmt-label">1:1</span></div></div>
+        <div class="sa-img-body">
+          <span class="sa-img-badge">3000 &times; 3000 px</span>
+          <div class="sa-img-title">Square Format</div>
+          <div class="sa-img-desc">For Instagram feed posts, Facebook posts and LinkedIn image posts. The most versatile format &mdash; works everywhere.</div>
+          <div class="sa-img-note">Speaker graphics &middot; Find your name in the folder</div>
+          <a class="sa-img-btn" href="https://drive.google.com/drive/folders/1PMbOztT9kwTxd5gtdNJOmu4ghytEvxjG" target="_blank" rel="noopener">Open Folder</a>
+        </div>
       </div>
 
-      <div class="sa-card gold">
-        <div class="sa-card-label">Document</div>
-        <h3>Swipe Copy</h3>
-        <p>Ready-to-paste posts, captions, emails, story frames and SMS invites. Adjust the wording to sound like you &mdash; keep the links exact.</p>
-        <div class="sa-spec"><span>Google Doc</span><span>Copy &amp; Paste</span></div>
-        <a class="sa-btn gold" href="https://docs.google.com/document/d/1hdOcBg5NmgFkX2vzVT8zQfu5W-_xz_79/edit?usp=drive_link&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener">Open Document</a>
+      <div class="sa-img-card sa-fmt-vertical">
+        <div class="sa-img-preview"><div class="sa-fmt-visual"><span class="sa-fmt-label">9:16</span></div></div>
+        <div class="sa-img-body">
+          <span class="sa-img-badge">1080 &times; 1920 px</span>
+          <div class="sa-img-title">Vertical Format</div>
+          <div class="sa-img-desc">Full-screen vertical for Instagram and Facebook stories, reels and TikTok. Highest reach per post on mobile.</div>
+          <div class="sa-img-note">Speaker graphics &middot; Find your name in the folder</div>
+          <a class="sa-img-btn" href="https://drive.google.com/drive/folders/1GMI_IFKSkQ8Q_-fvp8U5_lc2T2kXGda4" target="_blank" rel="noopener">Open Folder</a>
+        </div>
       </div>
 
     </div>
@@ -198,22 +259,20 @@ img { display:block; max-width:100%; }
     <h2 class="sa-h2">Where to Send <span>People</span></h2>
     <p class="sa-sec-sub">Two links, two jobs. Send your audience to the registration page &mdash; that's the one that captures them.</p>
 
-    <div class="sa-grid">
+    <div class="sa-link-grid">
 
-      <div class="sa-card">
-        <div class="sa-card-label">Share This One</div>
+      <div class="sa-link-card">
+        <div class="sa-link-label">Share This One</div>
         <h3>Registration Page</h3>
-        <p>Free registration. This is the link to use in every post, email and message. Everyone who registers gets the watch link by email.</p>
-        <div class="sa-spec"><span>Public</span><span>Share Freely</span></div>
-        <a class="sa-btn" href="https://events.voicetoinfluence.com/peak-vitality" target="_blank" rel="noopener">Open Registration Page</a>
+        <p>Free registration. This is the link for every post, email and message. Everyone who registers gets the watch link by email.</p>
+        <a class="sa-link-btn" href="https://events.voicetoinfluence.com/peak-vitality" target="_blank" rel="noopener">Open Registration Page</a>
       </div>
 
-      <div class="sa-card">
-        <div class="sa-card-label">Reference Only</div>
+      <div class="sa-link-card">
+        <div class="sa-link-label">Reference Only</div>
         <h3>Watch Page</h3>
         <p>Where the summit streams live on the day. Your own speaker page is linked from here &mdash; worth checking your bio and photo now.</p>
-        <div class="sa-spec"><span>Live Stream</span><span>Speaker Pages</span></div>
-        <a class="sa-btn ghost" href="pvg-watch.html" target="_blank" rel="noopener">Open Watch Page</a>
+        <a class="sa-link-btn ghost" href="pvg-watch.html" target="_blank" rel="noopener">Open Watch Page</a>
       </div>
 
     </div>
@@ -224,29 +283,14 @@ img { display:block; max-width:100%; }
   <div class="sa-inner">
     <div class="sa-sec-eyebrow gold"><i></i><span>Before You Post</span><i></i></div>
     <h2 class="sa-h2">Five Things That <span class="gold">Actually Help</span></h2>
-    <p class="sa-sec-sub">Attendance is the whole game. Production is handled &mdash; getting people in the room is where you make the difference.</p>
+    <p class="sa-sec-sub">Production is handled. Getting people in the room is where you make the difference.</p>
 
     <div class="sa-list">
-      <div class="sa-item">
-        <span class="sa-item-num">01</span>
-        <span class="sa-item-text">Post <b>more than once</b>. One announcement gets seen by a fraction of your audience. Three posts across three weeks is the minimum that moves numbers.</span>
-      </div>
-      <div class="sa-item">
-        <span class="sa-item-num">02</span>
-        <span class="sa-item-text">Always link the <b>registration page</b>, never the watch page. Unregistered people can't be reminded, and reminders are what drive show-up rate.</span>
-      </div>
-      <div class="sa-item">
-        <span class="sa-item-num">03</span>
-        <span class="sa-item-text">Say <b>why you said yes</b>. A personal line about what you're speaking on outperforms any polished graphic on its own.</span>
-      </div>
-      <div class="sa-item">
-        <span class="sa-item-num">04</span>
-        <span class="sa-item-text">Tag <b>Voice to Influence</b> and <b>PodGo</b> where the platform allows it.</span>
-      </div>
-      <div class="sa-item">
-        <span class="sa-item-num">05</span>
-        <span class="sa-item-text">Send a <b>direct message</b> to ten people who'd genuinely benefit. This consistently outperforms broadcast posting, and it takes ten minutes.</span>
-      </div>
+      <div class="sa-item"><span class="sa-item-num">01</span><span class="sa-item-text">Post <b>more than once</b>. One announcement reaches a fraction of your audience. Three posts across three weeks is the minimum that moves numbers.</span></div>
+      <div class="sa-item"><span class="sa-item-num">02</span><span class="sa-item-text">Always link the <b>registration page</b>, never the watch page. Unregistered people can't be reminded, and reminders drive show-up rate.</span></div>
+      <div class="sa-item"><span class="sa-item-num">03</span><span class="sa-item-text">Say <b>why you said yes</b>. A personal line about what you're speaking on outperforms any polished graphic on its own.</span></div>
+      <div class="sa-item"><span class="sa-item-num">04</span><span class="sa-item-text">Tag <b>Voice to Influence</b> and <b>PodGo</b> where the platform allows it.</span></div>
+      <div class="sa-item"><span class="sa-item-num">05</span><span class="sa-item-text">Send a <b>direct message</b> to ten people who'd genuinely benefit. Consistently outperforms broadcast posting, and it takes ten minutes.</span></div>
     </div>
 
     <div class="sa-tags">
