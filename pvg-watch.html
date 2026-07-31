@@ -114,11 +114,11 @@ img { display:block; max-width:100%; }
 .wp-marquee-wrap::after { right:0; background:linear-gradient(270deg,#050505 0%,transparent 100%); }
 .wp-marquee { display:flex; width:max-content; will-change:transform; }
 .wp-marquee:hover { animation-play-state:paused; }
-@keyframes wp-scroll { from { transform:translateX(0);} to { transform:translateX(-50%);} }
+@keyframes wp-scroll { from { transform:translateX(0);} to { transform:translateX(calc(-1 * var(--wp-dist,50%)));} }
 
 /* faces variant */
 .wp-mq-faces { padding:22px 0; }
-.wp-mq-faces .wp-marquee { animation:wp-scroll 46s linear infinite; }
+.wp-mq-faces .wp-marquee { animation:wp-scroll 40s linear infinite; }
 .wp-mq-item { display:flex; align-items:center; gap:14px; padding:0 26px; border-right:1px solid rgba(255,255,255,0.06); }
 .wp-mq-photo { width:64px; height:64px; border-radius:50%; overflow:hidden; flex-shrink:0; border:2px solid var(--gold-soft); background:#1A1718; }
 .wp-mq-photo img { width:100%; height:100%; object-fit:cover; }
@@ -128,7 +128,7 @@ img { display:block; max-width:100%; }
 
 /* text ticker variant */
 .wp-mq-ticker { padding:13px 0; background:#000; }
-.wp-mq-ticker .wp-marquee { animation:wp-scroll 34s linear infinite; }
+.wp-mq-ticker .wp-marquee { animation:wp-scroll 30s linear infinite; }
 .wp-mq-tick { display:flex; align-items:center; gap:16px; padding:0 22px; white-space:nowrap; font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:15px; letter-spacing:3px; text-transform:uppercase; color:rgba(240,237,232,0.75); }
 .wp-mq-tick b { color:var(--accent); font-weight:900; }
 .wp-mq-tick i { font-style:normal; color:var(--gold); }
@@ -485,36 +485,49 @@ img { display:block; max-width:100%; }
     { n:'Chong Shu Wan',             r:'VIP Speaker', i:'https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6a6bb7b46e6593e30e51cdbe.png' }
   ];
 
-  function buildFaces(){
-    var host = document.getElementById('wp-marquee-faces');
+  function facesSet(){
     var html = '';
-    for (var pass = 0; pass < 2; pass++) {
-      for (var k = 0; k < VIPS.length; k++) {
-        var v = VIPS[k];
-        html += '<div class="wp-mq-item">'
-              +   '<div class="wp-mq-photo"><img src="' + v.i + '" alt="" loading="lazy"></div>'
-              +   '<div class="wp-mq-text"><div class="wp-mq-name">' + v.n + '</div>'
-              +   '<div class="wp-mq-role">' + v.r + '</div></div>'
-              + '</div>';
-      }
+    for (var k = 0; k < VIPS.length; k++) {
+      var v = VIPS[k];
+      html += '<div class="wp-mq-item">'
+            +   '<div class="wp-mq-photo"><img src="' + v.i + '" alt="" loading="lazy"></div>'
+            +   '<div class="wp-mq-text"><div class="wp-mq-name">' + v.n + '</div>'
+            +   '<div class="wp-mq-role">' + v.r + '</div></div>'
+            + '</div>';
     }
-    host.innerHTML = html;
+    return html;
   }
 
-  function buildTicker(){
-    var host = document.getElementById('wp-marquee-ticker');
-    var unit = '<div class="wp-mq-tick"><span class="wp-mq-dot"></span>'
-             + 'Peak Vitality Global Summit'
-             + '<span class="wp-mq-dot"></span>'
-             + 'Presented by <i>Voice to Influence</i>'
-             + '<span class="wp-mq-dot"></span>'
-             + 'Sponsored by <b>PodGo</b>'
-             + '<span class="wp-mq-dot"></span>'
-             + 'August 27, 2026'
-             + '</div>';
+  function tickerSet(){
+    return '<div class="wp-mq-tick"><span class="wp-mq-dot"></span>'
+         + 'Peak Vitality Global Summit'
+         + '<span class="wp-mq-dot"></span>'
+         + 'Presented by <i>Voice to Influence</i>'
+         + '<span class="wp-mq-dot"></span>'
+         + 'Sponsored by <b>PodGo</b>'
+         + '<span class="wp-mq-dot"></span>'
+         + 'August 27, 2026'
+         + '</div>';
+  }
+
+  // Fill the rail with enough copies to cover 2x the viewport, then scroll
+  // exactly one set-width at a fixed px/sec so speed is identical on any screen.
+  function spinUp(railId, setHTML, pxPerSec){
+    var rail = document.getElementById(railId);
+    rail.innerHTML = setHTML;
+    var setW = rail.scrollWidth;
+    if (!setW) { return; }
+    var need = Math.max(2, Math.ceil((window.innerWidth * 2) / setW) + 1);
     var html = '';
-    for (var k = 0; k < 12; k++) { html += unit; }
-    host.innerHTML = html;
+    for (var k = 0; k < need; k++) { html += setHTML; }
+    rail.innerHTML = html;
+    rail.style.setProperty('--wp-dist', setW + 'px');
+    rail.style.animationDuration = (setW / pxPerSec).toFixed(2) + 's';
+  }
+
+  function spinAll(){
+    spinUp('wp-marquee-faces',  facesSet(),  70);
+    spinUp('wp-marquee-ticker', tickerSet(), 95);
   }
 
   var faces  = document.getElementById('wp-mq-faces');
@@ -582,8 +595,12 @@ img { display:block; max-width:100%; }
     document.getElementById('wp-seconds').textContent = pad(Math.floor((diff / 1000) % 60));
   }
 
-  buildFaces();
-  buildTicker();
+  spinAll();
+  window.addEventListener('load', spinAll);
+  var rsTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(rsTimer); rsTimer = setTimeout(spinAll, 250);
+  });
   document.getElementById('wp-replay-link').href = REPLAY_URL;
   updateState();
 
