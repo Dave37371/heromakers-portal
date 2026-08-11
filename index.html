@@ -4,440 +4,235 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Speakers Portal · Voice to Influence</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Barlow+Condensed:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   DESIGN TOKENS — Red / Black / White portal brand
+   VOICE TO INFLUENCE — DESIGN TOKENS
 ============================================================ */
-:root {
-  --red:         #E8212E;
-  --red-dark:    #B81920;
-  --red-dim:     rgba(232,33,46,0.12);
-  --red-glow:    rgba(232,33,46,0.06);
-  --black:       #0A0A0A;
-  --dark:        #111111;
-  --dark2:       #161616;
-  --dark3:       #1E1E1E;
-  --dark4:       #262626;
-  --white:       #FFFFFF;
-  --off-white:   #F0EDE8;
-  --grey:        #777777;
-  --grey-light:  #AAAAAA;
-  --gold:        #C9A84C;
-  --gold-light:  #E2C97E;
-  --green:       #00C864;
-  --border:      rgba(255,255,255,0.07);
-  --border-red:  rgba(232,33,46,0.2);
+:root{
+  --ink:#0A0C0F;
+  --ink-mid:#141720;
+  --ink-lite:#1E2330;
+  --gold:#C9A84C;
+  --gold-lite:#E8C96A;
+  --cream:#F4EFE6;
+  --mist:#C2BAA8;
+  --line:rgba(201,168,76,0.25);
+  --line-soft:rgba(201,168,76,0.12);
+  --ff-head:'Playfair Display',Georgia,serif;
+  --ff-body:'DM Sans',system-ui,sans-serif;
+  --wrap:1180px;
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body { font-family:'Barlow',sans-serif; background:var(--black); color:var(--white); overflow-x:hidden; min-height:100vh; }
-
-/* subtle grain */
-body::before {
-  content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.02;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:160px;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--ff-body);background:var(--ink);color:var(--cream);overflow-x:hidden;min-height:100vh;}
+img{max-width:100%;}
+button{font-family:var(--ff-body);}
 
 /* ============================================================
    SCREEN SYSTEM
 ============================================================ */
-.screen { display:none; min-height:100vh; position:relative; z-index:1; }
-.screen.active { display:block; }
+.screen{display:none;min-height:100vh;position:relative;z-index:1;}
+.screen.active{display:block;}
 
 /* ============================================================
    NAV
 ============================================================ */
-.nav {
-  position:fixed; top:0; left:0; right:0; z-index:500;
-  height:76px;
-  background:rgba(10,10,10,0.97);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,0.12);
-  display:flex; align-items:center; justify-content:space-between;
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  height:84px;
+  background:rgba(10,12,15,0.97);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
   padding:0 36px;
 }
-.nav-left { display:flex; align-items:center; gap:16px; }
-.nav-presented-label {
-  font-family:'Barlow'; font-size:10px; letter-spacing:3px;
-  text-transform:uppercase; color:rgba(255,255,255,0.45);
-  font-style:italic; white-space:nowrap; padding-right:4px;
+/* VTI logo file has heavy transparent padding baked in — oversized via CSS as workaround */
+.nav-logo{height:68px;width:auto;object-fit:contain;cursor:pointer;transition:opacity 0.2s;}
+.nav-logo:hover{opacity:0.85;}
+.nav-right{display:flex;gap:8px;align-items:center;}
+.btn-nav{
+  background:transparent;border:1px solid transparent;
+  color:var(--mist);padding:9px 16px;border-radius:2px;
+  cursor:pointer;font-size:13.5px;font-weight:500;
+  transition:all 0.2s;letter-spacing:0.03em;white-space:nowrap;
 }
-
-.nav-logo-img {
-  height:48px; width:auto; object-fit:contain;
-  filter:brightness(1.15); cursor:pointer; transition:opacity 0.2s;
+.btn-nav:hover{color:var(--cream);border-color:var(--line);}
+.btn-nav-gold{
+  background:var(--gold);border:none;color:var(--ink);
+  padding:11px 22px;border-radius:2px;cursor:pointer;
+  font-size:13.5px;font-weight:600;
+  letter-spacing:0.06em;text-transform:uppercase;transition:background 0.2s;
 }
-.nav-logo-img:hover { opacity:0.8; }
-.nav-logo-hero {
-  height:64px; max-width:240px;
-  filter:brightness(1.25);
-}
-.nav-logo-partner {
-  height:56px; opacity:0.95;
-  filter:brightness(1.2);
-}
-.nav-divider { width:1px; height:36px; background:rgba(255,255,255,0.2); }
-
-.nav-right { display:flex; gap:10px; align-items:center; position:relative; }
-.btn-nav {
-  background:transparent; border:1px solid var(--border);
-  color:var(--grey-light); padding:8px 18px; border-radius:6px;
-  cursor:pointer; font-family:'Barlow'; font-size:13px; font-weight:600;
-  transition:all 0.2s; letter-spacing:0.5px; white-space:nowrap;
-}
-.btn-nav:hover { border-color:var(--red); color:var(--white); }
-.btn-nav-red {
-  background:var(--red); border:none; color:var(--white);
-  padding:8px 20px; border-radius:6px; cursor:pointer;
-  font-family:'Barlow'; font-size:13px; font-weight:700;
-  letter-spacing:1px; text-transform:uppercase; transition:all 0.2s;
-}
-.btn-nav-red:hover { background:var(--red-dark); transform:translateY(-1px); }
-
-/* User menu */
-.nav-user {
-  display:flex; align-items:center; gap:8px; cursor:pointer;
-  padding:6px 10px; border-radius:8px; transition:background 0.2s;
-  position:relative;
-}
-.nav-user:hover { background:var(--dark3); }
-.nav-avatar {
-  width:34px; height:34px; border-radius:50%;
-  background:var(--red); display:flex; align-items:center; justify-content:center;
-  font-family:'Bebas Neue'; font-size:15px; color:var(--white); letter-spacing:1px;
-}
-.nav-username { font-size:13px; font-weight:600; color:var(--grey-light); }
-.nav-chevron { font-size:10px; color:var(--grey); }
-
-/* Dropdown */
-.user-dropdown {
-  position:absolute; top:calc(100% + 8px); right:0;
-  background:var(--dark2); border:1px solid var(--border);
-  border-radius:10px; min-width:200px; overflow:hidden;
-  box-shadow:0 16px 48px rgba(0,0,0,0.6);
-  display:none; z-index:600;
-}
-.user-dropdown.open { display:block; }
-.dropdown-header { padding:12px 16px; border-bottom:1px solid var(--border); }
-.dropdown-email { font-size:12px; color:var(--grey); margin-bottom:6px; }
-.dropdown-roles { display:flex; gap:6px; }
-.role-badge {
-  font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
-  padding:2px 8px; border-radius:4px;
-}
-.role-speaker  { background:rgba(232,33,46,0.15); color:var(--red); border:1px solid var(--border-red); }
-.role-attendee { background:rgba(255,255,255,0.08); color:var(--grey-light); border:1px solid var(--border); }
-.dropdown-item {
-  display:flex; align-items:center; gap:10px;
-  padding:11px 16px; cursor:pointer; transition:background 0.15s;
-  font-size:14px; color:var(--grey-light);
-}
-.dropdown-item:hover { background:var(--dark3); color:var(--white); }
-.dropdown-item-icon { font-size:15px; }
-.dropdown-divider { height:1px; background:var(--border); }
-.dropdown-signout { color:var(--red) !important; }
+.btn-nav-gold:hover{background:#D6B75E;}
 
 /* ============================================================
-   SHARED BUTTONS
+   SHARED
 ============================================================ */
-.btn-primary {
-  background:var(--red); border:none; color:var(--white);
-  padding:13px 32px; border-radius:7px; cursor:pointer;
-  font-family:'Barlow Condensed'; font-size:18px; font-weight:800;
-  letter-spacing:2px; text-transform:uppercase; transition:all 0.25s;
-  display:inline-flex; align-items:center; gap:8px;
-}
-.btn-primary:hover { background:var(--red-dark); transform:translateY(-1px); box-shadow:0 8px 24px rgba(232,33,46,0.35); }
-.btn-secondary {
-  background:transparent; border:1.5px solid rgba(232,33,46,0.45); color:var(--red);
-  padding:11px 28px; border-radius:7px; cursor:pointer;
-  font-family:'Barlow Condensed'; font-size:18px; font-weight:700;
-  letter-spacing:2px; text-transform:uppercase; transition:all 0.25s;
-}
-.btn-secondary:hover { background:var(--red-dim); border-color:var(--red); }
-.btn-ghost {
-  background:transparent; border:1px solid var(--border);
-  color:var(--grey-light); padding:9px 20px; border-radius:7px;
-  cursor:pointer; font-family:'Barlow'; font-size:13px; font-weight:600;
-  transition:all 0.2s;
-}
-.btn-ghost:hover { border-color:rgba(255,255,255,0.2); color:var(--white); }
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px;}
+.kicker{font-size:11px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px;}
+.sec-title{font-family:var(--ff-head);font-weight:700;font-size:clamp(30px,3.6vw,44px);line-height:1.15;color:var(--cream);margin-bottom:16px;}
+.body-text{font-size:16px;color:var(--mist);line-height:1.8;font-weight:300;}
 
-/* ============================================================
-   SHARED COMPONENTS
-============================================================ */
-.eyebrow { font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--red); font-weight:600; margin-bottom:10px; display:block; }
-.section-title { font-family:'Bebas Neue'; font-size:clamp(32px,4vw,52px); letter-spacing:2px; margin-bottom:16px; line-height:1; }
-.section-title span { color:var(--red); }
-.body-text { font-size:16px; color:var(--grey-light); line-height:1.8; font-weight:300; }
-
-.card { background:var(--dark2); border:1px solid var(--border); border-radius:12px; transition:border-color 0.2s; }
-.card:hover { border-color:rgba(255,255,255,0.12); }
-.card-red:hover { border-color:var(--border-red); }
+.btn{
+  display:inline-block;background:var(--gold);color:var(--ink);
+  font-weight:600;font-size:16px;letter-spacing:0.04em;
+  text-decoration:none;padding:16px 40px;border-radius:2px;
+  border:none;cursor:pointer;transition:background 0.2s;min-height:48px;
+}
+.btn:hover{background:#D6B75E;}
+.btn-outline{
+  display:inline-block;background:transparent;color:var(--gold);
+  font-weight:600;font-size:15px;letter-spacing:0.04em;
+  text-decoration:none;padding:15px 34px;border-radius:2px;
+  border:1px solid var(--gold);cursor:pointer;transition:all 0.2s;
+}
+.btn-outline:hover{background:rgba(201,168,76,0.1);color:var(--gold-lite);}
+.btn-quiet{
+  display:inline-block;background:transparent;color:var(--mist);
+  font-weight:500;font-size:14px;letter-spacing:0.03em;
+  text-decoration:none;padding:13px 26px;border-radius:2px;
+  border:1px solid rgba(244,239,230,0.18);cursor:pointer;transition:all 0.2s;
+}
+.btn-quiet:hover{color:var(--cream);border-color:rgba(244,239,230,0.4);}
 
 /* Tags */
-.tag { display:inline-block; padding:3px 10px; border-radius:4px; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; }
-.tag-live    { background:rgba(0,200,100,0.1); color:var(--green); border:1px solid rgba(0,200,100,0.25); }
-.tag-soon    { background:rgba(201,168,76,0.1); color:var(--gold-light); border:1px solid rgba(201,168,76,0.2); }
-.tag-past    { background:rgba(255,255,255,0.06); color:var(--grey-light); border:1px solid var(--border); }
-.tag-speaker { background:var(--red-dim); color:var(--red); border:1px solid var(--border-red); }
-.tag-ended   { background:rgba(255,255,255,0.05); color:var(--grey); border:1px solid var(--border); }
+.tag{display:inline-block;padding:4px 12px;border-radius:2px;font-size:10.5px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;}
+.tag-open{background:rgba(201,168,76,0.12);color:var(--gold-lite);border:1px solid rgba(201,168,76,0.35);}
+.tag-soon{background:rgba(244,239,230,0.05);color:var(--mist);border:1px solid rgba(244,239,230,0.15);}
+.tag-cat{background:transparent;color:var(--mist);border:1px solid rgba(194,186,168,0.3);}
 
 /* ============================================================
-   SIDEBAR LAYOUT
+   HOME HERO
 ============================================================ */
-.sidebar-layout { display:grid; grid-template-columns:256px 1fr; min-height:calc(100vh - 76px); margin-top:76px; }
-.sidebar {
-  background:var(--dark); border-right:1px solid var(--border);
-  padding:28px 0; position:sticky; top:76px; height:calc(100vh - 76px); overflow-y:auto;
+.home-hero{
+  min-height:88vh;padding-top:84px;position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--ink);text-align:center;
+  border-bottom:1px solid var(--line-soft);
 }
-.sidebar-event-info { padding:0 18px 20px; border-bottom:1px solid var(--border); margin-bottom:10px; }
-.sidebar-event-tag { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--red); font-weight:600; margin-bottom:4px; }
-.sidebar-event-name { font-family:'Barlow Condensed'; font-size:16px; font-weight:700; line-height:1.3; }
-.sidebar-event-date { font-size:12px; color:var(--gold-light); margin-top:3px; }
-.sidebar-section { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--grey); padding:14px 18px 4px; font-weight:600; }
-.nav-item {
-  display:flex; align-items:center; gap:11px;
-  padding:10px 18px; cursor:pointer; transition:all 0.2s;
-  font-size:14px; font-weight:500; color:var(--grey-light);
-  border-left:2px solid transparent;
-}
-.nav-item:hover { color:var(--white); background:rgba(255,255,255,0.03); }
-.nav-item.active { color:var(--white); border-left-color:var(--red); background:var(--red-glow); }
-.nav-item-icon { font-size:16px; min-width:20px; text-align:center; }
-.nav-badge { margin-left:auto; background:var(--red); color:white; font-size:10px; font-weight:800; padding:2px 7px; border-radius:100px; }
-.main { padding:36px 44px; }
+.home-content{position:relative;z-index:2;max-width:860px;margin:0 auto;padding:80px 32px;}
+.home-title{font-family:var(--ff-head);font-weight:900;font-size:clamp(52px,8.5vw,104px);line-height:1.02;color:var(--cream);margin-bottom:26px;}
+.home-title em{font-style:italic;color:var(--gold);}
+.home-sub{font-size:18px;color:var(--mist);line-height:1.8;font-weight:300;max-width:620px;margin:0 auto 42px;}
+.home-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:64px;}
+.home-stats{display:flex;gap:64px;justify-content:center;flex-wrap:wrap;}
+.stat-num{font-family:var(--ff-head);font-weight:700;font-size:44px;color:var(--gold);line-height:1;}
+.stat-label{font-size:11px;color:var(--mist);letter-spacing:0.2em;text-transform:uppercase;margin-top:8px;}
 
 /* ============================================================
-   SCREEN 0: PUBLIC HOMEPAGE
+   SPONSOR STRIP
 ============================================================ */
-.home-hero {
-  min-height:100vh; padding-top:76px; position:relative; overflow:hidden;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  background:var(--black);
-}
-.home-bg {
-  position:absolute; inset:0;
-  background:radial-gradient(ellipse 80% 60% at 50% 20%, rgba(232,33,46,0.1) 0%, transparent 65%),
-             radial-gradient(ellipse 40% 40% at 85% 85%, rgba(232,33,46,0.04) 0%, transparent 55%);
-}
-.home-grid {
-  position:absolute; inset:0; opacity:0.03;
-  background-image:linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px);
-  background-size:64px 64px;
-}
-.home-content { position:relative; z-index:2; max-width:900px; margin:0 auto; padding:60px 32px; text-align:center; }
-.home-badge {
-  display:inline-flex; align-items:center; gap:8px;
-  background:var(--red-dim); border:1px solid var(--border-red);
-  padding:6px 18px; border-radius:100px; margin-bottom:32px;
-  font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red);
-}
-.home-badge-dot { width:6px; height:6px; background:var(--red); border-radius:50%; animation:pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
-.home-title { font-family:'Bebas Neue'; font-size:clamp(64px,12vw,160px); line-height:0.88; letter-spacing:3px; margin-bottom:24px; }
-.home-title span { color:var(--red); }
-.home-sub { font-size:19px; color:var(--grey-light); line-height:1.7; font-weight:300; max-width:580px; margin:0 auto 40px; }
-.home-ctas { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:64px; }
-.home-stats { display:flex; gap:56px; justify-content:center; flex-wrap:wrap; }
-.stat-num { font-family:'Bebas Neue'; font-size:52px; color:var(--red); line-height:1; }
-.stat-label { font-size:11px; color:var(--grey); letter-spacing:2px; text-transform:uppercase; margin-top:2px; }
-
-/* Presenter logos */
-.presenter-strip {
-  position:relative; z-index:2; width:100%;
-  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-  background:var(--dark); padding:32px 32px;
-  display:flex; align-items:center; justify-content:center; gap:28px; flex-wrap:wrap;
-}
-.presenter-label { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--white); font-style:italic; opacity:0.7; }
-.presenter-logo { height:32px; width:auto; object-fit:contain; filter:brightness(1.05); opacity:0.85; }
-.presenter-logo-hero { max-width:200px; }
-.presenter-sep { font-size:14px; color:var(--border); }
-
-/* Upcoming events strip */
-.home-events { background:var(--dark); padding:72px 32px; }
-.home-events-inner { max-width:1000px; margin:0 auto; }
-.event-tile {
-  background:var(--dark2); border:1px solid var(--border);
-  border-radius:12px; padding:24px 28px;
-  display:flex; gap:20px; align-items:center;
-  margin-bottom:14px; cursor:pointer; transition:all 0.25s;
-}
-.event-tile:hover { border-color:var(--border-red); transform:translateX(4px); }
-.event-tile-date {
-  min-width:72px; text-align:center;
-  background:var(--dark3); border-radius:8px; padding:10px 8px; border:1px solid var(--border);
-}
-.event-tile-month { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--red); font-weight:600; }
-.event-tile-day { font-family:'Bebas Neue'; font-size:38px; line-height:1; }
-.event-tile-info { flex:1; }
-.event-tile-name { font-family:'Barlow Condensed'; font-size:22px; font-weight:700; margin-bottom:4px; }
-.event-tile-meta { font-size:13px; color:var(--grey-light); }
-.event-tile-arrow { color:var(--grey); font-size:20px; }
+.sponsor-strip{background:var(--ink-mid);border-bottom:1px solid var(--line-soft);padding:56px 32px;text-align:center;}
+.sponsors{display:flex;justify-content:center;flex-wrap:wrap;gap:28px;margin-top:32px;}
+.sp{background:var(--ink);border:1px solid rgba(201,168,76,0.3);border-radius:2px;min-width:250px;min-height:124px;padding:28px 44px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;}
+.sp img{height:36px;width:auto;}
+.sp-name{font-family:var(--ff-head);font-size:24px;color:var(--cream);}
+.sp-tag{font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
 
 /* ============================================================
-   SCREEN 1: DASHBOARD (post-login)
+   HOME — UPCOMING EVENTS
 ============================================================ */
-.dashboard-wrap { padding-top:76px; }
-.dashboard-inner { max-width:800px; margin:0 auto; padding:56px 40px; }
-.dash-welcome { margin-bottom:48px; }
-.dash-welcome-tag { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--grey); font-weight:600; margin-bottom:8px; }
-.dash-welcome-title { font-family:'Bebas Neue'; font-size:56px; letter-spacing:2px; line-height:1; }
-.dash-welcome-title span { color:var(--red); }
-.dash-welcome-sub { font-size:16px; color:var(--grey-light); margin-top:8px; font-weight:300; }
-.dash-section-label { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--grey); font-weight:600; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--border); }
-
-/* Event card on dashboard */
-.dash-event-card {
-  background:var(--dark2); border:1px solid var(--border);
-  border-radius:12px; overflow:hidden; margin-bottom:12px;
-  display:flex; cursor:pointer; transition:all 0.25s;
+.home-events{background:var(--ink);padding:88px 32px;}
+.home-events-inner{max-width:900px;margin:0 auto;}
+.event-tile{
+  background:var(--ink-mid);border:1px solid rgba(201,168,76,0.18);
+  border-radius:2px;padding:26px 30px;
+  display:flex;gap:24px;align-items:center;
+  margin-bottom:14px;transition:border-color 0.25s;
 }
-.dash-event-card:hover { border-color:var(--border-red); box-shadow:0 6px 24px rgba(0,0,0,0.3); }
-.dash-event-accent { width:4px; min-width:4px; background:var(--red); }
-.dash-event-body { padding:18px 22px; flex:1; display:flex; align-items:center; justify-content:space-between; gap:16px; }
-.dash-event-name { font-family:'Barlow Condensed'; font-size:20px; font-weight:700; margin-bottom:4px; }
-.dash-event-meta { font-size:13px; color:var(--grey-light); }
-.dash-event-actions { display:flex; gap:8px; align-items:center; }
-.btn-view { background:var(--red); border:none; color:var(--white); padding:8px 20px; border-radius:6px; cursor:pointer; font-family:'Barlow'; font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; transition:all 0.2s; white-space:nowrap; }
-.btn-view:hover { background:var(--red-dark); }
-.dash-empty { text-align:center; padding:48px 20px; color:var(--grey); font-size:15px; line-height:1.7; }
-
-/* Role cards */
-.role-cards { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:32px; }
-.role-card { padding:24px; cursor:pointer; }
-.role-card-icon { font-size:28px; margin-bottom:12px; }
-.role-card-title { font-family:'Barlow Condensed'; font-size:20px; font-weight:700; margin-bottom:6px; }
-.role-card-desc { font-size:13px; color:var(--grey-light); line-height:1.6; }
-.role-card-link { font-size:13px; color:var(--red); font-weight:600; margin-top:12px; display:flex; align-items:center; gap:4px; }
-
-/* ============================================================
-   SCREEN 5: ALL EVENTS
-============================================================ */
-.all-events-wrap { padding-top:76px; }
-.all-events-hero { padding:72px 44px 56px; text-align:center; position:relative; overflow:hidden; }
-.all-events-hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(232,33,46,0.08) 0%,transparent 65%); pointer-events:none; }
-.all-events-hero-grid { position:absolute; inset:0; opacity:0.025; background-image:linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px); background-size:60px 60px; }
-.all-events-title { font-family:'Bebas Neue'; font-size:clamp(56px,9vw,110px); letter-spacing:3px; line-height:0.88; margin-bottom:14px; position:relative; z-index:2; }
-.all-events-title span { color:var(--red); }
-.all-events-sub { font-size:17px; color:var(--grey-light); font-weight:300; line-height:1.7; position:relative; z-index:2; }
-.filter-bar { background:rgba(10,10,10,0.95); border-bottom:1px solid var(--border); padding:14px 44px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; position:sticky; top:76px; z-index:50; }
-.filter-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--grey); font-weight:600; margin-right:4px; }
-.filter-btn { background:transparent; border:1px solid var(--border); color:var(--grey-light); padding:5px 14px; border-radius:100px; cursor:pointer; font-family:'Barlow'; font-size:12px; font-weight:600; transition:all 0.2s; }
-.filter-btn:hover { border-color:rgba(255,255,255,0.2); color:var(--white); }
-.filter-btn.active { background:var(--red); border-color:var(--red); color:var(--white); }
-.events-list { max-width:1000px; margin:0 auto; padding:44px; }
-.month-header { display:flex; align-items:center; gap:14px; margin-bottom:16px; margin-top:40px; }
-.month-header:first-child { margin-top:0; }
-.month-name { font-family:'Bebas Neue'; font-size:28px; letter-spacing:3px; color:var(--grey); }
-.month-line { flex:1; height:1px; background:var(--border); }
-.event-row {
-  background:var(--dark2); border:1px solid var(--border); border-radius:12px;
-  display:grid; grid-template-columns:72px 1fr auto;
-  overflow:hidden; margin-bottom:12px; cursor:pointer; transition:all 0.25s;
+.event-tile:hover{border-color:rgba(201,168,76,0.45);}
+.event-tile-date{
+  min-width:78px;text-align:center;
+  background:var(--ink);border-radius:2px;padding:12px 8px;border:1px solid var(--line-soft);
 }
-.event-row:hover { border-color:var(--border-red); transform:translateX(3px); }
-.event-row-date { background:var(--dark3); border-right:1px solid var(--border); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px 6px; text-align:center; }
-.event-row-month { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--red); font-weight:700; }
-.event-row-day { font-family:'Bebas Neue'; font-size:38px; line-height:1; }
-.event-row-info { padding:16px 20px; display:flex; flex-direction:column; justify-content:center; gap:6px; }
-.event-row-tags { display:flex; gap:6px; flex-wrap:wrap; }
-.event-row-title { font-family:'Barlow Condensed'; font-size:20px; font-weight:700; }
-.event-row-meta { font-size:12px; color:var(--grey-light); display:flex; gap:12px; flex-wrap:wrap; }
-.event-row-cta { padding:16px 18px; display:flex; flex-direction:column; align-items:flex-end; justify-content:center; gap:7px; border-left:1px solid var(--border); min-width:160px; }
-.btn-small { padding:8px 16px; border-radius:6px; cursor:pointer; font-family:'Barlow'; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; transition:all 0.2s; width:100%; text-align:center; }
-.btn-small-red { background:var(--red); border:none; color:var(--white); }
-.btn-small-red:hover { background:var(--red-dark); }
-.btn-small-outline { background:transparent; border:1px solid var(--border-red); color:var(--red); }
-.btn-small-outline:hover { background:var(--red-dim); }
-.btn-small-ghost { background:transparent; border:1px solid var(--border); color:var(--grey-light); }
-.btn-small-ghost:hover { border-color:var(--gold-light); color:var(--gold-light); }
+.event-tile-month{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+.event-tile-day{font-family:var(--ff-head);font-weight:700;font-size:34px;line-height:1.15;color:var(--cream);}
+.event-tile-info{flex:1;}
+.event-tile-name{font-family:var(--ff-head);font-weight:700;font-size:23px;color:var(--cream);margin:8px 0 6px;}
+.event-tile-meta{font-size:13.5px;color:var(--mist);}
+.event-tile-btns{display:flex;flex-direction:column;gap:8px;min-width:190px;}
+.event-tile-btns .btn{font-size:13px;padding:11px 18px;text-align:center;}
+.event-tile-btns .btn-quiet{font-size:12.5px;padding:10px 16px;text-align:center;}
 
 /* ============================================================
-   FORM ELEMENTS (used by Notify Me modal)
+   CTA BAND
 ============================================================ */
-.form-section { margin-bottom:36px; }
-.form-section-title { font-family:'Barlow Condensed'; font-size:17px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red); margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--border); }
-.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
-.form-group { margin-bottom:16px; }
-.form-label { display:block; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--grey-light); margin-bottom:7px; }
-.form-input { width:100%; background:var(--dark3); border:1px solid var(--border); color:var(--white); padding:11px 14px; border-radius:7px; font-family:'Barlow'; font-size:14px; outline:none; transition:border 0.2s; }
-.form-input:focus { border-color:var(--red); }
-.form-input::placeholder { color:var(--grey); }
-.form-textarea { width:100%; background:var(--dark3); border:1px solid var(--border); color:var(--white); padding:11px 14px; border-radius:7px; font-family:'Barlow'; font-size:14px; outline:none; transition:border 0.2s; resize:vertical; min-height:100px; }
-.form-textarea:focus { border-color:var(--red); }
-.form-textarea::placeholder { color:var(--grey); }
-.form-select { width:100%; background:var(--dark3); border:1px solid var(--border); color:var(--white); padding:11px 14px; border-radius:7px; font-family:'Barlow'; font-size:14px; outline:none; cursor:pointer; appearance:none; }
-.form-select:focus { border-color:var(--red); }
-.form-check-row { display:flex; gap:11px; align-items:flex-start; margin-bottom:12px; }
-.form-check { width:16px; height:16px; min-width:16px; accent-color:var(--red); margin-top:3px; }
-.form-check-label { font-size:13px; color:var(--grey-light); line-height:1.6; }
+.cta-band{background:var(--ink);border-top:1px solid var(--line);padding:88px 32px;text-align:center;}
+.cta-band .sub{font-size:17px;color:var(--mist);max-width:560px;margin:0 auto;line-height:1.8;font-weight:300;}
+.cta-band .btn{margin-top:32px;}
 
 /* ============================================================
-   MODAL
+   CALENDAR SCREEN
 ============================================================ */
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:800; display:none; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(8px); }
-.modal-overlay.open { display:flex; }
-.modal { background:var(--dark2); border:1px solid var(--border); border-radius:14px; padding:36px; width:100%; max-width:420px; position:relative; }
-.modal-close { position:absolute; top:12px; right:12px; background:none; border:none; color:var(--grey); font-size:20px; cursor:pointer; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:5px; transition:all 0.2s; }
-.modal-close:hover { color:var(--white); background:var(--dark3); }
-.modal-title { font-family:'Bebas Neue'; font-size:28px; letter-spacing:2px; margin-bottom:6px; }
-.modal-sub { font-size:14px; color:var(--grey-light); margin-bottom:22px; line-height:1.6; }
-.modal-btn { width:100%; background:var(--red); border:none; color:var(--white); padding:13px; border-radius:7px; cursor:pointer; font-family:'Barlow Condensed'; font-size:18px; font-weight:800; letter-spacing:2px; text-transform:uppercase; transition:all 0.25s; }
-.modal-btn:hover { background:var(--red-dark); }
-.modal-fine { font-size:11px; color:var(--grey); margin-top:10px; text-align:center; line-height:1.6; }
-.success-state { display:none; text-align:center; padding:12px 0; }
-.success-icon { font-size:44px; margin-bottom:10px; }
-.success-title { font-family:'Bebas Neue'; font-size:28px; letter-spacing:2px; color:var(--red); margin-bottom:6px; }
-.success-text { font-size:14px; color:var(--grey-light); line-height:1.7; }
+.cal-wrap{padding-top:84px;}
+.cal-hero{padding:88px 32px 64px;text-align:center;border-bottom:1px solid var(--line-soft);}
+.cal-title{font-family:var(--ff-head);font-weight:900;font-size:clamp(44px,7vw,84px);line-height:1.05;color:var(--cream);margin-bottom:16px;}
+.cal-title em{font-style:italic;color:var(--gold);}
+.cal-sub{font-size:17px;color:var(--mist);font-weight:300;line-height:1.8;max-width:640px;margin:0 auto;}
+
+.filter-bar{background:rgba(10,12,15,0.97);border-bottom:1px solid var(--line-soft);padding:16px 32px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;position:sticky;top:84px;z-index:50;}
+.filter-label{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--mist);font-weight:600;margin-right:6px;}
+.filter-btn{background:transparent;border:1px solid rgba(244,239,230,0.15);color:var(--mist);padding:7px 16px;border-radius:2px;cursor:pointer;font-size:12.5px;font-weight:500;transition:all 0.2s;}
+.filter-btn:hover{border-color:var(--line);color:var(--cream);}
+.filter-btn.active{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:600;}
+
+/* Event grid */
+.evt-tiles{max-width:var(--wrap);margin:0 auto;padding:56px 32px 88px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.evt-tile{border-radius:2px;overflow:hidden;background:var(--ink-mid);border:1px solid rgba(201,168,76,0.18);transition:border-color 0.3s;display:flex;flex-direction:column;}
+.evt-tile:hover{border-color:rgba(201,168,76,0.5);}
+.evt-art{position:relative;aspect-ratio:1200/630;background:var(--ink-lite);border-bottom:1px solid var(--line-soft);display:block;}
+.evt-art svg{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.evt-tile-body{padding:20px 22px 22px;flex:1;display:flex;flex-direction:column;}
+.evt-tile-tags{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.evt-tile-name{font-family:var(--ff-head);font-weight:700;font-size:22px;color:var(--cream);line-height:1.25;margin-bottom:8px;}
+.evt-tile-meta{font-size:13px;color:var(--mist);margin-bottom:18px;line-height:1.65;}
+.evt-tile-btns{display:flex;flex-direction:column;gap:8px;margin-top:auto;}
+.evt-btn-apply{display:block;text-align:center;padding:12px;background:var(--gold);color:var(--ink);border:none;border-radius:2px;font-family:var(--ff-body);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+.evt-btn-apply:hover{background:#D6B75E;}
+.evt-btn-public{display:block;text-align:center;padding:11px;background:transparent;color:var(--mist);border:1px solid rgba(244,239,230,0.18);border-radius:2px;font-family:var(--ff-body);font-size:12.5px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.evt-btn-public:hover{color:var(--cream);border-color:rgba(244,239,230,0.4);}
 
 /* ============================================================
    FOOTER
 ============================================================ */
-.footer { background:var(--dark); border-top:1px solid var(--border); padding:36px 44px; }
-.footer-inner { max-width:1000px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; }
-.footer-logos { display:flex; gap:24px; align-items:center; flex-wrap:wrap; justify-content:center; }
-.footer-logo { height:42px; width:auto; object-fit:contain; opacity:0.8; filter:brightness(1.25); }
-.footer-logo-hero { height:54px; max-width:180px; opacity:0.95; filter:brightness(1.3); }
-.footer-logo-sep { font-family:'Barlow'; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.45); font-style:italic; padding:0 4px; }
-.footer-links { display:flex; gap:18px; flex-wrap:wrap; justify-content:center; }
-.footer-link { font-size:11px; color:var(--grey); text-decoration:none; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:color 0.2s; }
-.footer-link:hover { color:var(--red); }
+.footer{background:var(--ink-mid);border-top:1px solid var(--line);padding:52px 32px 44px;}
+.footer-inner{max-width:var(--wrap);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;}
+.footer-logo{height:54px;width:auto;object-fit:contain;}
+.footer-sponsors{display:flex;gap:36px;align-items:center;flex-wrap:wrap;justify-content:center;}
+.footer-sp-label{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--mist);opacity:0.8;}
+.footer-sp{display:flex;align-items:center;gap:10px;}
+.footer-sp img{height:24px;width:auto;}
+.footer-sp-name{font-family:var(--ff-head);font-size:17px;color:var(--cream);}
+.footer-sp-tag{font-size:9.5px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
+.footer-links{display:flex;gap:22px;flex-wrap:wrap;justify-content:center;}
+.footer-link{font-size:11px;color:var(--mist);text-decoration:none;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:color 0.2s;}
+.footer-link:hover{color:var(--gold);}
+.footer-copy{font-size:12px;color:var(--mist);opacity:0.7;}
 
 /* ============================================================
    RESPONSIVE
 ============================================================ */
-@media(max-width:900px){
-  .sidebar-layout { grid-template-columns:1fr; }
-  .sidebar { position:static; height:auto; }
-  .watch-body { grid-template-columns:1fr; }
-  .profile-body { grid-template-columns:1fr; }
-  .info-strip { grid-template-columns:1fr; }
-  .step-grid { grid-template-columns:1fr 1fr; }
-  .assets-grid { grid-template-columns:1fr 1fr; }
-  .role-cards { grid-template-columns:1fr; }
+@media(max-width:980px){
+  .evt-tiles{grid-template-columns:repeat(2,1fr);}
 }
-@media(max-width:600px){
-  .nav { padding:0 16px; }
-  .nav-logo-img { height:28px; }
-  .nav-logo-hero { height:40px; max-width:160px; }
-  .nav-logo-partner { height:36px; }
-  .home-title { font-size:72px; }
-  .main, .all-events-hero, .events-list { padding-left:20px; padding-right:20px; }
-  .watch-body, .watch-header { padding-left:20px; padding-right:20px; }
-  .profile-hero, .profile-body { padding:24px 20px; }
-  .form-row { grid-template-columns:1fr; }
-  .event-row { grid-template-columns:1fr; }
-  .event-row-date { flex-direction:row; gap:8px; border-right:none; border-bottom:1px solid var(--border); padding:12px 16px; justify-content:flex-start; }
-  .event-row-cta { border-left:none; border-top:1px solid var(--border); flex-direction:row; flex-wrap:wrap; min-width:unset; }
-  .home-stats { gap:28px; }
-  .event-tile { flex-wrap:wrap; }
-  .event-tile > div:last-child { width:100% !important; min-width:unset !important; flex-direction:row !important; flex-wrap:wrap; }
-  .event-tile > div:last-child button { flex:1; min-width:140px; justify-content:center; text-align:center; }
+@media(max-width:900px){
+  .nav-right .btn-nav{display:none;}
+}
+@media(max-width:640px){
+  .nav{padding:0 16px;height:72px;}
+  .nav-logo{height:50px;}
+  .cal-wrap{padding-top:72px;}
+  .filter-bar{top:72px;}
+  .home-hero{padding-top:72px;}
+  .evt-tiles{grid-template-columns:1fr;padding:36px 20px 64px;}
+  .event-tile{flex-wrap:wrap;}
+  .event-tile-btns{width:100%;min-width:unset;flex-direction:row;flex-wrap:wrap;}
+  .event-tile-btns .btn,.event-tile-btns .btn-quiet{flex:1;min-width:150px;}
+  .home-stats{gap:36px;}
 }
 </style>
 </head>
@@ -447,390 +242,180 @@ body::before {
      NAV
 ============================================================ -->
 <nav class="nav">
-  <div class="nav-left">
-    <img class="nav-logo-img nav-logo-hero" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence" onclick="goto('home')">
-    <div class="nav-divider"></div>
-    <span class="nav-presented-label">In partnership with</span>
-    <img class="nav-logo-img nav-logo-partner" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers" onclick="goto('home')">
-    <img class="nav-logo-img nav-logo-partner" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked" onclick="goto('home')">
-  </div>
+  <img class="nav-logo" src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6a5d8e01bc0b1f5d2e8bf1e1.png" alt="Voice to Influence™" onclick="goto('home')">
   <div class="nav-right">
-    <!-- Public nav (shown when not logged in) -->
-    <div id="nav-public" style="display:flex;gap:10px;align-items:center;">
-      <button class="btn-nav" onclick="goto('home')">🏠 Home</button>
-      <button class="btn-nav" onclick="goto('allEvents')">2026 Calendar</button>
-      <button class="btn-nav" onclick="window.open('https://www.voicetoinfluence.com/events','_blank')">📂 Past Events</button>
-      <button class="btn-nav" onclick="window.open('https://www.voicetoinfluence.com/home','_blank')">🌐 About VTI</button>
-      <button class="btn-nav" onclick="login();goto('dashboard')">📋 Speaker Resources</button>
-      <button class="btn-nav-red" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply to Speak →</button>
-    </div>
-    <!-- Logged-in nav (shown post-login) -->
-    <div id="nav-loggedin" style="display:none;align-items:center;gap:10px;">
-      <button class="btn-nav" onclick="goto('home')">🏠 Home</button>
-      <button class="btn-nav" onclick="goto('allEvents')">All Events</button>
-      <div class="nav-user" onclick="toggleDropdown()">
-        <div class="nav-avatar">SR</div>
-        <span class="nav-username">Speaker</span>
-        <span class="nav-chevron">▾</span>
-        <div class="user-dropdown" id="userDropdown">
-          <div class="dropdown-header">
-            <div class="dropdown-email">Speaker Resources Hub</div>
-            <div class="dropdown-roles">
-              <span class="role-badge role-speaker">Speaker</span>
-            </div>
-          </div>
-          <div class="dropdown-item" onclick="goto('dashboard');closeDropdown()">
-            <span class="dropdown-item-icon">📋</span> Speaker Resources
-          </div>
-          <div class="dropdown-item" onclick="goto('allEvents');closeDropdown()">
-            <span class="dropdown-item-icon">📅</span> 2026 Calendar
-          </div>
-          <div class="dropdown-item" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank');closeDropdown()">
-            <span class="dropdown-item-icon">✍️</span> Apply to Speak
-          </div>
-          <div class="dropdown-item" onclick="window.open('https://www.voicetoinfluence.com/home','_blank');closeDropdown()">
-            <span class="dropdown-item-icon">🌐</span> About Voice to Influence
-          </div>
-          <div class="dropdown-divider"></div>
-          <div class="dropdown-item dropdown-signout" onclick="logout()">
-            <span class="dropdown-item-icon">←</span> Exit Resources
-          </div>
-        </div>
-      </div>
-    </div>
+    <button class="btn-nav" onclick="goto('home')">Home</button>
+    <button class="btn-nav" onclick="goto('calendar')">Summit calendar</button>
+    <button class="btn-nav" onclick="window.open('https://voicetoinfluence.com/past-events','_blank')">Past events</button>
+    <button class="btn-nav" onclick="window.open('https://voicetoinfluence.com/','_blank')">Voice to Influence</button>
+    <button class="btn-nav-gold" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply to speak</button>
   </div>
 </nav>
 
 <!-- ============================================================
-     SCREEN: HOME (public)
+     SCREEN: HOME
 ============================================================ -->
 <div class="screen active" id="screen-home">
+
   <div class="home-hero">
-    <div class="home-bg"></div>
-    <div class="home-grid"></div>
     <div class="home-content">
-      <div class="home-badge"><span class="home-badge-dot"></span>Now Accepting Speaker Applications · 2026 Season</div>
-      <div class="home-title">THE<br><span>SPEAKERS</span><br>PORTAL</div>
-      <div class="home-sub">Where world-class experts apply to speak, prepare for showtime, and amplify their reach.<br><br>Browse our 2026 summit calendar. Apply to speak on one of our expert stages. Access your speaker asset pack.<br><br><strong style="color:#fff;opacity:0.85;">Voice to Influence</strong> · In partnership with Hero Makers &amp; AI Unlocked Media.</div>
+      <span class="kicker">Voice to Influence™ presents</span>
+      <h1 class="home-title">The Speakers <em>Portal</em></h1>
+      <p class="home-sub">Where recognised leaders apply to share our stages. Browse the summit calendar, submit your application, and prepare to amplify your influence.</p>
       <div class="home-ctas">
-        <button class="btn-primary" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply to Speak →</button>
-        <button class="btn-secondary" onclick="login();goto('dashboard')">📋 Speaker Resources</button>
-        <button class="btn-ghost" onclick="goto('allEvents')">Browse 2026 Calendar</button>
+        <button class="btn" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply to speak</button>
+        <button class="btn-outline" onclick="goto('calendar')">Browse the calendar</button>
       </div>
       <div class="home-stats">
-        <div><div class="stat-num">15+</div><div class="stat-label">Global Summits</div></div>
-        <div><div class="stat-num">100K+</div><div class="stat-label">Audience Reach</div></div>
-        <div><div class="stat-num" style="font-size:38px;letter-spacing:1px;">GLOBAL</div><div class="stat-label">Partner Ecosystem</div></div>
+        <div><div class="stat-num">12</div><div class="stat-label">Summits ahead</div></div>
+        <div><div class="stat-num">100K+</div><div class="stat-label">Audience reach</div></div>
+        <div><div class="stat-num" style="font-size:34px;padding-top:8px;">Global</div><div class="stat-label">Stages</div></div>
       </div>
     </div>
   </div>
 
-  <!-- Partner strip -->
-  <div class="presenter-strip">
-    <img class="presenter-logo presenter-logo-hero" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence" style="height:64px;opacity:0.95;filter:brightness(1.3);">
-    <span class="presenter-label">In Partnership With</span>
-    <img class="presenter-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers" style="height:56px;opacity:0.95;filter:brightness(1.25);">
-    <img class="presenter-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked Media" style="height:56px;opacity:0.95;filter:brightness(1.25);">
+  <!-- Sponsors -->
+  <div class="sponsor-strip">
+    <span class="kicker">Proudly sponsored by</span>
+    <h2 class="sec-title" style="font-size:clamp(26px,3vw,36px);">Great movements aren&rsquo;t built alone.</h2>
+    <div class="sponsors">
+      <div class="sp">
+        <img src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6a729269f72284777bff208b.png" alt="PodGo">
+        <div class="sp-tag">Official Podcast Partner</div>
+      </div>
+      <div class="sp">
+        <div class="sp-name">90210 Enterprises</div>
+        <div class="sp-tag">Strategic Growth Partner</div>
+      </div>
+    </div>
   </div>
 
-  <!-- Upcoming events -->
+  <!-- Next on the calendar -->
   <div class="home-events">
     <div class="home-events-inner">
-      <span class="eyebrow">2026 Calendar</span>
-      <div class="section-title">UPCOMING <span>SUMMITS</span></div>
-      <p class="body-text" style="margin-bottom:32px;max-width:680px;">Every summit below is open for speaker applications. Click into the full calendar to see all 4 remaining events for 2026.</p>
+      <span class="kicker">Next on the calendar</span>
+      <h2 class="sec-title">Upcoming summits</h2>
+      <p class="body-text" style="margin-bottom:36px;max-width:640px;">Applications are open now for our next two summits. The full calendar runs twelve events through to July 2027.</p>
 
-      <div class="event-tile" onclick="goto('allEvents')">
-        <div class="event-tile-date"><div class="event-tile-month">AUG</div><div class="event-tile-day">27</div></div>
+      <div class="event-tile">
+        <div class="event-tile-date"><div class="event-tile-month">Aug</div><div class="event-tile-day">27</div></div>
         <div class="event-tile-info">
-          <span class="tag tag-soon" style="margin-bottom:6px;display:inline-block;">Applications Open</span>
+          <span class="tag tag-open">Applications open</span>
           <div class="event-tile-name">Peak Vitality Global Summit</div>
-          <div class="event-tile-meta">🌐 Virtual · August 27, 2026 · 4:00 PM Los Angeles Time</div>
+          <div class="event-tile-meta">Virtual &nbsp;·&nbsp; August 27, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:8px;min-width:160px;"><button class="btn-primary" style="font-size:13px;padding:9px 18px;" onclick="event.stopPropagation();window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">🎤 Apply to Speak</button><button class="btn-secondary" style="font-size:12px;padding:7px 18px;" onclick="event.stopPropagation();window.open('https://events.voicetoinfluence.com/peak-vitality','_blank')">View Public Page →</button></div>
+        <div class="event-tile-btns">
+          <button class="btn" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply to speak</button>
+          <button class="btn-quiet" onclick="window.open('https://voicetoinfluence.com/events','_blank')">View public page</button>
+        </div>
       </div>
 
-      <div class="event-tile" onclick="goto('allEvents')">
-        <div class="event-tile-date"><div class="event-tile-month">SEP</div><div class="event-tile-day">30</div></div>
+      <div class="event-tile">
+        <div class="event-tile-date"><div class="event-tile-month">Sep</div><div class="event-tile-day">30</div></div>
         <div class="event-tile-info">
-          <span class="tag tag-soon" style="margin-bottom:6px;display:inline-block;">Applications Open</span>
+          <span class="tag tag-open">Applications open</span>
           <div class="event-tile-name">Podcast Power Summit 2026</div>
-          <div class="event-tile-meta">🌐 Virtual · September 30, 2026 · 4:00 PM Los Angeles Time</div>
+          <div class="event-tile-meta">Virtual &nbsp;·&nbsp; September 30, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:8px;min-width:160px;"><button class="btn-primary" style="font-size:13px;padding:9px 18px;" onclick="event.stopPropagation();window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">🎤 Apply to Speak</button><button class="btn-secondary" style="font-size:12px;padding:7px 18px;" onclick="event.stopPropagation();window.open('https://www.voicetoinfluence.com/podcast-power-summit-2026','_blank')">View Public Page →</button></div>
+        <div class="event-tile-btns">
+          <button class="btn" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply to speak</button>
+          <button class="btn-quiet" onclick="window.open('https://voicetoinfluence.com/events','_blank')">View public page</button>
+        </div>
       </div>
 
-      <div style="text-align:center;margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-        <button class="btn-secondary" onclick="goto('allEvents')" style="font-size:15px;">View All 4 Events →</button>
-        <button class="btn-secondary" onclick="window.open('https://www.voicetoinfluence.com/events','_blank')" style="font-size:15px;">📂 Past Events →</button>
+      <div style="text-align:center;margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-outline" onclick="goto('calendar')">View all 12 summits</button>
+        <button class="btn-quiet" onclick="window.open('https://voicetoinfluence.com/past-events','_blank')">Past events</button>
       </div>
     </div>
   </div>
 
-  <!-- Apply CTA strip -->
-  <div style="background:var(--black);padding:72px 44px;text-align:center;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(232,33,46,0.06) 0%,transparent 70%);"></div>
-    <div style="position:relative;z-index:2;max-width:540px;margin:0 auto;">
-      <span class="eyebrow" style="display:block;text-align:center;margin-bottom:12px;">Exclusive · Application Only</span>
-      <div class="section-title" style="font-size:56px;">WANT TO <span>SPEAK?</span></div>
-      <p class="body-text" style="margin-bottom:28px;">Speaking at one of our global summits is by application only. Our curation team selects every speaker personally. Submitting an application does not guarantee selection.</p>
-      <button class="btn-primary" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply for Consideration →</button>
-    </div>
-  </div>
-
-  <!-- Discover VTI strip -->
-  <div style="background:var(--dark);border-top:1px solid var(--border);padding:64px 44px;text-align:center;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(201,168,76,0.05) 0%,transparent 70%);"></div>
-    <div style="position:relative;z-index:2;max-width:560px;margin:0 auto;">
-      <span class="eyebrow" style="display:block;text-align:center;margin-bottom:12px;color:var(--gold-light);">More Than a Stage</span>
-      <div class="section-title" style="font-size:48px;">DISCOVER <span style="color:var(--gold-light);">VOICE TO INFLUENCE</span></div>
-      <p class="body-text" style="margin-bottom:28px;">The summits are just the beginning. Explore the movement behind them — the community, the past events, and where your voice fits in the bigger picture.</p>
-      <button class="btn-primary" style="background:var(--gold);color:var(--black);" onmouseover="this.style.background='var(--gold-light)'" onmouseout="this.style.background='var(--gold)'" onclick="window.open('https://www.voicetoinfluence.com/home','_blank')">Explore Voice to Influence →</button>
-    </div>
+  <!-- Apply CTA -->
+  <div class="cta-band">
+    <span class="kicker">By application only</span>
+    <h2 class="sec-title">Ready to take the stage?</h2>
+    <p class="sub">Speaking on a Voice to Influence stage is by application only. Every speaker is personally selected by our curation team. Submitting an application does not guarantee selection.</p>
+    <button class="btn" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply for consideration</button>
   </div>
 
   <div class="footer">
     <div class="footer-inner">
-      <div class="footer-logos">
-        <img class="footer-logo footer-logo-hero" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence">
-        <span class="footer-logo-sep">In partnership with</span>
-        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers">
-        <img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked Media">
+      <img class="footer-logo" src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6a5d8e01bc0b1f5d2e8bf1e1.png" alt="Voice to Influence™">
+      <div class="footer-sponsors">
+        <span class="footer-sp-label">Proudly sponsored by</span>
+        <div class="footer-sp">
+          <img src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6a729269f72284777bff208b.png" alt="PodGo">
+          <span class="footer-sp-tag">Official Podcast Partner</span>
+        </div>
+        <div class="footer-sp">
+          <span class="footer-sp-name">90210 Enterprises</span>
+          <span class="footer-sp-tag">Strategic Growth Partner</span>
+        </div>
       </div>
       <div class="footer-links">
-        <span class="footer-link" onclick="goto('allEvents')">All Events</span>
-        <span class="footer-link" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply to Speak</span>
-        <span class="footer-link">Privacy Policy</span>
-        <span class="footer-link">Terms</span>
+        <span class="footer-link" onclick="goto('calendar')">Summit calendar</span>
+        <span class="footer-link" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply to speak</span>
+        <span class="footer-link" onclick="window.open('https://voicetoinfluence.com/past-events','_blank')">Past events</span>
+        <span class="footer-link" onclick="window.open('https://voicetoinfluence.com/','_blank')">voicetoinfluence.com</span>
       </div>
+      <div class="footer-copy">© 2026 Voice to Influence. All rights reserved.</div>
     </div>
   </div>
 </div>
 
 <!-- ============================================================
-     SCREEN: DASHBOARD (post-login home)
+     SCREEN: SUMMIT CALENDAR
 ============================================================ -->
-<div class="screen" id="screen-dashboard">
-  <div class="dashboard-wrap">
-    <div class="dashboard-inner" style="max-width:900px;">
-      <div class="dash-welcome">
-        <div class="dash-welcome-tag">Speaker Resources</div>
-        <div class="dash-welcome-title">SPEAKER <span>RESOURCES</span></div>
-        <div class="dash-welcome-sub">Each event has its own asset pack with downloadable graphics, swipe copy, session details and your StreamYard joining info. Click an event below to access its speaker resources.</div>
-      </div>
+<div class="screen" id="screen-calendar">
+  <div class="cal-wrap">
 
-      <div class="dash-section-label">2026 Summit Resources</div>
-
-      <!-- 1. Peak Vitality Global Summit — AUG 27 -->
-      <div class="dash-event-card" style="opacity:0.65;cursor:default;">
-        <div class="dash-event-accent" style="background:var(--grey);"></div>
-        <div class="dash-event-body">
-          <div>
-            <div class="dash-event-name">Peak Vitality Global Summit</div>
-            <div class="dash-event-meta">📅 August 27, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time &nbsp;·&nbsp; <span style="color:var(--gold-light);">Asset pack drops ~3 weeks before event</span></div>
-          </div>
-          <div class="dash-event-actions">
-            <span class="tag tag-soon" style="margin-right:8px;">Registration Open</span><button class="btn-view" onclick="event.stopPropagation();window.open('https://events.voicetoinfluence.com/peak-vitality','_blank')">View Public Page →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2. Podcast Power Summit — SEP 30 -->
-      <div class="dash-event-card" style="opacity:0.65;cursor:default;">
-        <div class="dash-event-accent" style="background:var(--grey);"></div>
-        <div class="dash-event-body">
-          <div>
-            <div class="dash-event-name">Podcast Power Summit 2026</div>
-            <div class="dash-event-meta">📅 September 30, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time &nbsp;·&nbsp; <span style="color:var(--gold-light);">Asset pack drops ~3 weeks before event</span></div>
-          </div>
-          <div class="dash-event-actions">
-            <span class="tag tag-soon" style="margin-right:8px;">Registration Open</span><button class="btn-view" onclick="event.stopPropagation();window.open('https://www.voicetoinfluence.com/podcast-power-summit-2026','_blank')">View Public Page →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. DSS V — OCT 23 -->
-      <div class="dash-event-card" style="opacity:0.65;cursor:default;">
-        <div class="dash-event-accent" style="background:var(--grey);"></div>
-        <div class="dash-event-body">
-          <div>
-            <div class="dash-event-name">Direct Sales Summit V</div>
-            <div class="dash-event-meta">📅 October 23, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time &nbsp;·&nbsp; <span style="color:var(--gold-light);">Asset pack drops ~3 weeks before event</span></div>
-          </div>
-          <div class="dash-event-actions">
-            <span class="tag tag-soon" style="margin-right:8px;">Registration Open</span><button class="btn-view" onclick="event.stopPropagation();window.open('https://www.voicetoinfluence.com/hero-maker-dss-05','_blank')">View Public Page →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5. Pay It Forward Puerto Rico — NOV 12 -->
-      <div class="dash-event-card" style="opacity:0.65;cursor:default;">
-        <div class="dash-event-accent" style="background:var(--grey);"></div>
-        <div class="dash-event-body">
-          <div>
-            <div class="dash-event-name">Pay It Forward — Puerto Rico</div>
-            <div class="dash-event-meta">📅 November 12, 2026 &nbsp;·&nbsp; Time TBC &nbsp;·&nbsp; <span style="color:var(--gold-light);">Asset pack drops ~3 weeks before event</span></div>
-          </div>
-          <div class="dash-event-actions">
-            <span class="tag tag-soon" style="margin-right:8px;">Registration Open</span><button class="btn-view" onclick="event.stopPropagation();window.open('https://www.voicetoinfluence.com/pay-it-forward-puerto-rico-2026','_blank')">View Public Page →</button>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top:40px;padding-top:32px;border-top:1px solid var(--border);text-align:center;">
-        <div style="font-size:14px;color:var(--grey-light);line-height:1.7;margin-bottom:20px;max-width:520px;margin-left:auto;margin-right:auto;">
-          Not yet speaking with us? Apply to join one of our upcoming 2026 summits.
-        </div>
-        <button class="btn-primary" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">🎤 Apply to Speak</button>
-        <div style="margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><button class="btn-secondary" onclick="goto('allEvents')" style="font-size:13px;padding:9px 22px;">View 2026 Calendar →</button><button class="btn-secondary" onclick="window.open('https://www.voicetoinfluence.com/events','_blank')" style="font-size:13px;padding:9px 22px;">📂 Past Events →</button></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ============================================================
-     SCREEN: ALL EVENTS
-============================================================ -->
-<div class="screen" id="screen-allEvents">
-  <div class="all-events-wrap">
-    <div class="all-events-hero">
-      <div class="all-events-hero-bg"></div>
-      <div class="all-events-hero-grid"></div>
-      <span class="eyebrow" style="display:block;text-align:center;margin-bottom:14px;">2026 Summit Calendar</span>
-      <div class="all-events-title">THE <span>CALENDAR</span></div>
-      <div class="all-events-sub">Four world-class virtual summits remaining across 2026. Apply to speak. Grab a public page link to share with your audience. Access your speaker assets.</div>
+    <div class="cal-hero">
+      <span class="kicker">Voice to Influence™ summit calendar</span>
+      <h1 class="cal-title">The <em>Calendar</em></h1>
+      <p class="cal-sub">Twelve summits from August 2026 through July 2027. Apply to speak on the stage that fits your message.</p>
     </div>
 
     <div class="filter-bar">
-      <span class="filter-label">Filter:</span>
+      <span class="filter-label">Filter</span>
       <button class="filter-btn active" onclick="filterEvents('all',this)">All</button>
-      <button class="filter-btn" onclick="filterEvents('direct-sales',this)">Direct Sales</button>
+      <button class="filter-btn" onclick="filterEvents('peak-vitality',this)">Peak Vitality</button>
       <button class="filter-btn" onclick="filterEvents('podcast',this)">Podcast</button>
+      <button class="filter-btn" onclick="filterEvents('direct-sales',this)">Direct Sales</button>
       <button class="filter-btn" onclick="filterEvents('special',this)">Special</button>
-      <button class="filter-btn" onclick="filterEvents('wellness',this)">Peak Vitality</button>
-      <button class="filter-btn" style="margin-left:auto;border-color:rgba(232,33,46,0.4);color:#f87171;" onclick="window.open('https://www.voicetoinfluence.com/events','_blank')">📂 Past Events →</button>
+      <button class="filter-btn" onclick="window.open('https://voicetoinfluence.com/past-events','_blank')">Past events</button>
     </div>
 
-    <style>
-      .evt-tiles { max-width:1100px; margin:0 auto; padding:48px 44px 80px; display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
-      .evt-tile { border-radius:12px; overflow:hidden; background:var(--dark2); border:1px solid var(--border); transition:all 0.3s; display:flex; flex-direction:column; position:relative; }
-      .evt-tile:hover { transform:translateY(-6px); border-color:rgba(232,33,46,0.35); box-shadow:0 16px 48px rgba(0,0,0,0.5); }
-      .evt-tile-img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
-      .evt-latpn-badge {
-        position:absolute; top:12px; right:12px; z-index:5;
-        width:44px; height:44px; border-radius:50%;
-        background:rgba(0,0,0,0.7); padding:4px;
-        border:1.5px solid rgba(255,255,255,0.25);
-        box-shadow:0 4px 12px rgba(0,0,0,0.4);
-        object-fit:contain;
-      }
-      .evt-tile-body { padding:18px 20px 20px; flex:1; display:flex; flex-direction:column; }
-      .evt-tile-tags { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
-      .evt-tile-name { font-family:'Barlow Condensed'; font-size:22px; font-weight:800; color:var(--white); line-height:1.2; margin-bottom:6px; letter-spacing:0.5px; }
-      .evt-tile-meta { font-size:13px; color:var(--grey-light); margin-bottom:16px; line-height:1.6; }
-      .evt-tile-btns { display:flex; flex-direction:column; gap:8px; margin-top:auto; }
-      .evt-tile-btn-reg { display:block; text-align:center; padding:11px; background:var(--red); color:#fff; border:none; border-radius:6px; font-family:"Barlow Condensed"; font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:background 0.2s; }
-      .evt-tile-btn-reg:hover { background:#c41020; }
-      .evt-tile-btn-notify { display:block; text-align:center; padding:10px; background:transparent; color:var(--grey-light); border:1px solid var(--border); border-radius:6px; font-family:"Barlow Condensed"; font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
-      .evt-tile-btn-notify:hover { border-color:rgba(232,33,46,0.3); color:var(--white); }
-      .evt-tile-btn-speak { display:block; text-align:center; padding:10px; background:transparent; color:var(--grey); border:1px solid rgba(255,255,255,0.06); border-radius:6px; font-family:"Barlow Condensed"; font-size:13px; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
-      .evt-tile-btn-speak:hover { color:var(--red); border-color:rgba(232,33,46,0.2); }
-      @media(max-width:900px){ .evt-tiles { grid-template-columns:repeat(2,1fr); padding:32px 20px 56px; } }
-      @media(max-width:580px){ .evt-tiles { grid-template-columns:1fr; } }
-    </style>
+    <div class="evt-tiles" id="evtTiles"></div>
 
-    <div class="evt-tiles">
-
-      <!-- 1. PEAK VITALITY GLOBAL SUMMIT — AUG 27 -->
-      <div class="evt-tile" data-type="wellness">
-        <img class="evt-tile-img" src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6a611e2781877afd27de9007.png" alt="Peak Vitality Global Summit">
-        <div class="evt-tile-body">
-          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(0,200,100,0.1);color:var(--green);border:1px solid rgba(0,200,100,0.2);">Wellness</span></div>
-          <div class="evt-tile-name">Peak Vitality Global Summit</div>
-          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; August 27, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
-          <div class="evt-tile-btns">
-            <button class="evt-tile-btn-reg" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">🎤 Apply to Speak</button>
-            <button class="evt-tile-btn-speak" onclick="window.open('https://events.voicetoinfluence.com/peak-vitality','_blank')">View Public Page →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2. REAL ESTATE II — SEP 18 -->
-      <!-- 2. PODCAST POWER SUMMIT 2026 — SEP 30 -->
-      <div class="evt-tile" data-type="podcast">
-        <img class="evt-tile-img" src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/22521193/file/d7bcdff2de5755670edb9b3c68f86f43.png" alt="Podcast Power Summit 2026">
-        <div class="evt-tile-body">
-          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(139,92,246,0.1);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">Podcast</span></div>
-          <div class="evt-tile-name">Podcast Power Summit 2026</div>
-          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; September 30, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
-          <div class="evt-tile-btns">
-            <button class="evt-tile-btn-reg" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">🎤 Apply to Speak</button>
-            <button class="evt-tile-btn-speak" onclick="window.open('https://www.voicetoinfluence.com/podcast-power-summit-2026','_blank')">View Public Page →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. DSS V — OCT 23 -->
-      <div class="evt-tile" data-type="direct-sales">
-        <img class="evt-tile-img" src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/22521013/file/fdfa3a9fdbb05d91aa7fadb5b4ad0eb9.png" alt="Direct Sales Summit V">
-        <div class="evt-tile-body">
-          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(232,33,46,0.1);color:#f87171;border:1px solid rgba(232,33,46,0.2);">Direct Sales</span></div>
-          <div class="evt-tile-name">Direct Sales Summit V</div>
-          <div class="evt-tile-meta">🌐 Virtual &nbsp;·&nbsp; October 23, 2026 &nbsp;·&nbsp; 4:00 PM Los Angeles Time</div>
-          <div class="evt-tile-btns">
-            <button class="evt-tile-btn-reg" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">🎤 Apply to Speak</button>
-            <button class="evt-tile-btn-speak" onclick="window.open('https://www.voicetoinfluence.com/hero-maker-dss-05','_blank')">View Public Page →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5. PAY IT FORWARD PUERTO RICO — NOV 12 -->
-      <div class="evt-tile" data-type="special">
-        <img class="evt-tile-img" src="https://statics.myclickfunnels.com/workspace/ePGrQp/image/22521097/file/9e235fee6c8fe835da97bac5f8466e56.png" alt="Pay It Forward Puerto Rico">
-        <div class="evt-tile-body">
-          <div class="evt-tile-tags"><span class="tag tag-soon">Coming Soon</span><span class="tag" style="background:rgba(0,200,100,0.1);color:var(--green);border:1px solid rgba(0,200,100,0.2);">Pay It Forward</span></div>
-          <div class="evt-tile-name">Pay It Forward — Puerto Rico</div>
-          <div class="evt-tile-meta">📍 Puerto Rico &nbsp;·&nbsp; November 12, 2026 &nbsp;·&nbsp; Time TBC</div>
-          <div class="evt-tile-btns">
-            <button class="evt-tile-btn-reg" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">🎤 Apply to Speak</button>
-            <button class="evt-tile-btn-speak" onclick="window.open('https://www.voicetoinfluence.com/pay-it-forward-puerto-rico-2026','_blank')">View Public Page →</button>
-          </div>
-        </div>
-      </div>
-
+    <div class="cta-band" style="border-top:1px solid var(--line);">
+      <span class="kicker">By application only</span>
+      <h2 class="sec-title">Apply to speak</h2>
+      <p class="sub">Speaking on a Voice to Influence stage is by application only. Every speaker is personally selected by our curation team.</p>
+      <button class="btn" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply for consideration</button>
     </div>
 
-    <div style="text-align:center;padding:32px 44px 56px;border-top:1px solid var(--border);">
-      <span class="eyebrow" style="display:block;text-align:center;margin-bottom:12px;">Exclusive · Application Only</span>
-      <div class="section-title" style="font-size:56px;">APPLY TO <span>SPEAK</span></div>
-      <p class="body-text" style="max-width:480px;margin:0 auto 24px;">Speaking at one of our global summits is by application only. Our team selects every speaker personally.</p>
-      <button class="btn-primary" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply for Consideration →</button>
-    </div>
-
-    <div class="footer"><div class="footer-inner"><div class="footer-logos"><img class="footer-logo footer-logo-hero" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272400/file/small-114a27ab4135d55f833a2987dda7aa50.png" alt="Voice to Influence"><span class="footer-logo-sep">In partnership with</span><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272402/file/small-4e7c1291c135da729b1a1efd5bb924bb.png" alt="Hero Makers"><img class="footer-logo" src="https://statics.myclickfunnels.com/workspace/eorZDl/image/22272403/file/small-99d1c185169b6c661d4c6d3d39c9eb88.png" alt="AI Unlocked"></div><div class="footer-links"><span class="footer-link" onclick="goto('home')">Home</span><span class="footer-link" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply to Speak</span><span class="footer-link">Privacy</span><span class="footer-link">Terms</span></div></div></div>
-  </div>
-</div>
-
-<!-- ============================================================
-     MODAL: NOTIFY
-============================================================ -->
-<div class="modal-overlay" id="notifyModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('notifyModal')">✕</button>
-    <div id="notify-form-body">
-      <div style="font-size:32px;margin-bottom:10px;">🔔</div>
-      <div class="modal-title">Get Notified</div>
-      <div class="modal-sub">Be the first to know when registration opens. We'll send you everything you need.</div>
-      <div class="form-group"><label class="form-label">First Name</label><input class="form-input" placeholder="First name"></div>
-      <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="your@email.com"></div>
-      <button class="modal-btn" onclick="showNotifySuccess()">Notify Me →</button>
-      <div class="modal-fine">We respect your privacy. No spam, ever.</div>
-    </div>
-    <div class="success-state" id="notify-success">
-      <div class="success-icon">✅</div>
-      <div class="success-title">YOU'RE ON THE LIST</div>
-      <div class="success-text">We'll notify you as soon as registration opens for this event.</div>
+    <div class="footer">
+      <div class="footer-inner">
+        <img class="footer-logo" src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6a5d8e01bc0b1f5d2e8bf1e1.png" alt="Voice to Influence™">
+        <div class="footer-sponsors">
+          <span class="footer-sp-label">Proudly sponsored by</span>
+          <div class="footer-sp">
+            <img src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6a729269f72284777bff208b.png" alt="PodGo">
+            <span class="footer-sp-tag">Official Podcast Partner</span>
+          </div>
+          <div class="footer-sp">
+            <span class="footer-sp-name">90210 Enterprises</span>
+            <span class="footer-sp-tag">Strategic Growth Partner</span>
+          </div>
+        </div>
+        <div class="footer-links">
+          <span class="footer-link" onclick="goto('home')">Home</span>
+          <span class="footer-link" onclick="window.open('https://events.voicetoinfluence.com/apply-to-speak','_blank')">Apply to speak</span>
+          <span class="footer-link" onclick="window.open('https://voicetoinfluence.com/past-events','_blank')">Past events</span>
+          <span class="footer-link" onclick="window.open('https://voicetoinfluence.com/','_blank')">voicetoinfluence.com</span>
+        </div>
+        <div class="footer-copy">© 2026 Voice to Influence. All rights reserved.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -839,67 +424,74 @@ body::before {
      JAVASCRIPT
 ============================================================ -->
 <script>
+  // ── Event data ──
+  var APPLY_LINK  = 'https://events.voicetoinfluence.com/apply-to-speak';
+  var PUBLIC_LINK = 'https://voicetoinfluence.com/events';
+
+  // Event tile artwork — inlined SVG so Playfair/DM Sans render (img-src blocks font imports)
+  var TILES = {"peak-vitality-global-summit": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg1\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glow1\" cx=\"82%\" cy=\"14%\" r=\"65%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.38\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.08\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg1)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glow1)\"/> <path d=\"M 980 20 Q 1180 180 1140 600\" stroke=\"#C9A84C\" stroke-opacity=\"0.15\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"1060\" cy=\"90\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.5\"/> <circle cx=\"1120\" cy=\"160\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"1000\" cy=\"230\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <circle cx=\"1150\" cy=\"320\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.35\"/> <rect x=\"24\" y=\"24\" width=\"1152\" height=\"582\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.35\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">WELLNESS SUMMIT</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">PEAK VITALITY</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">GLOBAL SUMMIT</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">AUGUST 27, 2026 &#183; 4:00 PM LOS ANGELES TIME</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>", "power-podcast-summit": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg2\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glow2\" cx=\"14%\" cy=\"12%\" r=\"65%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.38\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.08\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg2)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glow2)\"/> <path d=\"M 220 15 Q 20 190 90 610\" stroke=\"#C9A84C\" stroke-opacity=\"0.15\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"140\" cy=\"80\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.5\"/> <circle cx=\"70\" cy=\"150\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"190\" cy=\"220\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <circle cx=\"60\" cy=\"300\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.35\"/> <rect x=\"24\" y=\"24\" width=\"1152\" height=\"582\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.35\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">PODCAST SUMMIT</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">PODCAST POWER</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">SUMMIT 2026</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">SEPTEMBER 30, 2026 &#183; 4:00 PM LOS ANGELES TIME</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>", "direct-sales-summit-v": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg3\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glow3\" cx=\"85%\" cy=\"88%\" r=\"65%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.38\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.08\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg3)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glow3)\"/> <path d=\"M 1180 610 Q 1000 420 1080 60\" stroke=\"#C9A84C\" stroke-opacity=\"0.15\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"1080\" cy=\"560\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.5\"/> <circle cx=\"1140\" cy=\"480\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"1010\" cy=\"410\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <circle cx=\"1150\" cy=\"330\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.35\"/> <rect x=\"24\" y=\"24\" width=\"1152\" height=\"582\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.35\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">DIRECT SALES SUMMIT</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">DIRECT SALES</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">SUMMIT V</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">OCTOBER 23, 2026 &#183; 4:00 PM LOS ANGELES TIME</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>", "pay-it-forward-puerto-rico": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg4\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glow4\" cx=\"15%\" cy=\"90%\" r=\"65%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.38\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.08\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg4)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glow4)\"/> <path d=\"M 20 610 Q 200 420 120 60\" stroke=\"#C9A84C\" stroke-opacity=\"0.15\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"120\" cy=\"560\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.5\"/> <circle cx=\"60\" cy=\"480\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"190\" cy=\"410\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <circle cx=\"50\" cy=\"330\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.35\"/> <rect x=\"24\" y=\"24\" width=\"1152\" height=\"582\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.35\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">PAY IT FORWARD</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">PAY IT FORWARD</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">PUERTO RICO</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">NOVEMBER 12, 2026 &#183; 10:00 AM LOS ANGELES TIME</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>", "story-to-influence-summit": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg5\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glow5\" cx=\"82%\" cy=\"14%\" r=\"65%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.38\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.08\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg5)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glow5)\"/> <path d=\"M 980 20 Q 1180 180 1140 600\" stroke=\"#C9A84C\" stroke-opacity=\"0.15\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"1060\" cy=\"90\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.5\"/> <circle cx=\"1120\" cy=\"160\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"1000\" cy=\"230\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <circle cx=\"1150\" cy=\"320\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.35\"/> <rect x=\"24\" y=\"24\" width=\"1152\" height=\"582\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.35\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">STORYTELLING SUMMIT</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">STORY TO</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">INFLUENCE SUMMIT</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">DECEMBER 17, 2026 &#183; 4:00 PM LOS ANGELES TIME</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>", "authority-influence-summit": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg6\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glow6\" cx=\"14%\" cy=\"12%\" r=\"65%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.38\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.08\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg6)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glow6)\"/> <path d=\"M 220 15 Q 20 190 90 610\" stroke=\"#C9A84C\" stroke-opacity=\"0.15\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"140\" cy=\"80\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.5\"/> <circle cx=\"70\" cy=\"150\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"190\" cy=\"220\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <circle cx=\"60\" cy=\"300\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.35\"/> <rect x=\"24\" y=\"24\" width=\"1152\" height=\"582\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.35\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">AUTHORITY SUMMIT</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">AUTHORITY &amp;</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">INFLUENCE SUMMIT</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">JANUARY 14, 2027 &#183; 4:00 PM LOS ANGELES TIME</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>", "peak-vitality-summit-ii": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg7\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glow7\" cx=\"85%\" cy=\"88%\" r=\"65%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.38\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.08\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg7)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glow7)\"/> <path d=\"M 1180 610 Q 1000 420 1080 60\" stroke=\"#C9A84C\" stroke-opacity=\"0.15\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"1080\" cy=\"560\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.5\"/> <circle cx=\"1140\" cy=\"480\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"1010\" cy=\"410\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <circle cx=\"1150\" cy=\"330\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.35\"/> <rect x=\"24\" y=\"24\" width=\"1152\" height=\"582\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.35\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">PEAK PERFORMANCE II</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">PEAK VITALITY</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">SUMMIT II</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">FEBRUARY 18, 2027 &#183; 4:00 PM LOS ANGELES TIME</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>", "womens-leadership-summit": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg8\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glow8\" cx=\"15%\" cy=\"90%\" r=\"65%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.38\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.08\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg8)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glow8)\"/> <path d=\"M 20 610 Q 200 420 120 60\" stroke=\"#C9A84C\" stroke-opacity=\"0.15\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"120\" cy=\"560\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.5\"/> <circle cx=\"60\" cy=\"480\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"190\" cy=\"410\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <circle cx=\"50\" cy=\"330\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.35\"/> <rect x=\"24\" y=\"24\" width=\"1152\" height=\"582\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.35\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">INTERNATIONAL WOMEN'S DAY</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">WOMEN'S LEADERSHIP</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">SUMMIT</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">MARCH 8, 2027 &#183; 4:00 PM LOS ANGELES TIME</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>", "singapore-leadership-summit": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg9\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glow9\" cx=\"82%\" cy=\"14%\" r=\"65%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.38\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.08\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg9)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glow9)\"/> <path d=\"M 980 20 Q 1180 180 1140 600\" stroke=\"#C9A84C\" stroke-opacity=\"0.15\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"1060\" cy=\"90\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.5\"/> <circle cx=\"1120\" cy=\"160\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"1000\" cy=\"230\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <circle cx=\"1150\" cy=\"320\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.35\"/> <rect x=\"24\" y=\"24\" width=\"1152\" height=\"582\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.35\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">ASIA-PACIFIC SUMMIT</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">SINGAPORE</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">LEADERSHIP SUMMIT</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">APRIL 15, 2027 &#183; 4:00 PM LOS ANGELES TIME</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>", "wealth-builders-summit": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg10\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glow10\" cx=\"14%\" cy=\"12%\" r=\"65%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.38\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.08\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg10)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glow10)\"/> <path d=\"M 220 15 Q 20 190 90 610\" stroke=\"#C9A84C\" stroke-opacity=\"0.15\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"140\" cy=\"80\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.5\"/> <circle cx=\"70\" cy=\"150\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"190\" cy=\"220\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <circle cx=\"60\" cy=\"300\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.35\"/> <rect x=\"24\" y=\"24\" width=\"1152\" height=\"582\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.35\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">WEALTH SUMMIT</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">WEALTH BUILDERS</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">SUMMIT</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">MAY 13, 2027 &#183; 4:00 PM LOS ANGELES TIME</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>", "australian-leadership-summit": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg11\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glow11\" cx=\"85%\" cy=\"88%\" r=\"65%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.38\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.08\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg11)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glow11)\"/> <path d=\"M 1180 610 Q 1000 420 1080 60\" stroke=\"#C9A84C\" stroke-opacity=\"0.15\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"1080\" cy=\"560\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.5\"/> <circle cx=\"1140\" cy=\"480\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"1010\" cy=\"410\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <circle cx=\"1150\" cy=\"330\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.35\"/> <rect x=\"24\" y=\"24\" width=\"1152\" height=\"582\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.35\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">LEADERSHIP SUMMIT</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">AUSTRALIAN</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">LEADERSHIP SUMMIT</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">JUNE 10, 2027 &#183; 4:00 PM LOS ANGELES TIME</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>", "the-influence-experience": "<svg width=\"100%\" height=\"100%\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 1200 630\" xmlns=\"http://www.w3.org/2000/svg\"> <defs> <linearGradient id=\"bg12\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#141720\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\"/> </linearGradient> <radialGradient id=\"glowA\" cx=\"15%\" cy=\"90%\" r=\"70%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.42\"/> <stop offset=\"45%\" stop-color=\"#C9A84C\" stop-opacity=\"0.09\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> <radialGradient id=\"glowB\" cx=\"88%\" cy=\"10%\" r=\"55%\"> <stop offset=\"0%\" stop-color=\"#C9A84C\" stop-opacity=\"0.22\"/> <stop offset=\"60%\" stop-color=\"#C9A84C\" stop-opacity=\"0.05\"/> <stop offset=\"100%\" stop-color=\"#0A0C0F\" stop-opacity=\"0\"/> </radialGradient> </defs> <rect width=\"1200\" height=\"630\" fill=\"url(#bg12)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glowA)\"/> <rect width=\"1200\" height=\"630\" fill=\"url(#glowB)\"/> <path d=\"M 20 610 Q 200 420 120 60\" stroke=\"#C9A84C\" stroke-opacity=\"0.18\" stroke-width=\"1\" fill=\"none\"/> <path d=\"M 980 20 Q 1180 180 1140 600\" stroke=\"#C9A84C\" stroke-opacity=\"0.12\" stroke-width=\"1\" fill=\"none\"/> <circle cx=\"120\" cy=\"560\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.55\"/> <circle cx=\"60\" cy=\"480\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"1060\" cy=\"90\" r=\"2\" fill=\"#C9A84C\" opacity=\"0.4\"/> <circle cx=\"1120\" cy=\"160\" r=\"1.5\" fill=\"#C9A84C\" opacity=\"0.3\"/> <rect x=\"18\" y=\"18\" width=\"1164\" height=\"594\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.5\" stroke-width=\"1.5\"/> <rect x=\"30\" y=\"30\" width=\"1140\" height=\"570\" fill=\"none\" stroke=\"#C9A84C\" stroke-opacity=\"0.25\" stroke-width=\"1\"/> <text x=\"70\" y=\"112\" class=\"kicker\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"6\" fill=\"#C9A84C\" font-weight=\"600\">ANNUAL FLAGSHIP EVENT</text> <rect x=\"70\" y=\"130\" width=\"64\" height=\"2\" fill=\"#C9A84C\"/> <text x=\"68\" y=\"252\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#F4EFE6\">THE INFLUENCE</text> <text x=\"68\" y=\"338\" class=\"headline\" font-family=\"'Playfair Display',Georgia,serif\" font-weight=\"800\" font-size=\"76\" fill=\"#C9A84C\">EXPERIENCE&#8482;</text> <text x=\"70\" y=\"400\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"20\" letter-spacing=\"1\" fill=\"#C2BAA8\">PRESENTED BY VOICE TO INFLUENCE&#8482;</text> <rect x=\"70\" y=\"470\" width=\"140\" height=\"1\" fill=\"#C9A84C\" opacity=\"0.5\"/> <text x=\"70\" y=\"510\" class=\"date\" font-family=\"'DM Sans',Helvetica,Arial,sans-serif\" font-size=\"22\" letter-spacing=\"1\" fill=\"#C2BAA8\">JULY 15&#8211;17, 2027 &#183; 4:00 PM LOS ANGELES TIME (DAY 1)</text> <text x=\"1130\" y=\"590\" text-anchor=\"end\" class=\"mark\" font-family=\"'Playfair Display',Georgia,serif\" font-style=\"italic\" font-size=\"20\" fill=\"#C9A84C\">Voice to Influence&#8482;</text> </svg>"};
+
+  var EVENTS = [
+    { id:'peak-vitality-global-summit', title:'Peak Vitality Global Summit', category:'Peak Vitality', type:'peak-vitality', status:'open', displayDate:'August 27, 2026', time:'4:00 PM Los Angeles Time', location:'Virtual' },
+    { id:'power-podcast-summit', title:'Podcast Power Summit 2026', category:'Podcast', type:'podcast', status:'open', displayDate:'September 30, 2026', time:'4:00 PM Los Angeles Time', location:'Virtual' },
+    { id:'direct-sales-summit-v', title:'Direct Sales Summit V', category:'Direct Sales', type:'direct-sales', status:'soon', displayDate:'October 23, 2026', time:'4:00 PM Los Angeles Time', location:'Virtual' },
+    { id:'pay-it-forward-puerto-rico', title:'Pay It Forward — Puerto Rico', category:'Special', type:'special', status:'soon', displayDate:'November 12, 2026', time:'10:00 AM Los Angeles Time', location:'Puerto Rico' },
+    { id:'story-to-influence-summit', title:'Story to Influence Summit', category:'Special', type:'special', status:'soon', displayDate:'December 17, 2026', time:'4:00 PM Los Angeles Time', location:'Virtual' },
+    { id:'authority-influence-summit', title:'Authority &amp; Influence Summit', category:'Special', type:'special', status:'soon', displayDate:'January 14, 2027', time:'4:00 PM Los Angeles Time', location:'Virtual' },
+    { id:'peak-vitality-summit-ii', title:'Peak Vitality Summit II', category:'Peak Vitality', type:'peak-vitality', status:'soon', displayDate:'February 18, 2027', time:'4:00 PM Los Angeles Time', location:'Virtual' },
+    { id:'womens-leadership-summit', title:'International Women&rsquo;s Leadership Summit', category:'Special', type:'special', status:'soon', displayDate:'March 8, 2027', time:'4:00 PM Los Angeles Time', location:'Virtual' },
+    { id:'singapore-leadership-summit', title:'Singapore Leadership Summit', category:'Special', type:'special', status:'soon', displayDate:'April 15, 2027', time:'4:00 PM Los Angeles Time', location:'Virtual' },
+    { id:'wealth-builders-summit', title:'Wealth Builders Summit', category:'Special', type:'special', status:'soon', displayDate:'May 13, 2027', time:'4:00 PM Los Angeles Time', location:'Virtual' },
+    { id:'australian-leadership-summit', title:'Australian Leadership Summit', category:'Special', type:'special', status:'soon', displayDate:'June 10, 2027', time:'4:00 PM Los Angeles Time', location:'Virtual' },
+    { id:'the-influence-experience', title:'The Influence Experience&trade;', category:'Special', type:'special', status:'soon', displayDate:'July 15–17, 2027', time:'4:00 PM Los Angeles Time (Day 1)', location:'Flagship — venue TBD' }
+  ];
+
+  // ── Render calendar tiles ──
+  function renderEvents() {
+    var html = EVENTS.map(function(e) {
+      var statusTag = e.status === 'open'
+        ? '<span class="tag tag-open">Applications open</span>'
+        : '<span class="tag tag-soon">Coming soon</span>';
+      return '' +
+      '<div class="evt-tile" data-type="' + e.type + '">' +
+        '<div class="evt-art">' + (TILES[e.id] || '') + '</div>' +
+        '<div class="evt-tile-body">' +
+          '<div class="evt-tile-tags">' + statusTag + '<span class="tag tag-cat">' + e.category + '</span></div>' +
+          '<div class="evt-tile-name">' + e.title + '</div>' +
+          '<div class="evt-tile-meta">' + e.location + ' &nbsp;·&nbsp; ' + e.displayDate + ' &nbsp;·&nbsp; ' + e.time + '</div>' +
+          '<div class="evt-tile-btns">' +
+            '<button class="evt-btn-apply" onclick="window.open(\'' + APPLY_LINK + '\',\'_blank\')">Apply to speak</button>' +
+            '<button class="evt-btn-public" onclick="window.open(\'' + PUBLIC_LINK + '\',\'_blank\')">View public page</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+    document.getElementById('evtTiles').innerHTML = html;
+  }
+  renderEvents();
+
   // ── Screen navigation ──
   function goto(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
     document.getElementById('screen-' + id).classList.add('active');
     window.scrollTo(0, 0);
-    closeDropdown();
   }
-
-  // ── Login / logout simulation ──
-  function login() {
-    document.getElementById('nav-public').style.display = 'none';
-    document.getElementById('nav-loggedin').style.display = 'flex';
-  }
-  function logout() {
-    document.getElementById('nav-loggedin').style.display = 'none';
-    document.getElementById('nav-public').style.display = 'flex';
-    goto('home');
-  }
-
-  // ── User dropdown ──
-  function toggleDropdown() {
-    document.getElementById('userDropdown').classList.toggle('open');
-  }
-  function closeDropdown() {
-    document.getElementById('userDropdown').classList.remove('open');
-  }
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.nav-user')) closeDropdown();
-  });
 
   // ── Filter ──
   function filterEvents(type, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
     btn.classList.add('active');
-    // Support both old event-row and new evt-tile
-    document.querySelectorAll('.event-row, .evt-tile').forEach(row => {
-      row.style.display = (type === 'all' || row.dataset.type === type) ? '' : 'none';
+    document.querySelectorAll('.evt-tile').forEach(function(t){
+      t.style.display = (type === 'all' || t.dataset.type === type) ? '' : 'none';
     });
   }
 
-  // ── Modals ──
-  function openModal(id) { document.getElementById(id).classList.add('open'); }
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-  document.querySelectorAll('.modal-overlay').forEach(o => {
-    o.addEventListener('click', function(e) { if (e.target === this) closeModal(this.id); });
-  });
-
-  // ── Success states ──
-  function showNotifySuccess() {
-    document.getElementById('notify-form-body').style.display = 'none';
-    document.getElementById('notify-success').style.display = 'block';
-  }
-
   // ── Deep link: open a screen straight from the URL hash ──
-  // e.g. speakersportal.voicetoinfluence.com/#calendar → 2026 Calendar
+  // e.g. speakersportal.voicetoinfluence.com/#calendar
   function routeFromHash() {
     var h = (location.hash || '').replace('#', '').toLowerCase();
     if (h === 'calendar' || h === 'allevents' || h === 'events') {
-      goto('allEvents');
-    } else if (h === 'dashboard' || h === 'resources') {
-      login(); goto('dashboard');
+      goto('calendar');
     } else if (h === 'home') {
       goto('home');
     }
