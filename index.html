@@ -208,12 +208,12 @@ button{font-family:var(--ff-body);}
 .footer{background:var(--ink-mid);border-top:1px solid var(--line);padding:52px 32px 44px;}
 .footer-inner{max-width:var(--wrap);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;}
 .footer-logo{height:72px;width:auto;object-fit:contain;}
-.footer-sponsors{display:flex;gap:36px;align-items:center;flex-wrap:wrap;justify-content:center;}
-.footer-sp-label{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--mist);opacity:0.8;}
-.footer-sp{display:flex;align-items:center;gap:10px;}
-.footer-sp img{height:24px;width:auto;}
-.footer-sp-name{font-family:var(--ff-head);font-size:17px;color:var(--cream);}
-.footer-sp-tag{font-size:9.5px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
+.footer-sponsors{max-width:620px;width:100%;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;align-items:center;text-align:center;}
+.footer-sponsors small{display:block;font-family:var(--ff-body);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--mist);opacity:0.8;margin-bottom:10px;}
+.footer-sponsors .logobox{display:flex;align-items:center;justify-content:center;min-height:32px;}
+.footer-sponsors .logobox img{max-height:26px;max-width:100%;width:auto;filter:brightness(0) invert(1);opacity:0.9;}
+.footer-sponsors .txtmark{font-family:var(--ff-head);font-weight:700;font-size:15px;color:var(--cream);}
+@media (max-width:640px){.footer-sponsors{grid-template-columns:repeat(2,1fr);row-gap:20px;}}
 .footer-links{display:flex;gap:22px;flex-wrap:wrap;justify-content:center;}
 .footer-link{font-size:11px;color:var(--mist);text-decoration:none;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:color 0.2s;}
 .footer-link:hover{color:var(--gold);}
@@ -348,14 +348,21 @@ button{font-family:var(--ff-body);}
     <div class="footer-inner">
       <img class="footer-logo" src="/assets/vti-logo.png" alt="Voice to Influence™">
       <div class="footer-sponsors">
-        <span class="footer-sp-label">Proudly sponsored by</span>
-        <div class="footer-sp">
-          <img src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6a729269f72284777bff208b.png" alt="PodGo">
-          <span class="footer-sp-tag">Official Podcast Partner</span>
+        <div class="sponsor">
+          <small>Official podcast partner</small>
+          <div class="logobox"><img src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6aa777019f8b31b6abf7070c.png" alt="PodGo"></div>
         </div>
-        <div class="footer-sp">
-          <span class="footer-sp-name">90210 Enterprises</span>
-          <span class="footer-sp-tag">Strategic Growth Partner</span>
+        <div class="sponsor">
+          <small>Official podcast partner</small>
+          <div class="logobox"><img src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6aa7770449f830e49b0f586b.png" alt="Contatta"></div>
+        </div>
+        <div class="sponsor">
+          <small>Strategic growth partner</small>
+          <div class="logobox"><span class="txtmark">90210 Enterprises</span></div>
+        </div>
+        <div class="sponsor">
+          <small>Strategic partner</small>
+          <div class="logobox"><img src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6aa77ae6c9a6c7937b85c450.png" alt="Laughlin"></div>
         </div>
       </div>
       <div class="footer-links">
@@ -404,14 +411,21 @@ button{font-family:var(--ff-body);}
       <div class="footer-inner">
         <img class="footer-logo" src="/assets/vti-logo.png" alt="Voice to Influence™">
         <div class="footer-sponsors">
-          <span class="footer-sp-label">Proudly sponsored by</span>
-          <div class="footer-sp">
-            <img src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6a729269f72284777bff208b.png" alt="PodGo">
-            <span class="footer-sp-tag">Official Podcast Partner</span>
+          <div class="sponsor">
+            <small>Official podcast partner</small>
+            <div class="logobox"><img src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6aa777019f8b31b6abf7070c.png" alt="PodGo"></div>
           </div>
-          <div class="footer-sp">
-            <span class="footer-sp-name">90210 Enterprises</span>
-            <span class="footer-sp-tag">Strategic Growth Partner</span>
+          <div class="sponsor">
+            <small>Official podcast partner</small>
+            <div class="logobox"><img src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6aa7770449f830e49b0f586b.png" alt="Contatta"></div>
+          </div>
+          <div class="sponsor">
+            <small>Strategic growth partner</small>
+            <div class="logobox"><span class="txtmark">90210 Enterprises</span></div>
+          </div>
+          <div class="sponsor">
+            <small>Strategic partner</small>
+            <div class="logobox"><img src="https://assets.cdn.filesafe.space/OtOPsRWlrRPyLs03ZSTG/media/6aa77ae6c9a6c7937b85c450.png" alt="Laughlin"></div>
           </div>
         </div>
         <div class="footer-links">
